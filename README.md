@@ -9,7 +9,7 @@
 
 * Xây dựng một website **thương mại điện tử quy mô vừa**, kèm **blog cộng đồng** để chia sẻ tin tức, bài viết.
 * Cho phép **người dùng đăng ký, đăng nhập, quản lý giỏ hàng, đặt hàng, xem lịch sử đơn hàng**.
-* Quản lý **sản phẩm, đơn hàng, người dùng, bài viết, bình luận** thông qua **admin riêng** (`admin.bmatrix.net`).
+* Quản lý **sản phẩm, đơn hàng, người dùng, bài viết, bình luận** thông qua **admin riêng** (`admin.bountymatrix.net`).
 * Dễ dàng mở rộng, bảo trì & triển khai production bằng **Docker, NGINX, Gunicorn**.
 
 ---
@@ -29,7 +29,7 @@
 ## 🗂️ **Cấu trúc dự án**
 
 ```plaintext
-project_root/
+bmatrix/
 ├── Dockerfile
 ├── docker-compose.yml
 ├── .env.example
@@ -37,7 +37,7 @@ project_root/
 │   └── default.conf
 ├── app/
 │   ├── manage.py
-│   ├── bmatrix_site/   # settings.py, urls.py, wsgi.py
+│   ├── bmatrix/   # settings.py, urls.py, wsgi.py
 │   ├── accounts/
 │   ├── shop/
 │   ├── cart/
@@ -53,8 +53,8 @@ project_root/
 
 ## ⚙️ **Công nghệ sử dụng**
 
-* **Python 3.11+**
-* **Django 4.x**
+* **Python 3.13+**
+* **Django 5.x**
 * **Gunicorn** (WSGI server)
 * **NGINX** (reverse proxy + serve static/media)
 * **PostgreSQL** (Database)
