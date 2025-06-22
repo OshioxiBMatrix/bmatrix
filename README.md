@@ -1,81 +1,102 @@
-🎉 **Tuyệt vời!**
-Dưới đây là **file `README.md` mẫu**, hoàn chỉnh, chuẩn dev — phù hợp cho dự án **website bán hàng + blog cộng đồng** dùng **Django + Docker + NGINX + Gunicorn**. Bạn chỉ cần copy nội dung này vào **`README.md`** của repo Git là chạy được!
 
 ---
 
-## 📄 **README.md**
-
-````markdown
-# 🛍️ Bmatrix — Website Bán Hàng & Blog Cộng Đồng
-
-Website thương mại điện tử nhỏ gọn kết hợp blog cộng đồng, xây dựng bằng **Django**, đóng gói bằng **Docker**, reverse proxy bằng **Nginx**, chạy production bằng **Gunicorn**.
+# 🛍️ **BMATRIX — Website Bán Hàng & Blog Cộng Đồng**
 
 ---
 
-## 🚀 **1️⃣ Tính năng chính**
+## 📌 **Mục tiêu**
 
-- Quản lý user, đăng ký, đăng nhập.
-- Xem danh mục, chi tiết sản phẩm.
-- Thêm sản phẩm vào giỏ hàng.
-- Thanh toán & theo dõi đơn hàng.
-- Blog chia sẻ, bình luận cộng đồng.
-- Admin riêng tại `admin.bmatrix.net`.
+* Xây dựng một website **thương mại điện tử quy mô vừa**, kèm **blog cộng đồng** để chia sẻ tin tức, bài viết.
+* Cho phép **người dùng đăng ký, đăng nhập, quản lý giỏ hàng, đặt hàng, xem lịch sử đơn hàng**.
+* Quản lý **sản phẩm, đơn hàng, người dùng, bài viết, bình luận** thông qua **admin riêng** (`admin.bmatrix.net`).
+* Dễ dàng mở rộng, bảo trì & triển khai production bằng **Docker, NGINX, Gunicorn**.
 
 ---
 
-## ⚙️ **2️⃣ Công nghệ**
+## 🧩 **Tính năng**
 
-- Python, Django
-- Gunicorn (WSGI server)
-- NGINX (Reverse Proxy)
-- PostgreSQL (Database)
-- Docker, Docker Compose
-- Tailwind CSS + JS Vanilla/Vue cho giao diện động
+✅ Quản lý tài khoản, hồ sơ người dùng
+✅ Xem sản phẩm, chi tiết sản phẩm
+✅ Thêm giỏ hàng, thanh toán
+✅ Xem & quản lý đơn hàng
+✅ Blog cộng đồng: bài viết & bình luận
+✅ Hệ thống quản trị riêng bảo mật
+✅ Deploy dễ dàng bằng Docker Compose
 
 ---
 
-## 🗂️ **3️⃣ Cấu trúc thư mục**
+## 🗂️ **Cấu trúc dự án**
 
 ```plaintext
-.
+project_root/
 ├── Dockerfile
 ├── docker-compose.yml
-├── .env
+├── .env.example
 ├── nginx/
 │   └── default.conf
 ├── app/
 │   ├── manage.py
+│   ├── bmatrix_site/   # settings.py, urls.py, wsgi.py
 │   ├── accounts/
 │   ├── shop/
 │   ├── cart/
 │   ├── orders/
 │   ├── blog/
-│   ├── static/
-│   ├── media/
-│   └── bmatrix_site/ (settings, urls, wsgi)
-└── requirements.txt
-````
+│   ├── static/         # Static files build Tailwind
+│   ├── media/          # Upload media files
+├── requirements.txt
+└── README.md
+```
 
 ---
 
-## ⚡ **4️⃣ Hướng dẫn cài đặt**
+## ⚙️ **Công nghệ sử dụng**
 
-### 4.1 Clone repo & tạo `.env`
+* **Python 3.11+**
+* **Django 4.x**
+* **Gunicorn** (WSGI server)
+* **NGINX** (reverse proxy + serve static/media)
+* **PostgreSQL** (Database)
+* **Redis** (cache/session, optional)
+* **Tailwind CSS** (giao diện đẹp, responsive)
+* **Vue.js / Vanilla JS** (dynamic UI nếu cần)
+* **Docker & Docker Compose** (triển khai production)
+
+---
+
+## 🚀 **Hướng dẫn cài đặt & chạy local**
+
+### 1️⃣ Clone & tạo `.env`
 
 ```bash
-git clone <repo_url>
-cd <project_root>
-cp .env.example .env  # Tạo file .env chứa SECRET_KEY, DB...
+git clone https://github.com/<YOUR-USERNAME>/bmatrix.git
+cd bmatrix
+cp .env.example .env
 ```
 
-### 4.2 Build & chạy Docker
+👉 Trong file `.env` bạn cần khai báo:
+
+```env
+DEBUG=1
+SECRET_KEY=your-django-secret-key
+POSTGRES_DB=bmatrix_db
+POSTGRES_USER=bmatrix_user
+POSTGRES_PASSWORD=bmatrix_pass
+```
+
+---
+
+### 2️⃣ Build & chạy Docker
 
 ```bash
 docker-compose build
 docker-compose up -d
 ```
 
-### 4.3 Tạo migration & superuser
+---
+
+### 3️⃣ Tạo database & superuser
 
 ```bash
 docker-compose exec web python manage.py makemigrations
@@ -85,89 +106,158 @@ docker-compose exec web python manage.py createsuperuser
 
 ---
 
-## 🛠️ **5️⃣ Các lệnh hữu ích**
+### 4️⃣ Truy cập website
 
-| Lệnh                           | Chức năng                      |
-| ------------------------------ | ------------------------------ |
-| `docker-compose up -d`         | Chạy các service               |
-| `docker-compose down`          | Dừng và xóa container          |
-| `docker-compose exec web bash` | Truy cập bash container Django |
-| `docker-compose logs -f`       | Xem log realtime               |
+* Website: [http://localhost](http://localhost)
+* Admin Django: [http://localhost/admin](http://localhost/admin)
+* Quản trị riêng: [http://admin.bmatrix.net](http://admin.bmatrix.net) *(cần cấu hình DNS & SSL)*
 
 ---
 
-## 🌐 **6️⃣ Truy cập**
+## 🗃️ **Mô hình CSDL**
 
-* Trang chính: [http://localhost](http://localhost)
-* Admin: [http://localhost/admin](http://localhost/admin)
-* Subdomain quản trị: `admin.bmatrix.net` (cần cấu hình DNS & SSL riêng)
+* **accounts**: User & Profile
+* **shop**: Category, Product
+* **cart**: Cart, CartItem
+* **orders**: Order, OrderItem
+* **blog**: Post, Comment
 
----
-
-## 🗃️ **7️⃣ Database**
-
-* DB: PostgreSQL
-* Cache: Redis (tuỳ chọn)
-* Migration: `manage.py makemigrations` & `migrate`
+Chi tiết bảng & quan hệ đã được thiết kế chuẩn Django ORM.
 
 ---
 
-## ✅ **8️⃣ Các App chính**
+## 📄 **Dockerfile (mẫu)**
 
-| App        | Mô tả                     |
-| ---------- | ------------------------- |
-| `accounts` | Quản lý tài khoản & hồ sơ |
-| `shop`     | Sản phẩm & danh mục       |
-| `cart`     | Giỏ hàng                  |
-| `orders`   | Đơn hàng                  |
-| `blog`     | Bài viết & bình luận      |
+```Dockerfile
+# Dockerfile
+FROM python:3.11-slim
 
----
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-## 🔐 **9️⃣ Ghi chú bảo mật**
+WORKDIR /code
 
-* Luôn đặt `DEBUG=False` khi chạy production.
-* Đặt biến `SECRET_KEY` và thông tin DB trong `.env` (KHÔNG push lên Git).
-* Sử dụng HTTPS & SSL.
+COPY requirements.txt /code/
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
----
+COPY . /code/
 
-## ✨ **10️⃣ Triển khai production**
+RUN python manage.py collectstatic --noinput
 
-1. Build image mới.
-2. Dùng `docker-compose up -d` trên server production.
-3. Cấu hình domain + SSL Certbot.
-4. Backup database định kỳ.
-
----
-
-## 👨‍💻 **11️⃣ Author**
-
-* **Dev:** Bạn & Team Bmatrix
-* **Contact:** [support@bmatrix.net](mailto:support@bmatrix.net)
-
----
-
-## 📌 **12️⃣ License**
-
-MIT — free for everyone!
-
----
-
-## 🎉 **Enjoy coding & building your community eCommerce!**
-
+CMD ["gunicorn", "bmatrix_site.wsgi:application", "--bind", "0.0.0.0:8000"]
 ```
 
 ---
 
-## 📌 **Cách dùng**
+## 🗄️ **docker-compose.yml (mẫu)**
 
-✅ Copy toàn bộ nội dung trên → tạo file **`README.md`** ngay trong repo của bạn.  
-✅ Tuỳ chỉnh các phần `<repo_url>`, email, domain cho đúng thực tế.  
-✅ Giữ file `.env` bí mật.
+```yaml
+version: "3.9"
+
+services:
+  web:
+    build: .
+    command: gunicorn bmatrix_site.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/code
+      - static_volume:/code/static
+      - media_volume:/code/media
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - static_volume:/code/static
+      - media_volume:/code/media
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+```
 
 ---
 
-👉 **Muốn mình chuẩn bị sẵn `.env.example` + script setup auto không?** 🚀✨  
-Chỉ cần nói **“Làm tiếp!”** — mình chuẩn bị ngay!
-```
+## 🔑 **Một số lệnh hữu ích**
+
+| Lệnh                                                     | Mô tả                           |
+| -------------------------------------------------------- | ------------------------------- |
+| `docker-compose up -d`                                   | Chạy toàn bộ container          |
+| `docker-compose down`                                    | Dừng và xoá container           |
+| `docker-compose logs -f`                                 | Xem log realtime                |
+| `docker-compose exec web bash`                           | Truy cập terminal container web |
+| `docker-compose exec web python manage.py collectstatic` | Build static                    |
+
+---
+
+## 🔐 **Best Practice Security**
+
+* Bật SSL & HTTPS bằng NGINX + Certbot.
+* `DEBUG=False` khi chạy production.
+* Luôn giữ `.env` bảo mật, không commit lên Git.
+
+---
+
+## ✅ **Triển khai Production**
+
+1️⃣ Build Docker image production
+2️⃣ Sử dụng `docker-compose up -d` trên server thật
+3️⃣ Cấu hình domain, SSL
+4️⃣ Setup cron backup database & media
+
+---
+
+## 💪 **Team phát triển**
+
+* **Tác giả:** Bạn & Team Bmatrix
+* **Liên hệ:** [support@bmatrix.net](mailto:support@bmatrix.net)
+
+---
+
+## 📜 **License**
+
+**MIT License — Free for commercial & personal use.**
+
+---
+
+## 🎉 **Enjoy building & scale your community eCommerce!**
+
+---
+
+## ✔️ **READY TO DEPLOY!**
+
+---
+
+## 📎 **Checklist kèm theo**
+
+✅ `README.md`
+✅ `.env.example`
+✅ `Dockerfile`
+✅ `docker-compose.yml`
+✅ `nginx/default.conf`
+✅ Migrations + Superuser + Collectstatic
+
+---
+
+## 📌 **Nếu cần file DOCX hoặc PDF để gửi khách hàng, hãy bảo mình làm luôn! 🚀✨**
+
+---
+
+🎁 **Copy toàn bộ nội dung này** vào `README.md` → Commit lên GitHub là chuyên nghiệp ngay! 🚀🔥
