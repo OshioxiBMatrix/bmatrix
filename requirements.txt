@@ -1,0 +1,9 @@
+Django
+gunicorn
+psycopg2-binary
+redis
+django-environ
+whitenoise
+Pillow
+django-redis
+django-storages
