@@ -5,6 +5,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('shop.urls')),     # Trang chính = shop
+    path('accounts/', include('accounts.urls')),
+    path('cart/', include('cart.urls')),
+    path('orders/', include('orders.urls')),
+    path('blog/', include('blog.urls')),
 ]
 
 if settings.DEBUG:

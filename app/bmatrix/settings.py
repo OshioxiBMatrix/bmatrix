@@ -38,6 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
+    'shop',
+    'cart',
+    'orders',
+    'blog',
 
     
 ]
@@ -57,7 +62,7 @@ ROOT_URLCONF = 'bmatrix.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # bạn có thể tạo folder templates riêng
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',  # nếu có context processors riêng cho giỏ hàng
             ],
         },
     },
@@ -106,12 +112,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+LANGUAGE_CODE = 'vi'  
+TIME_ZONE = 'Asia/Ho_Chi_Minh'
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
 
