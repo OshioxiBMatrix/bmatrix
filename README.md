@@ -70,7 +70,7 @@ bmatrix/
 ### 1️⃣ Clone & tạo `.env`
 
 ```bash
-git clone https://github.com/<YOUR-USERNAME>/bmatrix.git
+git clone https://github.com/OshioxiBMatrix/bmatrix.git
 cd bmatrix
 cp .env.example .env
 ```
@@ -82,7 +82,7 @@ DEBUG=1
 SECRET_KEY=your-django-secret-key
 POSTGRES_DB=bmatrix_db
 POSTGRES_USER=bmatrix_user
-POSTGRES_PASSWORD=bmatrix_pass
+POSTGRES_PASSWORD=Devillab@
 ```
 
 ---
@@ -108,9 +108,9 @@ docker-compose exec web python manage.py createsuperuser
 
 ### 4️⃣ Truy cập website
 
-* Website: [http://localhost](http://localhost)
-* Admin Django: [http://localhost/admin](http://localhost/admin)
-* Quản trị riêng: [http://admin.bmatrix.net](http://admin.bmatrix.net) *(cần cấu hình DNS & SSL)*
+* Website: [https://bountymatrix.net](https://bountymatrix.net)
+* Admin Django: [http://bountymatrix.net/admin](http://bountymatrix.net/admin)
+* Quản trị riêng: [https://admin.bountymatrix.net](https://admin.bountymatrix.net) *(cần cấu hình DNS & SSL)*
 
 ---
 
@@ -130,7 +130,7 @@ Chi tiết bảng & quan hệ đã được thiết kế chuẩn Django ORM.
 
 ```Dockerfile
 # Dockerfile
-FROM python:3.11-slim
+FROM python:3.13-slim
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -144,7 +144,7 @@ COPY . /code/
 
 RUN python manage.py collectstatic --noinput
 
-CMD ["gunicorn", "bmatrix_site.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "bmatrix_site.wsgi:application", "--bind", "0.0.0.0:9010"]
 ```
 
 ---
@@ -157,7 +157,7 @@ version: "3.9"
 services:
   web:
     build: .
-    command: gunicorn bmatrix_site.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn bmatrix_site.wsgi:application --bind 0.0.0.0:9010
     volumes:
       - .:/code
       - static_volume:/code/static
@@ -227,7 +227,7 @@ volumes:
 ## 💪 **Team phát triển**
 
 * **Tác giả:** Bạn & Team Bmatrix
-* **Liên hệ:** [support@bmatrix.net](mailto:support@bmatrix.net)
+* **Liên hệ:** [support@bountymatrix.net](mailto:support@bountymatrix.net)
 
 ---
 
