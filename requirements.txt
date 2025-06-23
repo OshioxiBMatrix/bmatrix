@@ -7,3 +7,4 @@ whitenoise
 Pillow
 django-redis
 django-storages
+django-tailwind

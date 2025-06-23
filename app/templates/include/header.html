@@ -1,0 +1,136 @@
+{% load static %}
+
+<!-- Top Bar -->
+<div class="bg-primary-dark text-white py-2">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+        <!-- Left side: Phone -->
+        <div class="hidden md:flex items-center">
+            <i class="fas fa-phone-alt mr-2"></i>
+            <span>(+84) 966 342 792</span>
+        </div>
+        
+        <!-- Right side: Utilities -->
+        <div class="flex items-center space-x-4 ml-auto text-sm">
+            <a href="#" class="hover:text-secondary-light transition">
+                <i class="fas fa-truck mr-1"></i> Theo dõi đơn hàng
+            </a>
+            <div class="relative">
+                <button data-toggle="language-dropdown" class="flex items-center hover:text-secondary-light transition">
+                    <i class="fas fa-globe mr-1"></i> English <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </button>
+                <div id="language-menu" class="hidden absolute right-0 mt-2 w-32 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50">
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">English</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Vietnamese</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Spanish</a>
+                </div>
+            </div>
+            <a href="#" class="hover:text-secondary-light transition">
+                <i class="fas fa-user mr-1"></i> Đăng nhập / Đăng ký
+            </a>
+            <a href="#" class="flex items-center hover:text-secondary-light transition">
+                <i class="fas fa-shopping-cart mr-1"></i>
+                <span>$0</span>
+                <span class="ml-1 bg-secondary text-white rounded-full h-5 w-5 flex items-center justify-center text-xs">0</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Main Header -->
+<header class="bg-white shadow-md py-4">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <a href="/" class="flex items-center">
+                <img src="{% static 'img/logo.png' %}" alt="BMATRIX Logo" class="h-12 mr-2">
+                <span class="text-primary font-bold text-2xl">BMATRIX</span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex items-center space-x-6">
+                <a href="#" class="text-primary hover:text-secondary font-medium">Trang chủ</a>
+                <a href="#" class="text-primary hover:text-secondary font-medium">Giảm giá</a>
+                <a href="#" class="text-primary hover:text-secondary font-medium">Blog</a>
+                <a href="#" class="text-primary hover:text-secondary font-medium">Cửa hàng</a>
+                
+                <!-- Pages Dropdown -->
+                <div class="relative">
+                    <button data-toggle="dropdown-menu" class="flex items-center text-primary hover:text-secondary font-medium">
+                        Page <i class="fas fa-chevron-down text-xs ml-1"></i>
+                    </button>
+                    <div id="dropdown-menu" class="hidden absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-50">
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Giới thiệu về chúng tôi</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Chứng nhận</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Câu hỏi thường gặp</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Liên hệ</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Đội ngũ</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Đăng nhập</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Đăng ký</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">404</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Sắp ra mắt</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Popup Banner</a>
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- Mobile menu button -->
+            <button data-toggle="mobile-menu" class="lg:hidden text-primary hover:text-secondary">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Sub Navigation -->
+        <div class="hidden lg:flex items-center justify-center mt-4 space-x-4 text-sm">
+            <a href="#" class="text-gray-600 hover:text-secondary">Giảm giá</a>
+            <a href="#" class="text-gray-600 hover:text-secondary">Bán chạy</a>
+            <a href="#" class="text-gray-600 hover:text-secondary">PC chơi game</a>
+            <a href="#" class="text-gray-600 hover:text-secondary">Phụ kiện chơi game</a>
+            <a href="#" class="text-gray-600 hover:text-secondary">System</a>
+            <a href="#" class="text-gray-600 hover:text-secondary">Cables & Adapters</a>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden lg:hidden bg-white shadow-lg py-4 fixed top-[145px] left-0 right-0 z-50 max-h-[80vh] overflow-y-auto">
+    <div class="container mx-auto px-4">
+        <nav class="flex flex-col space-y-4">
+            <a href="#" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Trang chủ</a>
+            <a href="#" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Giảm giá</a>
+            <a href="#" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Blog</a>
+            <a href="#" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Cửa hàng</a>
+            
+            <!-- Pages Dropdown -->
+            <div class="relative">
+                <button data-toggle="mobile-page-dropdown" class="flex items-center w-full justify-between text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">
+                    Page <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </button>
+                <div id="mobile-page-menu" class="hidden pl-4 mt-2 space-y-2">
+                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Giới thiệu về chúng tôi</a>
+                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Chứng nhận</a>
+                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Câu hỏi thường gặp</a>
+                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Liên hệ</a>
+                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Đội ngũ</a>
+                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Đăng nhập</a>
+                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Đăng ký</a>
+                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">404</a>
+                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Sắp ra mắt</a>
+                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Popup Banner</a>
+                </div>
+            </div>
+            
+            <!-- Sub Navigation items for mobile -->
+            <div class="border-t border-gray-200 pt-4 mt-2">
+                <h3 class="font-medium text-gray-800 mb-2">Quick Links</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="#" class="text-sm text-gray-600 hover:text-secondary py-1">Giảm giá</a>
+                    <a href="#" class="text-sm text-gray-600 hover:text-secondary py-1">Bán chạy</a>
+                    <a href="#" class="text-sm text-gray-600 hover:text-secondary py-1">PC chơi game</a>
+                    <a href="#" class="text-sm text-gray-600 hover:text-secondary py-1">Phụ kiện chơi game</a>
+                    <a href="#" class="text-sm text-gray-600 hover:text-secondary py-1">System</a>
+                    <a href="#" class="text-sm text-gray-600 hover:text-secondary py-1">Cables & Adapters</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
