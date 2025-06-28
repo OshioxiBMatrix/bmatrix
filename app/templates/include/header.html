@@ -14,19 +14,41 @@
             <a href="#" class="hover:text-secondary-light transition">
                 <i class="fas fa-truck mr-1"></i> Theo dõi đơn hàng
             </a>
-            <div class="relative">
+            <div class="relative dropdown-container">
                 <button data-toggle="language-dropdown" class="flex items-center hover:text-secondary-light transition">
-                    <i class="fas fa-globe mr-1"></i> English <i class="fas fa-chevron-down text-xs ml-1"></i>
+                    <i class="fas fa-globe mr-1"></i> Vietnamese <i class="fas fa-chevron-down text-xs ml-1"></i>
                 </button>
-                <div id="language-menu" class="hidden absolute right-0 mt-2 w-32 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50">
+                <div id="language-menu" class="hidden absolute right-0 mt-2 w-32 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50 dropdown-menu">
                     <a href="#" class="block px-4 py-2 hover:bg-gray-100">English</a>
                     <a href="#" class="block px-4 py-2 hover:bg-gray-100">Vietnamese</a>
                     <a href="#" class="block px-4 py-2 hover:bg-gray-100">Spanish</a>
                 </div>
             </div>
-            <a href="#" class="hover:text-secondary-light transition">
+            {% if user.is_authenticated %}
+            <div class="relative dropdown-container">
+                <button data-toggle="user-dropdown" class="flex items-center hover:text-secondary-light transition">
+                    <i class="fas fa-user mr-1"></i> {{ user.username }} <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </button>
+                <div id="user-menu" class="hidden absolute right-0 mt-2 w-48 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50 dropdown-menu">
+                    <a href="{% url 'accounts:profile' %}" class="block px-4 py-2 hover:bg-gray-100">
+                        <i class="fas fa-user-circle mr-2"></i> Hồ sơ
+                    </a>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">
+                        <i class="fas fa-shopping-bag mr-2"></i> Đơn hàng
+                    </a>
+                    <form method="post" action="{% url 'account_logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600">
+                            <i class="fas fa-sign-out-alt mr-2"></i> Đăng xuất
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <a href="{% url 'accounts:login' %}" class="hover:text-secondary-light transition">
                 <i class="fas fa-user mr-1"></i> Đăng nhập / Đăng ký
             </a>
+            {% endif %}
             <a href="#" class="flex items-center hover:text-secondary-light transition">
                 <i class="fas fa-shopping-cart mr-1"></i>
                 <span>$0</span>
@@ -50,22 +72,22 @@
             <nav class="hidden lg:flex items-center space-x-6">
                 <a href="#" class="text-primary hover:text-secondary font-medium">Trang chủ</a>
                 <a href="#" class="text-primary hover:text-secondary font-medium">Giảm giá</a>
-                <a href="#" class="text-primary hover:text-secondary font-medium">Blog</a>
+                <a href="{% url 'blog:post_list' %}" class="text-primary hover:text-secondary font-medium">Blog</a>
                 <a href="#" class="text-primary hover:text-secondary font-medium">Cửa hàng</a>
                 
                 <!-- Pages Dropdown -->
-                <div class="relative">
+                <div class="relative dropdown-container">
                     <button data-toggle="dropdown-menu" class="flex items-center text-primary hover:text-secondary font-medium">
                         Page <i class="fas fa-chevron-down text-xs ml-1"></i>
                     </button>
-                    <div id="dropdown-menu" class="hidden absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-50">
+                    <div id="dropdown-menu" class="hidden absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-50 dropdown-menu">
                         <a href="#" class="block px-4 py-2 hover:bg-gray-100">Giới thiệu về chúng tôi</a>
                         <a href="#" class="block px-4 py-2 hover:bg-gray-100">Chứng nhận</a>
                         <a href="#" class="block px-4 py-2 hover:bg-gray-100">Câu hỏi thường gặp</a>
                         <a href="#" class="block px-4 py-2 hover:bg-gray-100">Liên hệ</a>
                         <a href="#" class="block px-4 py-2 hover:bg-gray-100">Đội ngũ</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Đăng nhập</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Đăng ký</a>
+                        <a href="{% url 'accounts:login' %}" class="block px-4 py-2 hover:bg-gray-100">Đăng nhập</a>
+                        <a href="{% url 'accounts:register' %}" class="block px-4 py-2 hover:bg-gray-100">Đăng ký</a>
                         <a href="#" class="block px-4 py-2 hover:bg-gray-100">404</a>
                         <a href="#" class="block px-4 py-2 hover:bg-gray-100">Sắp ra mắt</a>
                         <a href="#" class="block px-4 py-2 hover:bg-gray-100">Popup Banner</a>
@@ -97,7 +119,7 @@
         <nav class="flex flex-col space-y-4">
             <a href="#" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Trang chủ</a>
             <a href="#" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Giảm giá</a>
-            <a href="#" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Blog</a>
+            <a href="{% url 'blog:post_list' %}" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Blog</a>
             <a href="#" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Cửa hàng</a>
             
             <!-- Pages Dropdown -->
@@ -111,13 +133,34 @@
                     <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Câu hỏi thường gặp</a>
                     <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Liên hệ</a>
                     <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Đội ngũ</a>
-                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Đăng nhập</a>
-                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Đăng ký</a>
+                    <a href="{% url 'accounts:login' %}" class="block py-2 text-gray-700 hover:text-secondary">Đăng nhập</a>
+                    <a href="{% url 'accounts:register' %}" class="block py-2 text-gray-700 hover:text-secondary">Đăng ký</a>
                     <a href="#" class="block py-2 text-gray-700 hover:text-secondary">404</a>
                     <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Sắp ra mắt</a>
                     <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Popup Banner</a>
                 </div>
             </div>
+            
+            <!-- User Account for mobile -->
+            {% if user.is_authenticated %}
+            <div class="border-t border-gray-200 pt-4 mt-2">
+                <h3 class="font-medium text-gray-800 mb-2">Tài khoản</h3>
+                <div class="space-y-2">
+                    <a href="{% url 'accounts:profile' %}" class="block text-gray-700 hover:text-secondary py-1">
+                        <i class="fas fa-user-circle mr-2"></i> Hồ sơ
+                    </a>
+                    <a href="#" class="block text-gray-700 hover:text-secondary py-1">
+                        <i class="fas fa-shopping-bag mr-2"></i> Đơn hàng
+                    </a>
+                    <form method="post" action="{% url 'account_logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="block w-full text-left py-1 text-red-600 hover:text-red-700">
+                            <i class="fas fa-sign-out-alt mr-2"></i> Đăng xuất
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
             
             <!-- Sub Navigation items for mobile -->
             <div class="border-t border-gray-200 pt-4 mt-2">

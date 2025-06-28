@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Chỉnh sửa hồ sơ{% endblock %}
+
+{% block content %}
+<div class="bg-gray-700 py-16 text-center">
+    <div class="container mx-auto px-4">
+        <h1 class="text-5xl font-bold text-white mb-6">Chỉnh sửa hồ sơ</h1>
+        <div class="flex items-center justify-center text-white/80 text-sm">
+            <a href="{% url 'shop:home' %}" class="hover:text-white">Trang chủ</a>
+            <span class="mx-2">/</span>
+            <a href="{% url 'accounts:profile' %}" class="hover:text-white">Hồ sơ</a>
+            <span class="mx-2">/</span>
+            <span class="text-white">Chỉnh sửa</span>
+        </div>
+    </div>
+</div>
+
+<div class="container mx-auto px-4 py-12">
+    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mb-6 p-4 {% if message.tags == 'success' %}bg-green-100 text-green-800{% elif message.tags == 'error' %}bg-red-100 text-red-800{% else %}bg-blue-100 text-blue-800{% endif %} rounded-lg">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Cập nhật thông tin cá nhân</h2>
+        
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            
+            <div class="space-y-4">
+                <h3 class="text-lg font-medium text-gray-800">Thông tin tài khoản</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="{{ user_form.username.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Tên đăng nhập</label>
+                        {{ user_form.username }}
+                        {% if user_form.username.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ user_form.username.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label for="{{ user_form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        {{ user_form.email }}
+                        {% if user_form.email.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ user_form.email.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="{{ user_form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Tên</label>
+                        {{ user_form.first_name }}
+                        {% if user_form.first_name.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ user_form.first_name.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label for="{{ user_form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Họ</label>
+                        {{ user_form.last_name }}
+                        {% if user_form.last_name.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ user_form.last_name.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="space-y-4">
+                <h3 class="text-lg font-medium text-gray-800">Thông tin liên hệ</h3>
+                
+                <div>
+                    <label for="{{ profile_form.phone.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại</label>
+                    {{ profile_form.phone }}
+                    {% if profile_form.phone.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ profile_form.phone.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <div>
+                    <label for="{{ profile_form.address.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Địa chỉ</label>
+                    {{ profile_form.address }}
+                    {% if profile_form.address.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ profile_form.address.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="flex items-center justify-between pt-4">
+                <a href="{% url 'accounts:profile' %}" class="text-gray-600 hover:text-gray-800">
+                    <i class="fas fa-arrow-left mr-2"></i> Quay lại
+                </a>
+                <button type="submit" class="bg-primary hover:bg-secondary text-white font-medium py-2 px-6 rounded-md transition">
+                    <i class="fas fa-save mr-2"></i> Lưu thay đổi
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

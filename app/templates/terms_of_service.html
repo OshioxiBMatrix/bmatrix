@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Điều Khoản Dịch Vụ - BMATRIX{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 md:p-8">
+        <h1 class="text-3xl font-bold text-primary mb-6 border-b pb-4">Điều Khoản Dịch Vụ</h1>
+        
+        <div class="prose max-w-none">
+            <p class="text-gray-600 mb-6">Cập nhật lần cuối: {% now "d/m/Y" %}</p>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">1. Giới thiệu</h2>
+                <p class="mb-4">Chào mừng bạn đến với BMATRIX ("Công ty", "chúng tôi", "của chúng tôi"). Khi bạn truy cập trang web của chúng tôi tại https://bountymatrix.net và sử dụng dịch vụ của chúng tôi, bạn đồng ý tuân thủ các điều khoản và điều kiện này ("Điều khoản"), bao gồm các điều khoản và điều ki
+                <p class="mb-4">Các Điều khoản này áp dụng cho tất cả khách truy cập, người dùng và những người khác truy cập hoặc sử dụng Dịch vụ. Bằng cách truy cập hoặc sử dụng Dịch vụ, bạn đồng ý bị ràng buộc bởi các Điều khoản này. Nếu bạn không đồng ý với bất kỳ phần nào của điều khoản, bạn không được phép truy cập vào dịch vụ.</p>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">2. Mua hàng trực tuyến</h2>
+                <p class="mb-4">Bằng cách đặt đơn hàng trên trang web của chúng tôi, bạn đảm bảo rằng bạn ít nhất 18 tuổi hoặc bạn đang được sự cho phép của cha mẹ hoặc người giám hộ hợp pháp.</p>
+                <p class="mb-4">Bạn đồng ý cung cấp thông tin mua hàng hiện tại, đầy đủ và chính xác cho tất cả các giao dịch mua hàng được thực hiện trên trang web của chúng tôi. Bạn đồng ý cập nhật kịp thời tài khoản của bạn và các thông tin khác, bao gồm địa chỉ email, số thẻ tín dụng và ngày hết hạn, để chúng tôi có thể hoàn tất các giao dịch của bạn và liên hệ với bạn khi cần thiết.</p>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">3. Tính chính xác của thông tin</h2>
+                <p class="mb-4">Chúng tôi không đảm bảo rằng thông tin trên trang web của chúng tôi là chính xác, đầy đủ hoặc cập nhật. Nội dung trên trang web này được cung cấp chỉ để tham khảo chung và không nên dựa vào hoặc sử dụng làm cơ sở duy nhất để đưa ra quyết định mà không tham khảo các nguồn thông tin chính thức, chính xác, đầy đủ hơn.</p>
+                <p class="mb-4">Chúng tôi có quyền sửa đổi nội dung của trang web này bất kỳ lúc nào, nhưng chúng tôi không có nghĩa vụ cập nhật bất kỳ thông tin nào trên trang web của chúng tôi. Bạn đồng ý rằng bạn có trách nhiệm theo dõi các thay đổi đối với trang web của chúng tôi.</p>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">4. Sản phẩm hoặc dịch vụ</h2>
+                <p class="mb-4">Một số sản phẩm hoặc dịch vụ có thể được cung cấp độc quyền trực tuyến thông qua trang web. Các sản phẩm hoặc dịch vụ này có thể có số lượng giới hạn và chỉ được hoàn trả hoặc đổi theo Chính sách hoàn trả của chúng tôi.</p>
+                <p class="mb-4">Chúng tôi đã nỗ lực hết sức để hiển thị màu sắc và hình ảnh của sản phẩm của chúng tôi xuất hiện trên cửa hàng một cách chính xác nhất có thể. Chúng tôi không thể đảm bảo rằng màn hình máy tính của bạn sẽ hiển thị bất kỳ màu nào chính xác.</p>
+                <p class="mb-4">Chúng tôi có quyền, nhưng không có nghĩa vụ, giới hạn việc bán sản phẩm hoặc dịch vụ của chúng tôi cho bất kỳ người, khu vực địa lý hoặc khu vực tài phán nào. Chúng tôi có thể thực hiện quyền này theo từng trường hợp.</p>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">5. Tài khoản người dùng</h2>
+                <p class="mb-4">Khi bạn tạo một tài khoản với chúng tôi, bạn phải cung cấp cho chúng tôi thông tin chính xác, đầy đủ và cập nhật mọi lúc. Nếu không làm như vậy, điều đó cấu thành vi phạm Điều khoản, có thể dẫn đến chấm dứt tài khoản của bạn trên Dịch vụ của chúng tôi ngay lập tức.</p>
+                <p class="mb-4">Bạn có trách nhiệm bảo mật mật khẩu bạn sử dụng để truy cập Dịch vụ và cho bất kỳ hoạt động hoặc hành động nào dưới mật khẩu của bạn, cho dù mật khẩu của bạn với Dịch vụ của chúng tôi hoặc dịch vụ của bên thứ ba.</p>
+                <p class="mb-4">Bạn đồng ý không tiết lộ mật khẩu của mình cho bất kỳ bên thứ ba nào. Bạn phải thông báo cho chúng tôi ngay lập tức khi bạn biết về bất kỳ vi phạm bảo mật hoặc sử dụng trái phép tài khoản của bạn.</p>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">6. Thay đổi điều khoản</h2>
+                <p class="mb-4">Chúng tôi có quyền, theo quyết định riêng của mình, sửa đổi hoặc thay thế các Điều khoản này bất kỳ lúc nào. Nếu sửa đổi là quan trọng, chúng tôi sẽ cố gắng cung cấp thông báo ít nhất 30 ngày trước khi bất kỳ điều khoản mới có hiệu lực. Việc xác định điều gì là quan trọng sẽ được quyết định theo quyết định riêng của chúng tôi.</p>
+                <p class="mb-4">Bằng cách tiếp tục truy cập hoặc sử dụng Dịch vụ của chúng tôi sau khi những sửa đổi đó có hiệu lực, bạn đồng ý bị ràng buộc bởi các điều khoản đã sửa đổi. Nếu bạn không đồng ý với các điều khoản mới, vui lòng ngừng sử dụng trang web và dịch vụ.</p>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">7. Liên hệ</h2>
+                <p>Nếu bạn có bất kỳ câu hỏi nào về các Điều khoản này, vui lòng liên hệ với chúng tôi qua:</p>
+                <ul class="list-disc ml-6 mt-2">
+                    <li>Email: support@bountymatrix.net	</li>
+                    <li>Điện thoại: (+84) 966 342 792</li>
+                    <li>Địa chỉ: QL32, Phụng Thượng, Phúc Thọ, Hà Nội, Vietnam</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

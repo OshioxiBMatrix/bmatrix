@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Chính Sách Bảo Mật - BMATRIX{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 md:p-8">
+        <h1 class="text-3xl font-bold text-primary mb-6 border-b pb-4">Chính Sách Bảo Mật</h1>
+        
+        <div class="prose max-w-none">
+            <p class="text-gray-600 mb-6">Cập nhật lần cuối: {% now "d/m/Y" %}</p>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">1. Giới thiệu</h2>
+                <p class="mb-4">BMATRIX ("chúng tôi", "của chúng tôi") cam kết bảo vệ quyền riêng tư của bạn. Chính sách bảo mật này giải thích cách chúng tôi thu thập, sử dụng, tiết lộ, và bảo vệ thông tin cá nhân của bạn khi bạn truy cập trang web của chúng tôi và sử dụng các dịch vụ của chúng tôi.</p>
+                <p class="mb-4">Chúng tôi sẽ chỉ sử dụng thông tin cá nhân của bạn theo cách được mô tả trong chính sách bảo mật này. Bằng cách sử dụng trang web và dịch vụ của chúng tôi, bạn đồng ý với việc thu thập và sử dụng thông tin theo chính sách này.</p>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">2. Thông tin chúng tôi thu thập</h2>
+                <p class="mb-4">Chúng tôi có thể thu thập các loại thông tin sau:</p>
+                
+                <h3 class="text-lg font-medium text-gray-800 mt-4 mb-2">2.1. Thông tin cá nhân</h3>
+                <p class="mb-4">Khi bạn đăng ký tài khoản, đặt hàng, đăng ký nhận bản tin hoặc tham gia khuyến mãi, chúng tôi có thể thu thập các thông tin sau:</p>
+                <ul class="list-disc ml-6 mb-4">
+                    <li>Họ tên</li>
+                    <li>Địa chỉ email</li>
+                    <li>Số điện thoại</li>
+                    <li>Địa chỉ giao hàng và thanh toán</li>
+                    <li>Thông tin thanh toán (chúng tôi không lưu trữ đầy đủ thông tin thẻ tín dụng)</li>
+                    <li>Thông tin tài khoản đăng nhập</li>
+                </ul>
+                
+                <h3 class="text-lg font-medium text-gray-800 mt-4 mb-2">2.2. Thông tin không cá nhân</h3>
+                <p class="mb-4">Chúng tôi cũng có thể thu thập thông tin không cá nhân khi bạn truy cập trang web của chúng tôi, bao gồm:</p>
+                <ul class="list-disc ml-6 mb-4">
+                    <li>Loại trình duyệt và phiên bản</li>
+                    <li>Hệ điều hành</li>
+                    <li>Địa chỉ IP</li>
+                    <li>Thời gian truy cập</li>
+                    <li>Các trang bạn đã xem</li>
+                    <li>Các sản phẩm bạn đã xem hoặc tìm kiếm</li>
+                </ul>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">3. Cách chúng tôi sử dụng thông tin</h2>
+                <p class="mb-4">Chúng tôi sử dụng thông tin thu thập được để:</p>
+                <ul class="list-disc ml-6 mb-4">
+                    <li>Xử lý đơn hàng và giao dịch của bạn</li>
+                    <li>Gửi email xác nhận và cập nhật trạng thái đơn hàng</li>
+                    <li>Quản lý tài khoản của bạn</li>
+                    <li>Cải thiện trang web và dịch vụ của chúng tôi</li>
+                    <li>Cá nhân hóa trải nghiệm mua sắm của bạn</li>
+                    <li>Gửi thông tin về sản phẩm, dịch vụ và khuyến mãi (nếu bạn đã đăng ký)</li>
+                    <li>Phân tích xu hướng sử dụng và hoạt động trên trang web</li>
+                    <li>Phát hiện và ngăn chặn gian lận</li>
+                </ul>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">4. Cookie và công nghệ theo dõi</h2>
+                <p class="mb-4">Chúng tôi sử dụng cookie và các công nghệ theo dõi tương tự để theo dõi hoạt động trên trang web của chúng tôi và lưu trữ thông tin nhất định. Cookie là các tệp nhỏ được lưu trữ trên thiết bị của bạn. Bạn có thể hướng dẫn trình duyệt của mình từ chối tất cả cookie hoặc thông báo khi cookie được gửi. Tuy nhiên, nếu bạn không chấp nhận cookie, bạn có thể không sử dụng được một số phần của trang web của chúng tôi.</p>
+                <p class="mb-4">Chúng tôi sử dụng cookie để:</p>
+                <ul class="list-disc ml-6 mb-4">
+                    <li>Ghi nhớ thông tin đăng nhập của bạn</li>
+                    <li>Ghi nhớ các mặt hàng trong giỏ hàng của bạn</li>
+                    <li>Hiểu và lưu các tùy chọn của bạn</li>
+                    <li>Theo dõi việc sử dụng trang web</li>
+                    <li>Phân tích dữ liệu về lưu lượng trang web</li>
+                </ul>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">5. Chia sẻ thông tin cá nhân</h2>
+                <p class="mb-4">Chúng tôi không bán, trao đổi hoặc chuyển giao thông tin cá nhân của bạn cho các bên thứ ba mà không có sự đồng ý của bạn, ngoại trừ như được mô tả trong chính sách này. Chúng tôi có thể chia sẻ thông tin với:</p>
+                <ul class="list-disc ml-6 mb-4">
+                    <li><strong>Đối tác dịch vụ:</strong> Chúng tôi có thể chia sẻ thông tin với các công ty đáng tin cậy cung cấp dịch vụ cho chúng tôi, chẳng hạn như xử lý thanh toán, giao hàng, phân tích dữ liệu và hỗ trợ tiếp thị.</li>
+                    <li><strong>Tuân thủ pháp luật:</strong> Chúng tôi có thể tiết lộ thông tin khi được yêu cầu bởi pháp luật hoặc khi chúng tôi tin rằng việc tiết lộ là cần thiết để bảo vệ quyền của chúng tôi, bảo vệ sự an toàn của người khác, điều tra gian lận, hoặc đáp ứng yêu cầu của chính phủ.</li>
+                    <li><strong>Chuyển nhượng kinh doanh:</strong> Nếu chúng tôi tham gia vào việc sáp nhập, mua lại hoặc bán tài sản, thông tin của bạn có thể được chuyển giao. Chúng tôi sẽ thông báo cho bạn trước khi thông tin cá nhân của bạn được chuyển giao và trở thành đối tượng của một chính sách bảo mật khác.</li>
+                </ul>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">6. Bảo mật dữ liệu</h2>
+                <p class="mb-4">Chúng tôi thực hiện các biện pháp bảo mật hợp lý để bảo vệ thông tin cá nhân của bạn. Chúng tôi sử dụng các biện pháp bảo mật kỹ thuật, vật lý và hành chính để giúp bảo vệ thông tin của bạn khỏi truy cập trái phép.</p>
+                <p class="mb-4">Tuy nhiên, không có phương thức truyền qua internet hoặc phương thức lưu trữ điện tử nào là an toàn 100%. Do đó, mặc dù chúng tôi cố gắng sử dụng các phương tiện thương mại chấp nhận được để bảo vệ thông tin cá nhân của bạn, chúng tôi không thể đảm bảo an ninh tuyệt đối.</p>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">7. Quyền của bạn</h2>
+                <p class="mb-4">Bạn có quyền:</p>
+                <ul class="list-disc ml-6 mb-4">
+                    <li>Truy cập thông tin cá nhân mà chúng tôi lưu giữ về bạn</li>
+                    <li>Yêu cầu sửa đổi thông tin không chính xác</li>
+                    <li>Yêu cầu xóa thông tin cá nhân của bạn</li>
+                    <li>Phản đối việc xử lý thông tin cá nhân của bạn</li>
+                    <li>Yêu cầu hạn chế xử lý thông tin cá nhân của bạn</li>
+                    <li>Yêu cầu chuyển giao thông tin cá nhân của bạn</li>
+                    <li>Hủy đăng ký nhận email tiếp thị</li>
+                </ul>
+                <p class="mb-4">Để thực hiện các quyền này, vui lòng liên hệ với chúng tôi theo thông tin liên hệ được cung cấp dưới đây.</p>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">8. Thay đổi chính sách bảo mật</h2>
+                <p class="mb-4">Chúng tôi có thể cập nhật Chính sách bảo mật này tùy từng thời điểm. Chúng tôi sẽ thông báo cho bạn về bất kỳ thay đổi nào bằng cách đăng chính sách mới trên trang này và cập nhật ngày "Cập nhật lần cuối" ở đầu Chính sách bảo mật này.</p>
+                <p class="mb-4">Bạn nên kiểm tra trang này định kỳ để cập nhật về các thay đổi. Những thay đổi đối với Chính sách bảo mật này có hiệu lực khi được đăng trên trang này.</p>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-primary mb-4">9. Liên hệ</h2>
+                <p>Nếu bạn có bất kỳ câu hỏi nào về Chính sách bảo mật này, vui lòng liên hệ với chúng tôi qua:</p>
+                <ul class="list-disc ml-6 mt-2">
+                    <li>Email: privacy@bountymatrix.net</li>
+                    <li>Điện thoại: (+84) 966 342 792</li>
+                    <li>Địa chỉ: QL32, Phụng Thượng, Phúc Thọ, Hà Nội, Vietnam</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

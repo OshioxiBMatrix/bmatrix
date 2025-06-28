@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from blog.models import Post
 
 # Create your views here.
 def home(request):
@@ -23,11 +24,16 @@ def home(request):
         {'name': 'Michael Chen', 'text': 'Vận chuyển nhanh chóng và đóng gói tốt. Sản phẩm vượt xa mong đợi của tôi.'},
     ]
     
-    blog_posts = [
-        {'title': 'Chúng tôi rất hài lòng về sản phẩm và chất lượng', 'date': '14/06/2023', 'author': 'Admin', 'excerpt': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies.'},
-        {'title': 'Top 10 phụ kiện chơi game năm 2023', 'date': '10/06/2023', 'author': 'Tech Team', 'excerpt': 'Khám phá những phụ kiện chơi game tốt nhất để nâng cao trải nghiệm chơi game của bạn.'},
-        {'title': 'Hướng dẫn xây dựng PC chơi game đầu tiên', 'date': '05/06/2023', 'author': 'Build Team', 'excerpt': 'Hướng dẫn từng bước để xây dựng PC chơi game đầu tiên cho người mới bắt đầu.'},
-    ]
+    # Get real blog posts from the database
+    blog_posts = Post.objects.filter(published=True).order_by('-created_at')[:3]
+    
+    # Fallback to sample data if no blog posts exist
+    if not blog_posts:
+        blog_posts = [
+            {'title': 'Chúng tôi rất hài lòng về sản phẩm và chất lượng', 'date': '14/06/2023', 'author': 'Admin', 'excerpt': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies.'},
+            {'title': 'Top 10 phụ kiện chơi game năm 2023', 'date': '10/06/2023', 'author': 'Tech Team', 'excerpt': 'Khám phá những phụ kiện chơi game tốt nhất để nâng cao trải nghiệm chơi game của bạn.'},
+            {'title': 'Hướng dẫn xây dựng PC chơi game đầu tiên', 'date': '05/06/2023', 'author': 'Build Team', 'excerpt': 'Hướng dẫn từng bước để xây dựng PC chơi game đầu tiên cho người mới bắt đầu.'},
+        ]
     
     context = {
         'featured_products': featured_products,

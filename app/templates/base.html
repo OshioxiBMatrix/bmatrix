@@ -59,47 +59,105 @@
                 });
             }
             
-            // Dropdown menu toggle
+            // Dropdown menu toggle with delay
             const dropdownButton = document.querySelector('[data-toggle="dropdown-menu"]');
             const dropdownMenu = document.getElementById('dropdown-menu');
             
+            let dropdownTimeout;
+            
             if (dropdownButton && dropdownMenu) {
                 dropdownButton.addEventListener('mouseover', function() {
+                    clearTimeout(dropdownTimeout);
                     dropdownMenu.classList.remove('hidden');
                 });
                 
                 dropdownButton.addEventListener('mouseout', function() {
-                    dropdownMenu.classList.add('hidden');
+                    dropdownTimeout = setTimeout(function() {
+                        if (!dropdownMenu.matches(':hover')) {
+                            dropdownMenu.classList.add('hidden');
+                        }
+                    }, 300);
                 });
                 
                 dropdownMenu.addEventListener('mouseover', function() {
+                    clearTimeout(dropdownTimeout);
                     dropdownMenu.classList.remove('hidden');
                 });
                 
                 dropdownMenu.addEventListener('mouseout', function() {
-                    dropdownMenu.classList.add('hidden');
+                    dropdownTimeout = setTimeout(function() {
+                        if (!dropdownButton.matches(':hover')) {
+                            dropdownMenu.classList.add('hidden');
+                        }
+                    }, 300);
                 });
             }
             
-            // Language dropdown toggle
+            // Language dropdown toggle with delay
             const languageButton = document.querySelector('[data-toggle="language-dropdown"]');
             const languageMenu = document.getElementById('language-menu');
             
+            let languageTimeout;
+            
             if (languageButton && languageMenu) {
                 languageButton.addEventListener('mouseover', function() {
+                    clearTimeout(languageTimeout);
                     languageMenu.classList.remove('hidden');
                 });
                 
                 languageButton.addEventListener('mouseout', function() {
-                    languageMenu.classList.add('hidden');
+                    languageTimeout = setTimeout(function() {
+                        if (!languageMenu.matches(':hover')) {
+                            languageMenu.classList.add('hidden');
+                        }
+                    }, 300);
                 });
                 
                 languageMenu.addEventListener('mouseover', function() {
+                    clearTimeout(languageTimeout);
                     languageMenu.classList.remove('hidden');
                 });
                 
                 languageMenu.addEventListener('mouseout', function() {
-                    languageMenu.classList.add('hidden');
+                    languageTimeout = setTimeout(function() {
+                        if (!languageButton.matches(':hover')) {
+                            languageMenu.classList.add('hidden');
+                        }
+                    }, 300);
+                });
+            }
+            
+            // User dropdown toggle with delay
+            const userButton = document.querySelector('[data-toggle="user-dropdown"]');
+            const userMenu = document.getElementById('user-menu');
+            
+            let userTimeout;
+            
+            if (userButton && userMenu) {
+                userButton.addEventListener('mouseover', function() {
+                    clearTimeout(userTimeout);
+                    userMenu.classList.remove('hidden');
+                });
+                
+                userButton.addEventListener('mouseout', function() {
+                    userTimeout = setTimeout(function() {
+                        if (!userMenu.matches(':hover')) {
+                            userMenu.classList.add('hidden');
+                        }
+                    }, 300);
+                });
+                
+                userMenu.addEventListener('mouseover', function() {
+                    clearTimeout(userTimeout);
+                    userMenu.classList.remove('hidden');
+                });
+                
+                userMenu.addEventListener('mouseout', function() {
+                    userTimeout = setTimeout(function() {
+                        if (!userButton.matches(':hover')) {
+                            userMenu.classList.add('hidden');
+                        }
+                    }, 300);
                 });
             }
             
