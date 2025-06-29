@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}404 - Không tìm thấy trang | Bmatrix{% endblock %}
+
+{% block extra_css %}
+<style>
+    .error-container {
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .error-number {
+        font-size: 10rem;
+        font-weight: 900;
+        line-height: 1;
+        background: linear-gradient(to right, #3b82f6, #8b5cf6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    .error-illustration {
+        max-width: 100%;
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    .error-text {
+        max-width: 500px;
+    }
+    
+    .back-button {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    
+    .back-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), transparent);
+        transition: all 0.6s;
+        z-index: -1;
+    }
+    
+    .back-button:hover::before {
+        left: 100%;
+    }
+    
+    .search-box {
+        position: relative;
+    }
+    
+    .search-box input {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        border-radius: 9999px;
+        border: 2px solid #e5e7eb;
+        outline: none;
+        transition: all 0.3s;
+    }
+    
+    .search-box input:focus {
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    }
+    
+    .search-box button {
+        position: absolute;
+        right: 4px;
+        top: 4px;
+        bottom: 4px;
+        padding: 0 1.5rem;
+        border-radius: 9999px;
+        background: linear-gradient(to right, #3b82f6, #8b5cf6);
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+    
+    .search-box button:hover {
+        opacity: 0.9;
+    }
+    
+    @keyframes float {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+    
+    .suggested-link {
+        transition: all 0.3s;
+    }
+    
+    .suggested-link:hover {
+        transform: translateX(5px);
+        color: #4f46e5;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="error-container">
+    <div class="container mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Error Text -->
+            <div class="order-2 lg:order-1">
+                <div class="error-text">
+                    <div class="error-number">404</div>
+                    <h1 class="text-4xl font-bold text-gray-900 mt-6 mb-4">Oops! Trang không tìm thấy</h1>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Trang bạn đang tìm kiếm có thể đã bị xóa, đổi tên hoặc tạm thời không khả dụng.
+                    </p>
+                    
+                    <!-- Search Box -->
+                    <div class="search-box mb-8">
+                        <form action="{% url 'blog:post_list' %}" method="get">
+                            <input type="text" name="search" placeholder="Tìm kiếm trên trang web..." class="w-full">
+                            <button type="submit">Tìm kiếm</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap gap-4">
+                        <a href="/" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 back-button">
+                            <i class="fas fa-home mr-2"></i> Về trang chủ
+                        </a>
+                        <a href="{% url 'contact' %}" class="bg-white border-2 border-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-full shadow-md hover:shadow-lg hover:border-purple-500 hover:text-purple-600 transition-all duration-300">
+                            <i class="fas fa-headset mr-2"></i> Liên hệ hỗ trợ
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Error Illustration -->
+            <div class="order-1 lg:order-2 flex justify-center">
+                <img src="https://placehold.co/600x400" alt="404 Error" class="error-illustration">
+            </div>
+        </div>
+        
+        <!-- Suggested Pages -->
+        <div class="mt-16">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Có thể bạn đang tìm:</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="/" class="p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 suggested-link">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Trang chủ</h3>
+                    <p class="text-gray-600">Quay lại trang chủ của Bmatrix</p>
+                </a>
+                <a href="{% url 'blog:post_list' %}" class="p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 suggested-link">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Blog</h3>
+                    <p class="text-gray-600">Khám phá các bài viết và hướng dẫn mới nhất</p>
+                </a>
+                <a href="{% url 'about' %}" class="p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 suggested-link">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Giới thiệu</h3>
+                    <p class="text-gray-600">Tìm hiểu thêm về Bmatrix</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

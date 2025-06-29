@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block title %}Chính sách vận chuyển - BMATRIX{% endblock %}
+
+{% block content %}
+<div class="bg-gray-700 py-16 text-center">
+    <div class="container mx-auto px-4">
+        <h1 class="text-5xl font-bold text-white mb-6">Chính sách vận chuyển</h1>
+        <div class="flex items-center justify-center text-white/80 text-sm">
+            <a href="{% url 'shop:home' %}" class="hover:text-white">Trang chủ</a>
+            <span class="mx-2">/</span>
+            <span class="text-white">Chính sách vận chuyển</span>
+        </div>
+    </div>
+</div>
+
+<div class="container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-8">
+        <div class="prose prose-lg max-w-none">
+            <h2 class="text-primary text-2xl font-bold mb-6">Chính sách vận chuyển và giao hàng</h2>
+            
+            <div class="mb-8">
+                <p class="mb-4">BMATRIX cung cấp nhiều phương thức vận chuyển khác nhau để đáp ứng nhu cầu của khách hàng trên toàn quốc. Chúng tôi cam kết giao hàng đúng hẹn và đảm bảo sản phẩm đến tay khách hàng một cách an toàn, nguyên vẹn.</p>
+            </div>
+            
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">1. Phạm vi giao hàng</h3>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>BMATRIX giao hàng đến tất cả các tỉnh thành trên toàn quốc.</li>
+                    <li>Đối với khu vực nội thành Hà Nội và TP.HCM: Giao hàng trực tiếp bởi đội ngũ giao hàng của BMATRIX.</li>
+                    <li>Đối với các tỉnh thành khác: Giao hàng thông qua các đơn vị vận chuyển đối tác.</li>
+                </ul>
+            </div>
+            
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">2. Thời gian giao hàng</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full border border-gray-200 mb-4">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="py-2 px-4 border-b border-r text-left">Khu vực</th>
+                                <th class="py-2 px-4 border-b border-r text-left">Giao hàng tiêu chuẩn</th>
+                                <th class="py-2 px-4 border-b border-r text-left">Giao hàng nhanh</th>
+                                <th class="py-2 px-4 border-b text-left">Giao hàng hỏa tốc</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-r">Nội thành Hà Nội, TP.HCM</td>
+                                <td class="py-2 px-4 border-b border-r">1-2 ngày</td>
+                                <td class="py-2 px-4 border-b border-r">Trong ngày</td>
+                                <td class="py-2 px-4 border-b">2-3 giờ</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-r">Các tỉnh thành miền Bắc</td>
+                                <td class="py-2 px-4 border-b border-r">2-3 ngày</td>
+                                <td class="py-2 px-4 border-b border-r">1-2 ngày</td>
+                                <td class="py-2 px-4 border-b">Không áp dụng</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-r">Các tỉnh thành miền Trung</td>
+                                <td class="py-2 px-4 border-b border-r">3-5 ngày</td>
+                                <td class="py-2 px-4 border-b border-r">2-3 ngày</td>
+                                <td class="py-2 px-4 border-b">Không áp dụng</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-r">Các tỉnh thành miền Nam</td>
+                                <td class="py-2 px-4 border-b border-r">3-5 ngày</td>
+                                <td class="py-2 px-4 border-b border-r">2-3 ngày</td>
+                                <td class="py-2 px-4 border-b">Không áp dụng</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b border-r">Vùng sâu, vùng xa</td>
+                                <td class="py-2 px-4 border-b border-r">5-7 ngày</td>
+                                <td class="py-2 px-4 border-b border-r">3-5 ngày</td>
+                                <td class="py-2 px-4 border-b">Không áp dụng</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-sm text-gray-600 italic">Lưu ý: Thời gian giao hàng có thể bị ảnh hưởng bởi điều kiện thời tiết, giao thông hoặc các sự kiện bất khả kháng khác.</p>
+            </div>
+            
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">3. Phí vận chuyển</h3>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li><strong>Miễn phí vận chuyển:</strong> Áp dụng cho đơn hàng từ 1.000.000đ trở lên (giao hàng tiêu chuẩn).</li>
+                    <li><strong>Giao hàng tiêu chuẩn:</strong> 30.000đ - 50.000đ tùy khu vực.</li>
+                    <li><strong>Giao hàng nhanh:</strong> 50.000đ - 100.000đ tùy khu vực.</li>
+                    <li><strong>Giao hàng hỏa tốc:</strong> 100.000đ - 150.000đ (chỉ áp dụng cho nội thành Hà Nội và TP.HCM).</li>
+                </ul>
+                <p class="mt-3">Phí vận chuyển chính xác sẽ được tính toán và hiển thị tại trang thanh toán dựa trên địa chỉ giao hàng và phương thức vận chuyển bạn lựa chọn.</p>
+            </div>
+            
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">4. Đơn vị vận chuyển đối tác</h3>
+                <p class="mb-3">BMATRIX hợp tác với các đơn vị vận chuyển uy tín để đảm bảo hàng hóa được giao đến tay khách hàng an toàn và đúng hẹn:</p>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Giao Hàng Nhanh (GHN)</li>
+                    <li>Giao Hàng Tiết Kiệm (GHTK)</li>
+                    <li>Viettel Post</li>
+                    <li>J&T Express</li>
+                    <li>Ninja Van</li>
+                </ul>
+            </div>
+            
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">5. Theo dõi đơn hàng</h3>
+                <p class="mb-3">Khách hàng có thể theo dõi tình trạng đơn hàng của mình thông qua:</p>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Tài khoản BMATRIX: Đăng nhập và kiểm tra trong mục "Đơn hàng của tôi".</li>
+                    <li>Email xác nhận: Mã vận đơn và link theo dõi sẽ được gửi qua email sau khi đơn hàng được xử lý.</li>
+                    <li>Hotline: Gọi số (+84) 966 342 792 để được hỗ trợ kiểm tra tình trạng đơn hàng.</li>
+                </ul>
+            </div>
+            
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">6. Quy trình giao nhận hàng</h3>
+                <ol class="list-decimal pl-6 space-y-3">
+                    <li>
+                        <strong>Kiểm tra thông tin:</strong>
+                        <p>Nhân viên giao hàng sẽ gọi điện trước khi giao hàng. Vui lòng đảm bảo cung cấp số điện thoại chính xác.</p>
+                    </li>
+                    <li>
+                        <strong>Kiểm tra sản phẩm:</strong>
+                        <p>Khách hàng có quyền kiểm tra hình thức bên ngoài của sản phẩm trước khi nhận hàng.</p>
+                    </li>
+                    <li>
+                        <strong>Xác nhận nhận hàng:</strong>
+                        <p>Ký nhận hàng sau khi đã kiểm tra và hài lòng với sản phẩm.</p>
+                    </li>
+                    <li>
+                        <strong>Thanh toán:</strong>
+                        <p>Thanh toán cho nhân viên giao hàng (nếu chọn phương thức COD - Thanh toán khi nhận hàng).</p>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="bg-blue-50 p-6 rounded-lg mb-8">
+                <h3 class="text-xl font-semibold text-blue-800 mb-3">Lưu ý quan trọng</h3>
+                <ul class="list-disc pl-6 space-y-2 text-blue-700">
+                    <li>Vui lòng cung cấp địa chỉ giao hàng chính xác và đầy đủ để tránh chậm trễ trong quá trình giao hàng.</li>
+                    <li>Đối với đơn hàng thanh toán COD, khách hàng vui lòng chuẩn bị đúng số tiền để thanh toán cho nhân viên giao hàng.</li>
+                    <li>Trường hợp không có người nhận hàng, đơn vị vận chuyển sẽ liên hệ lại hoặc để lại thông báo và quay lại vào ngày hôm sau.</li>
+                    <li>Sau 3 lần giao hàng không thành công, đơn hàng sẽ được chuyển về kho của BMATRIX và khách hàng cần liên hệ lại để sắp xếp giao hàng lại (có thể phát sinh phí giao hàng bổ sung).</li>
+                </ul>
+            </div>
+            
+            <div class="border-t border-gray-200 pt-6">
+                <p class="italic text-gray-600">Chính sách này có thể thay đổi mà không cần báo trước. Vui lòng kiểm tra phiên bản mới nhất trên website của chúng tôi.</p>
+                <p class="mt-4">Nếu bạn có bất kỳ thắc mắc nào về chính sách vận chuyển, vui lòng liên hệ với chúng tôi qua:</p>
+                <div class="mt-2">
+                    <p><strong>Hotline:</strong> (+84) 966 342 792</p>
+                    <p><strong>Email:</strong> <a href="mailto:support@bmatrix.vn" class="text-primary hover:text-secondary">support@bmatrix.vn</a></p>
+                    <p><strong>Địa chỉ:</strong> QL32, Phụng Thượng, Phúc Thọ, Hà Nội, Vietnam</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

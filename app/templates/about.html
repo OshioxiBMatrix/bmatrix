@@ -1,0 +1,386 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Giới thiệu về chúng tôi | Bmatrix{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white hero-section">
+    <div class="absolute inset-0 bg-black/20"></div>
+    <div class="relative max-w-7xl mx-auto px-6 py-20 lg:py-32 hero-content">
+        <div class="text-center">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full mb-8 hero-icon">
+                <span class="text-4xl">🎯</span>
+            </div>
+            <h1 class="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent hero-title">
+                Bmatrix
+            </h1>
+            <p class="text-xl lg:text-2xl mb-8 text-blue-100 max-w-4xl mx-auto leading-relaxed hero-description">
+                Kho tri thức số đáng tin cậy dành cho những người đam mê công nghệ, 
+                từ người mới bắt đầu đến các chuyên gia IT chuyên nghiệp
+            </p>
+            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 hero-badge">
+                <span class="text-xl">📤</span>
+                <span class="font-medium">Trao quyền cho cộng đồng công nghệ</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Introduction Section -->
+<section class="py-20 reveal">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 section-title">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Bmatrix</span> là ai?
+            </h2>
+            <p class="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                Bmatrix là nền tảng chia sẻ kiến thức công nghệ, mẹo & thủ thuật, và các giải pháp phần mềm 
+                dành cho cộng đồng yêu thích công nghệ. Chúng tôi tin rằng công nghệ không chỉ là công cụ mà còn 
+                là sức mạnh để thay đổi cách mọi người làm việc, học tập và sáng tạo.
+            </p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <div class="flex items-start gap-4 feature-card">
+                    <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center feature-icon">
+                        <span class="text-2xl">📖</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Chia sẻ kiến thức</h3>
+                        <p class="text-gray-600">
+                            Cung cấp kiến thức công nghệ theo cách dễ hiểu, thực tế và hiệu quả nhất
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start gap-4 feature-card">
+                    <div class="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center feature-icon">
+                        <span class="text-2xl">👥</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Xây dựng cộng đồng</h3>
+                        <p class="text-gray-600">
+                            Kết nối những người đam mê công nghệ để học hỏi và hỗ trợ lẫn nhau
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start gap-4 feature-card">
+                    <div class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center feature-icon">
+                        <span class="text-2xl">🍃</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Phát triển bền vững</h3>
+                        <p class="text-gray-600">
+                            Khuyến khích tư duy tiết kiệm, thân thiện với môi trường trong việc sử dụng công nghệ
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8 feature-card">
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mb-6 feature-icon">
+                        <span class="text-3xl">🎯</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Mục tiêu của chúng tôi</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Trở thành "kho tri thức số" đáng tin cậy, giúp bạn tiếp cận 
+                        công nghệ theo cách dễ hiểu, thực tế và hiệu quả nhất.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Vision & Mission Section -->
+<section class="py-20 bg-white reveal">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-12">
+            <!-- Vision -->
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 feature-card">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center feature-icon">
+                        <span class="text-2xl">🌍</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900">Tầm nhìn</h2>
+                </div>
+                <p class="text-gray-700 text-lg leading-relaxed">
+                    Trở thành nền tảng công nghệ hàng đầu nơi mọi người có thể chia sẻ kiến thức, 
+                    tiết kiệm chi phí bằng cách tái sử dụng thiết bị cũ, và cùng nhau xây dựng 
+                    một cộng đồng công nghệ tích cực và bền vững.
+                </p>
+            </div>
+
+            <!-- Mission -->
+            <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 feature-card">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center feature-icon">
+                        <span class="text-2xl">🚀</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900">Sứ mệnh</h2>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl text-purple-600">📤</span>
+                        <span class="text-gray-700"><strong>Chia sẻ:</strong> Cung cấp kiến thức, mẹo và thủ thuật công nghệ</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl text-purple-600">👥</span>
+                        <span class="text-gray-700"><strong>Kết nối:</strong> Gắn kết cộng đồng những người đam mê công nghệ</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl text-purple-600">♻️</span>
+                        <span class="text-gray-700"><strong>Tái sử dụng:</strong> Giúp tái sử dụng các thiết bị điện tử không dùng</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl text-purple-600">🍃</span>
+                        <span class="text-gray-700"><strong>Bền vững:</strong> Khuyến khích sử dụng công nghệ thân thiện môi trường</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services & Products Section -->
+<section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50 reveal">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 section-title">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Dịch vụ</span> của chúng tôi
+            </h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Các giải pháp công nghệ toàn diện được thiết kế để trao quyền và giáo dục cộng đồng của chúng tôi
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Articles & Tech Tips -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 service-card">
+                <div class="w-14 h-14 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 service-icon">
+                    <span class="text-3xl">📖</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Bài viết & Mẹo công nghệ</h3>
+                <ul class="space-y-2 text-gray-600">
+                    <li class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-blue-500 rounded-full service-bullet"></div>
+                        Hướng dẫn cài đặt phần mềm
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-blue-500 rounded-full service-bullet"></div>
+                        Hướng dẫn xử lý lỗi
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-blue-500 rounded-full service-bullet"></div>
+                        Mẹo tối ưu hóa máy tính & điện thoại
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-blue-500 rounded-full service-bullet"></div>
+                        Bảo mật thông tin cá nhân
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Toolkit Benefits -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 service-card">
+                <div class="w-14 h-14 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 service-icon">
+                    <span class="text-3xl">🛠️</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Bộ công cụ tiện ích</h3>
+                <ul class="space-y-2 text-gray-600">
+                    <li class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-purple-500 rounded-full service-bullet"></div>
+                        Script nhẹ, dễ sử dụng
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-purple-500 rounded-full service-bullet"></div>
+                        Giải pháp phần mềm tùy chỉnh
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-purple-500 rounded-full service-bullet"></div>
+                        Công cụ tối ưu hóa hệ thống
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-purple-500 rounded-full service-bullet"></div>
+                        Tiện ích nâng cao hiệu suất
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Community Support -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 service-card">
+                <div class="w-14 h-14 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-6 service-icon">
+                    <span class="text-3xl">💬</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Hỗ trợ cộng đồng</h3>
+                <ul class="space-y-2 text-gray-600">
+                    <li class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-green-500 rounded-full service-bullet"></div>
+                        Thảo luận & chia sẻ kinh nghiệm
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-green-500 rounded-full service-bullet"></div>
+                        Hỏi đáp nhanh chóng, thân thiện
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-green-500 rounded-full service-bullet"></div>
+                        Học tập từ đồng nghiệp
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-green-500 rounded-full service-bullet"></div>
+                        Hướng dẫn từ chuyên gia
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Capacity Section -->
+<section class="py-20 bg-white reveal">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 section-title">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Năng lực</span> của chúng tôi
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center capacity-item">
+                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 capacity-icon-container">
+                    <span class="text-3xl">⭐</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Đội ngũ chuyên gia</h3>
+                <p class="text-gray-600 text-sm">Biên tập viên & kỹ thuật viên giàu kinh nghiệm</p>
+            </div>
+
+            <div class="text-center capacity-item">
+                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 capacity-icon-container">
+                    <span class="text-3xl">👥</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Cộng đồng rộng lớn</h3>
+                <p class="text-gray-600 text-sm">Mạng lưới cộng tác viên công nghệ</p>
+            </div>
+
+            <div class="text-center capacity-item">
+                <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 capacity-icon-container">
+                    <span class="text-3xl">🎯</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Quy trình chất lượng</h3>
+                <p class="text-gray-600 text-sm">Sản xuất & đánh giá nội dung minh bạch</p>
+            </div>
+
+            <div class="text-center capacity-item">
+                <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 capacity-icon-container">
+                    <span class="text-3xl">📈</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Tập trung phát triển</h3>
+                <p class="text-gray-600 text-sm">Cải tiến & đổi mới liên tục</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Future Development Section -->
+<section class="py-20 bg-gradient-to-br from-indigo-50 to-purple-50 reveal">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 section-title">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Định hướng</span> phát triển
+            </h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Lộ trình của chúng tôi để mở rộng và nâng cao trải nghiệm Bmatrix
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-2xl p-8 shadow-lg text-center future-card">
+                <div class="w-16 h-16 bg-gradient-to-r from-red-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                    <span class="text-3xl">🎥</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Nội dung video</h3>
+                <p class="text-gray-600">
+                    Mở rộng sang video hướng dẫn và podcast công nghệ để nâng cao trải nghiệm học tập
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-lg text-center future-card">
+                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                    <span class="text-3xl">🎧</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Hỗ trợ trực tuyến</h3>
+                <p class="text-gray-600">
+                    Triển khai dịch vụ tư vấn và hỗ trợ kỹ thuật trực tuyến toàn diện
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-lg text-center future-card">
+                <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                    <span class="text-3xl">🛍️</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Bán hàng công nghệ</h3>
+                <p class="text-gray-600">
+                    Xây dựng nền tảng bán hàng công nghệ ngắn hạn để hỗ trợ nhu cầu cộng đồng
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white cta-section">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+            Tham gia cộng đồng Bmatrix
+        </h2>
+        <p class="text-xl mb-8 text-blue-100">
+            Trở thành một phần của cộng đồng công nghệ thịnh vượng, coi trọng việc chia sẻ kiến thức, 
+            phát triển bền vững và đổi mới sáng tạo
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'accounts:register' %}" class="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-blue-50 transition-colors duration-300 cta-button">
+                Bắt đầu ngay hôm nay
+            </a>
+            <a href="{% url 'blog:post_list' %}" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition-colors duration-300 cta-button">
+                Tìm hiểu thêm
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- JavaScript for Scroll Reveal -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Scroll reveal function
+    function revealOnScroll() {
+        var reveals = document.querySelectorAll('.reveal');
+        
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementVisible = 150;
+            
+            if (elementTop < windowHeight - elementVisible) {
+                reveals[i].classList.add('active');
+            } else {
+                reveals[i].classList.remove('active');
+            }
+        }
+    }
+    
+    // Add event listener
+    window.addEventListener('scroll', revealOnScroll);
+    
+    // Call once on page load
+    revealOnScroll();
+});
+</script>
+{% endblock %}

@@ -217,11 +217,12 @@
 <section class="py-12 bg-gray-100">
     <div class="container mx-auto px-4">
         <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
-            {% for i in "123456" %}
-            <div class="grayscale hover:grayscale-0 transition">
-                <img src="https://via.placeholder.com/120x60?text=Logo+Ipsum" alt="Brand Logo" class="h-12">
-            </div>
+            {% for i in "123456"|make_list %}
+                <div class="grayscale hover:grayscale-0 transition">
+                    <img src="{% static 'img/brand/Brand_Logo'|add:i|stringformat:"s"|add:'.svg' %}" alt="Brand Logo {{ i }}" class="h-12">
+                </div>
             {% endfor %}
+
         </div>
     </div>
 </section>

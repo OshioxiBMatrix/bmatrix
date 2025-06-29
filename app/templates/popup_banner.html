@@ -1,0 +1,537 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Popup Banner | Bmatrix{% endblock %}
+
+{% block extra_css %}
+<style>
+    .demo-container {
+        padding: 2rem;
+        background-color: #f9fafb;
+        min-height: 100vh;
+    }
+    
+    .demo-section {
+        margin-bottom: 3rem;
+    }
+    
+    .demo-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #1f2937;
+    }
+    
+    .demo-description {
+        font-size: 1rem;
+        color: #6b7280;
+        margin-bottom: 1.5rem;
+        max-width: 700px;
+    }
+    
+    .demo-button {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(to right, #3b82f6, #8b5cf6);
+        color: white;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .demo-button:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+    }
+    
+    /* Popup Styles */
+    .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .popup-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .popup {
+        background-color: white;
+        border-radius: 1rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        max-width: 90%;
+        width: 500px;
+        position: relative;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.3s ease 0.1s;
+    }
+    
+    .popup-overlay.active .popup {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    .popup-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f3f4f6;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 1;
+    }
+    
+    .popup-close:hover {
+        background-color: #e5e7eb;
+        transform: rotate(90deg);
+    }
+    
+    /* Newsletter Popup */
+    .newsletter-popup {
+        overflow: hidden;
+    }
+    
+    .newsletter-popup .popup-content {
+        padding: 2rem;
+    }
+    
+    .newsletter-popup .popup-image {
+        height: 200px;
+        background: linear-gradient(to right, #3b82f6, #8b5cf6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 4rem;
+    }
+    
+    /* Discount Popup */
+    .discount-popup {
+        overflow: hidden;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+    }
+    
+    .discount-popup .popup-content {
+        padding: 2rem;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .discount-popup .popup-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.1;
+        background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+    
+    .discount-popup .discount-code {
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-family: monospace;
+        font-size: 1.25rem;
+        letter-spacing: 2px;
+        border: 1px dashed rgba(255, 255, 255, 0.5);
+    }
+    
+    /* Notification Popup */
+    .notification-popup {
+        width: 350px;
+    }
+    
+    .notification-popup .popup-content {
+        padding: 1.5rem;
+    }
+    
+    .notification-popup .notification-icon {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+    
+    /* Cookie Consent Popup */
+    .cookie-popup {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: auto;
+        max-width: 90%;
+        display: flex;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        z-index: 40;
+    }
+    
+    /* Age Verification Popup */
+    .age-popup .popup-content {
+        padding: 2rem;
+        text-align: center;
+    }
+    
+    .age-popup .age-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1.5rem;
+    }
+    
+    .age-popup .age-button {
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .age-popup .age-yes {
+        background-color: #10b981;
+        color: white;
+    }
+    
+    .age-popup .age-no {
+        background-color: #ef4444;
+        color: white;
+    }
+    
+    .age-popup .age-button:hover {
+        opacity: 0.9;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="demo-container">
+    <h1 class="text-4xl font-bold text-gray-900 mb-8">Popup Banner Examples</h1>
+    
+    <!-- Newsletter Popup Demo -->
+    <div class="demo-section">
+        <h2 class="demo-title">Newsletter Popup</h2>
+        <p class="demo-description">
+            A popup to encourage users to subscribe to your newsletter. This can be triggered after a certain time on the page or when the user is about to leave.
+        </p>
+        <button class="demo-button" id="show-newsletter-popup">
+            <i class="fas fa-envelope mr-2"></i> Show Newsletter Popup
+        </button>
+    </div>
+    
+    <!-- Discount Popup Demo -->
+    <div class="demo-section">
+        <h2 class="demo-title">Discount Popup</h2>
+        <p class="demo-description">
+            A popup to offer discounts to users. This can be shown to first-time visitors or returning customers.
+        </p>
+        <button class="demo-button" id="show-discount-popup">
+            <i class="fas fa-tag mr-2"></i> Show Discount Popup
+        </button>
+    </div>
+    
+    <!-- Notification Popup Demo -->
+    <div class="demo-section">
+        <h2 class="demo-title">Notification Popup</h2>
+        <p class="demo-description">
+            A small popup to notify users about important updates, new features, or other information.
+        </p>
+        <div class="flex space-x-4">
+            <button class="demo-button" id="show-success-popup">
+                <i class="fas fa-check-circle mr-2"></i> Success Notification
+            </button>
+            <button class="demo-button" id="show-error-popup" style="background: linear-gradient(to right, #ef4444, #f87171);">
+                <i class="fas fa-exclamation-circle mr-2"></i> Error Notification
+            </button>
+        </div>
+    </div>
+    
+    <!-- Cookie Consent Demo -->
+    <div class="demo-section">
+        <h2 class="demo-title">Cookie Consent</h2>
+        <p class="demo-description">
+            A popup to inform users about cookie usage and get their consent. This should appear when users first visit your website.
+        </p>
+        <button class="demo-button" id="show-cookie-popup">
+            <i class="fas fa-cookie mr-2"></i> Show Cookie Consent
+        </button>
+    </div>
+    
+    <!-- Age Verification Demo -->
+    <div class="demo-section">
+        <h2 class="demo-title">Age Verification</h2>
+        <p class="demo-description">
+            A popup to verify the user's age before allowing access to age-restricted content.
+        </p>
+        <button class="demo-button" id="show-age-popup">
+            <i class="fas fa-user-check mr-2"></i> Show Age Verification
+        </button>
+    </div>
+</div>
+
+<!-- Newsletter Popup -->
+<div class="popup-overlay" id="newsletter-popup-overlay">
+    <div class="popup newsletter-popup">
+        <div class="popup-close" onclick="closePopup('newsletter-popup-overlay')">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="popup-image">
+            <i class="fas fa-envelope-open-text"></i>
+        </div>
+        <div class="popup-content">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Đăng ký nhận bản tin</h3>
+            <p class="text-gray-600 mb-4">
+                Đăng ký để nhận thông tin mới nhất về công nghệ, mẹo và thủ thuật, cũng như các ưu đãi đặc biệt.
+            </p>
+            <form class="space-y-4">
+                <div>
+                    <input type="text" placeholder="Họ và tên" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <input type="email" placeholder="Địa chỉ email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div class="flex items-start">
+                    <input id="privacy-newsletter" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded mt-1">
+                    <label for="privacy-newsletter" class="ml-2 text-sm text-gray-600">
+                        Tôi đồng ý với <a href="{% url 'privacy_policy' %}" class="text-indigo-600 hover:text-indigo-500">Chính sách bảo mật</a>
+                    </label>
+                </div>
+                <button type="button" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-2 px-4 rounded-md hover:opacity-90 transition-all duration-300">
+                    Đăng ký ngay
+                </button>
+            </form>
+            <p class="text-sm text-gray-500 mt-4 text-center">
+                Bạn có thể hủy đăng ký bất cứ lúc nào.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Discount Popup -->
+<div class="popup-overlay" id="discount-popup-overlay">
+    <div class="popup discount-popup">
+        <div class="popup-background"></div>
+        <div class="popup-close" onclick="closePopup('discount-popup-overlay')" style="background-color: rgba(255, 255, 255, 0.2); color: white;">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="popup-content">
+            <h3 class="text-3xl font-bold mb-2">Giảm giá 20%</h3>
+            <p class="text-lg opacity-90 mb-4">
+                Cho đơn hàng đầu tiên của bạn
+            </p>
+            <p class="mb-6">
+                Sử dụng mã giảm giá sau khi thanh toán:
+            </p>
+            <div class="flex justify-center mb-6">
+                <div class="discount-code">WELCOME20</div>
+            </div>
+            <button type="button" class="w-full bg-white text-purple-600 font-semibold py-3 px-4 rounded-md hover:bg-opacity-90 transition-all duration-300">
+                Mua sắm ngay
+            </button>
+            <p class="text-sm opacity-80 mt-4 text-center">
+                Mã giảm giá có hiệu lực đến 31/12/2025
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Success Notification Popup -->
+<div class="popup-overlay" id="success-popup-overlay">
+    <div class="popup notification-popup">
+        <div class="popup-close" onclick="closePopup('success-popup-overlay')">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="popup-content">
+            <div class="flex items-center">
+                <div class="notification-icon bg-green-100 text-green-500">
+                    <i class="fas fa-check-circle text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1">Thành công!</h3>
+                    <p class="text-gray-600">
+                        Thao tác của bạn đã được hoàn tất thành công.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Notification Popup -->
+<div class="popup-overlay" id="error-popup-overlay">
+    <div class="popup notification-popup">
+        <div class="popup-close" onclick="closePopup('error-popup-overlay')">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="popup-content">
+            <div class="flex items-center">
+                <div class="notification-icon bg-red-100 text-red-500">
+                    <i class="fas fa-exclamation-circle text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1">Lỗi!</h3>
+                    <p class="text-gray-600">
+                        Đã xảy ra lỗi. Vui lòng thử lại sau.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cookie Consent -->
+<div class="cookie-popup hidden" id="cookie-popup">
+    <div class="mr-4">
+        <p class="text-gray-700">
+            Trang web này sử dụng cookie để đảm bảo bạn có trải nghiệm tốt nhất trên trang web của chúng tôi.
+            <a href="{% url 'privacy_policy' %}" class="text-indigo-600 hover:text-indigo-500">Tìm hiểu thêm</a>
+        </p>
+    </div>
+    <div class="flex-shrink-0">
+        <button type="button" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-2 px-4 rounded-md hover:opacity-90 transition-all duration-300" onclick="acceptCookies()">
+            Chấp nhận
+        </button>
+    </div>
+</div>
+
+<!-- Age Verification Popup -->
+<div class="popup-overlay" id="age-popup-overlay">
+    <div class="popup age-popup">
+        <div class="popup-content">
+            <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-user-check text-2xl text-indigo-600"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Xác nhận độ tuổi</h3>
+            <p class="text-gray-600 mb-4">
+                Nội dung này chỉ dành cho người từ 18 tuổi trở lên. Vui lòng xác nhận rằng bạn đã đủ 18 tuổi để tiếp tục.
+            </p>
+            <div class="age-buttons">
+                <button class="age-button age-yes" onclick="verifyAge(true)">
+                    Tôi đã đủ 18 tuổi
+                </button>
+                <button class="age-button age-no" onclick="verifyAge(false)">
+                    Tôi chưa đủ 18 tuổi
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Show popup function
+    function showPopup(id) {
+        document.getElementById(id).classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    // Close popup function
+    function closePopup(id) {
+        document.getElementById(id).classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    // Show cookie popup
+    function showCookiePopup() {
+        document.getElementById('cookie-popup').classList.remove('hidden');
+    }
+    
+    // Accept cookies
+    function acceptCookies() {
+        document.getElementById('cookie-popup').classList.add('hidden');
+        // Here you would set a cookie to remember the user's choice
+        localStorage.setItem('cookiesAccepted', 'true');
+    }
+    
+    // Verify age
+    function verifyAge(isAdult) {
+        closePopup('age-popup-overlay');
+        
+        if (isAdult) {
+            // Allow access to content
+            alert('Xác nhận thành công! Bạn có thể truy cập nội dung này.');
+        } else {
+            // Redirect to home page or show a message
+            alert('Bạn chưa đủ tuổi để xem nội dung này.');
+            window.location.href = '/';
+        }
+    }
+    
+    // Event listeners for demo buttons
+    document.getElementById('show-newsletter-popup').addEventListener('click', function() {
+        showPopup('newsletter-popup-overlay');
+    });
+    
+    document.getElementById('show-discount-popup').addEventListener('click', function() {
+        showPopup('discount-popup-overlay');
+    });
+    
+    document.getElementById('show-success-popup').addEventListener('click', function() {
+        showPopup('success-popup-overlay');
+        // Auto close after 3 seconds
+        setTimeout(function() {
+            closePopup('success-popup-overlay');
+        }, 3000);
+    });
+    
+    document.getElementById('show-error-popup').addEventListener('click', function() {
+        showPopup('error-popup-overlay');
+        // Auto close after 3 seconds
+        setTimeout(function() {
+            closePopup('error-popup-overlay');
+        }, 3000);
+    });
+    
+    document.getElementById('show-cookie-popup').addEventListener('click', function() {
+        showCookiePopup();
+    });
+    
+    document.getElementById('show-age-popup').addEventListener('click', function() {
+        showPopup('age-popup-overlay');
+    });
+    
+    // Close popups when clicking on the overlay
+    document.querySelectorAll('.popup-overlay').forEach(function(overlay) {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) {
+                closePopup(overlay.id);
+            }
+        });
+    });
+    
+    // Show cookie popup on page load if not accepted before
+    document.addEventListener('DOMContentLoaded', function() {
+        if (!localStorage.getItem('cookiesAccepted')) {
+            setTimeout(showCookiePopup, 1000);
+        }
+    });
+</script>
+{% endblock %} 

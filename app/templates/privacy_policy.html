@@ -4,119 +4,462 @@
 {% block title %}Chính Sách Bảo Mật - BMATRIX{% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-8">
-    <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 md:p-8">
-        <h1 class="text-3xl font-bold text-primary mb-6 border-b pb-4">Chính Sách Bảo Mật</h1>
-        
-        <div class="prose max-w-none">
-            <p class="text-gray-600 mb-6">Cập nhật lần cuối: {% now "d/m/Y" %}</p>
-            
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-primary mb-4">1. Giới thiệu</h2>
-                <p class="mb-4">BMATRIX ("chúng tôi", "của chúng tôi") cam kết bảo vệ quyền riêng tư của bạn. Chính sách bảo mật này giải thích cách chúng tôi thu thập, sử dụng, tiết lộ, và bảo vệ thông tin cá nhân của bạn khi bạn truy cập trang web của chúng tôi và sử dụng các dịch vụ của chúng tôi.</p>
-                <p class="mb-4">Chúng tôi sẽ chỉ sử dụng thông tin cá nhân của bạn theo cách được mô tả trong chính sách bảo mật này. Bằng cách sử dụng trang web và dịch vụ của chúng tôi, bạn đồng ý với việc thu thập và sử dụng thông tin theo chính sách này.</p>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="text-center mb-12">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-8 h-8 text-green-600">
+                <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+            </svg>
+        </div>
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Chính sách bảo mật</h1>
+        <div class="flex items-center justify-center space-x-2 text-gray-600 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4">
+                <path d="M8 2v4"></path>
+                <path d="M16 2v4"></path>
+                <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                <path d="M3 10h18"></path>
+            </svg>
+            <span class="text-sm">Cập nhật lần cuối: 29/06/2025</span>
+        </div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">BMATRIX cam kết bảo vệ quyền riêng tư của bạn. Chính sách này giải thích cách chúng tôi thu thập, sử dụng và bảo vệ thông tin cá nhân của bạn.</p>
+    </div>
+    <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-8">
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text w-7 h-7 text-blue-600">
+                        <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                        <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                        <path d="M10 9H8"></path>
+                        <path d="M16 13H8"></path>
+                        <path d="M16 17H8"></path>
+                    </svg>
+                    <h2 class="text-2xl font-bold text-gray-900">Giới thiệu</h2>
+                </div>
+                <div class="prose prose-gray max-w-none">
+                    <p class="text-gray-600 leading-relaxed mb-4">BMATRIX ("chúng tôi", "của chúng tôi") cam kết bảo vệ quyền riêng tư của bạn. Chính sách bảo mật này giải thích cách chúng tôi thu thập, sử dụng, tiết lộ, và bảo vệ thông tin cá nhân của bạn khi bạn truy cập trang web của chúng tôi và sử dụng các dịch vụ của chúng tôi.</p>
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                        <div class="flex items-start space-x-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <path d="m9 11 3 3L22 4"></path>
+                            </svg>
+                            <p class="text-gray-700">Chúng tôi sẽ chỉ sử dụng thông tin cá nhân của bạn theo cách được mô tả trong chính sách bảo mật này. Bằng cách sử dụng trang web và dịch vụ của chúng tôi, bạn đồng ý với việc thu thập và sử dụng thông tin theo chính sách này.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-primary mb-4">2. Thông tin chúng tôi thu thập</h2>
-                <p class="mb-4">Chúng tôi có thể thu thập các loại thông tin sau:</p>
-                
-                <h3 class="text-lg font-medium text-gray-800 mt-4 mb-2">2.1. Thông tin cá nhân</h3>
-                <p class="mb-4">Khi bạn đăng ký tài khoản, đặt hàng, đăng ký nhận bản tin hoặc tham gia khuyến mãi, chúng tôi có thể thu thập các thông tin sau:</p>
-                <ul class="list-disc ml-6 mb-4">
-                    <li>Họ tên</li>
-                    <li>Địa chỉ email</li>
-                    <li>Số điện thoại</li>
-                    <li>Địa chỉ giao hàng và thanh toán</li>
-                    <li>Thông tin thanh toán (chúng tôi không lưu trữ đầy đủ thông tin thẻ tín dụng)</li>
-                    <li>Thông tin tài khoản đăng nhập</li>
-                </ul>
-                
-                <h3 class="text-lg font-medium text-gray-800 mt-4 mb-2">2.2. Thông tin không cá nhân</h3>
-                <p class="mb-4">Chúng tôi cũng có thể thu thập thông tin không cá nhân khi bạn truy cập trang web của chúng tôi, bao gồm:</p>
-                <ul class="list-disc ml-6 mb-4">
-                    <li>Loại trình duyệt và phiên bản</li>
-                    <li>Hệ điều hành</li>
-                    <li>Địa chỉ IP</li>
-                    <li>Thời gian truy cập</li>
-                    <li>Các trang bạn đã xem</li>
-                    <li>Các sản phẩm bạn đã xem hoặc tìm kiếm</li>
-                </ul>
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database w-7 h-7 text-purple-600">
+                        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                        <path d="M3 5V19A9 3 0 0 0 21 19V5"></path>
+                        <path d="M3 12A9 3 0 0 0 21 12"></path>
+                    </svg>
+                    <h2 class="text-2xl font-bold text-gray-900">Thông tin chúng tôi thu thập</h2>
+                </div>
+                <div class="space-y-6">
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="text-purple-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-check w-6 h-6">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <polyline points="16 11 18 13 22 9"></polyline>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900">Thông tin cá nhân</h3>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-3">
+                            <div class="flex items-center space-x-2"><div class="w-2 h-2 bg-purple-400 rounded-full"></div><span class="text-gray-600 text-sm">Họ tên</span></div>
+                            <div class="flex items-center space-x-2"><div class="w-2 h-2 bg-purple-400 rounded-full"></div><span class="text-gray-600 text-sm">Địa chỉ email</span></div>
+                            <div class="flex items-center space-x-2"><div class="w-2 h-2 bg-purple-400 rounded-full"></div><span class="text-gray-600 text-sm">Số điện thoại</span></div>
+                            <div class="flex items-center space-x-2"><div class="w-2 h-2 bg-purple-400 rounded-full"></div><span class="text-gray-600 text-sm">Địa chỉ giao hàng và thanh toán</span></div>
+                            <div class="flex items-center space-x-2"><div class="w-2 h-2 bg-purple-400 rounded-full"></div><span class="text-gray-600 text-sm">Thông tin thanh toán</span></div>
+                            <div class="flex items-center space-x-2"><div class="w-2 h-2 bg-purple-400 rounded-full"></div><span class="text-gray-600 text-sm">Thông tin tài khoản đăng nhập</span></div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="text-purple-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe w-6 h-6">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                                    <path d="M2 12h20"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900">Thông tin không cá nhân</h3>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-3">
+                            <div class="flex items-center space-x-2"><div class="w-2 h-2 bg-purple-400 rounded-full"></div><span class="text-gray-600 text-sm">Loại trình duyệt và phiên bản</span></div>
+                            <div class="flex items-center space-x-2"><div class="w-2 h-2 bg-purple-400 rounded-full"></div><span class="text-gray-600 text-sm">Hệ điều hành</span></div>
+                            <div class="flex items-center space-x-2"><div class="w-2 h-2 bg-purple-400 rounded-full"></div><span class="text-gray-600 text-sm">Địa chỉ IP</span></div>
+                            <div class="flex items-center space-x-2"><div class="w-2 h-2 bg-purple-400 rounded-full"></div><span class="text-gray-600 text-sm">Thời gian truy cập</span></div>
+                            <div class="flex items-center space-x-2"><div class="w-2 h-2 bg-purple-400 rounded-full"></div><span class="text-gray-600 text-sm">Các trang đã xem</span></div>
+                            <div class="flex items-center space-x-2"><div class="w-2 h-2 bg-purple-400 rounded-full"></div><span class="text-gray-600 text-sm">Sản phẩm đã xem/tìm kiếm</span></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-primary mb-4">3. Cách chúng tôi sử dụng thông tin</h2>
-                <p class="mb-4">Chúng tôi sử dụng thông tin thu thập được để:</p>
-                <ul class="list-disc ml-6 mb-4">
-                    <li>Xử lý đơn hàng và giao dịch của bạn</li>
-                    <li>Gửi email xác nhận và cập nhật trạng thái đơn hàng</li>
-                    <li>Quản lý tài khoản của bạn</li>
-                    <li>Cải thiện trang web và dịch vụ của chúng tôi</li>
-                    <li>Cá nhân hóa trải nghiệm mua sắm của bạn</li>
-                    <li>Gửi thông tin về sản phẩm, dịch vụ và khuyến mãi (nếu bạn đã đăng ký)</li>
-                    <li>Phân tích xu hướng sử dụng và hoạt động trên trang web</li>
-                    <li>Phát hiện và ngăn chặn gian lận</li>
-                </ul>
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings w-7 h-7 text-green-600">
+                        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <h2 class="text-2xl font-bold text-gray-900">Cách chúng tôi sử dụng thông tin</h2>
+                </div>
+                <p class="text-gray-600 mb-6">Chúng tôi sử dụng thông tin thu thập được để:</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-green-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <span class="text-gray-700 text-sm">Xử lý đơn hàng và giao dịch của bạn</span>
+                    </div>
+                    <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-green-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <span class="text-gray-700 text-sm">Gửi email xác nhận và cập nhật trạng thái đơn hàng</span>
+                    </div>
+                    <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-green-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <span class="text-gray-700 text-sm">Quản lý tài khoản của bạn</span>
+                    </div>
+                    <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-green-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <span class="text-gray-700 text-sm">Cải thiện trang web và dịch vụ của chúng tôi</span>
+                    </div>
+                    <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-green-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <span class="text-gray-700 text-sm">Cá nhân hóa trải nghiệm mua sắm của bạn</span>
+                    </div>
+                    <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-green-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <span class="text-gray-700 text-sm">Gửi thông tin về sản phẩm, dịch vụ và khuyến mãi</span>
+                    </div>
+                    <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-green-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <span class="text-gray-700 text-sm">Phân tích xu hướng sử dụng và hoạt động trên trang web</span>
+                    </div>
+                    <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-green-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <span class="text-gray-700 text-sm">Phát hiện và ngăn chặn gian lận</span>
+                    </div>
+                </div>
             </div>
-            
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-primary mb-4">4. Cookie và công nghệ theo dõi</h2>
-                <p class="mb-4">Chúng tôi sử dụng cookie và các công nghệ theo dõi tương tự để theo dõi hoạt động trên trang web của chúng tôi và lưu trữ thông tin nhất định. Cookie là các tệp nhỏ được lưu trữ trên thiết bị của bạn. Bạn có thể hướng dẫn trình duyệt của mình từ chối tất cả cookie hoặc thông báo khi cookie được gửi. Tuy nhiên, nếu bạn không chấp nhận cookie, bạn có thể không sử dụng được một số phần của trang web của chúng tôi.</p>
-                <p class="mb-4">Chúng tôi sử dụng cookie để:</p>
-                <ul class="list-disc ml-6 mb-4">
-                    <li>Ghi nhớ thông tin đăng nhập của bạn</li>
-                    <li>Ghi nhớ các mặt hàng trong giỏ hàng của bạn</li>
-                    <li>Hiểu và lưu các tùy chọn của bạn</li>
-                    <li>Theo dõi việc sử dụng trang web</li>
-                    <li>Phân tích dữ liệu về lưu lượng trang web</li>
-                </ul>
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cookie w-7 h-7 text-orange-600">
+                        <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path>
+                        <path d="M8.5 8.5v.01"></path>
+                        <path d="M16 15.5v.01"></path>
+                        <path d="M12 12v.01"></path>
+                        <path d="M11 17v.01"></path>
+                        <path d="M7 14v.01"></path>
+                    </svg>
+                    <h2 class="text-2xl font-bold text-gray-900">Cookie và công nghệ theo dõi</h2>
+                </div>
+                <p class="text-gray-600 mb-6">Chúng tôi sử dụng cookie và các công nghệ theo dõi tương tự để theo dõi hoạt động trên trang web của chúng tôi và lưu trữ thông tin nhất định. Cookie là các tệp nhỏ được lưu trữ trên thiết bị của bạn.</p>
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-6 mb-6">
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-triangle w-5 h-5 text-orange-600 mt-0.5 flex-shrink-0">
+                            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                            <path d="M12 9v4"></path>
+                            <path d="M12 17h.01"></path>
+                        </svg>
+                        <p class="text-gray-700 text-sm">Bạn có thể hướng dẫn trình duyệt của mình từ chối tất cả cookie hoặc thông báo khi cookie được gửi. Tuy nhiên, nếu bạn không chấp nhận cookie, bạn có thể không sử dụng được một số phần của trang web của chúng tôi.</p>
+                    </div>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Chúng tôi sử dụng cookie để:</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-3"><div class="w-2 h-2 bg-orange-400 rounded-full"></div><span class="text-gray-600">Ghi nhớ thông tin đăng nhập của bạn</span></div>
+                    <div class="flex items-center space-x-3"><div class="w-2 h-2 bg-orange-400 rounded-full"></div><span class="text-gray-600">Ghi nhớ các mặt hàng trong giỏ hàng của bạn</span></div>
+                    <div class="flex items-center space-x-3"><div class="w-2 h-2 bg-orange-400 rounded-full"></div><span class="text-gray-600">Hiểu và lưu các tùy chọn của bạn</span></div>
+                    <div class="flex items-center space-x-3"><div class="w-2 h-2 bg-orange-400 rounded-full"></div><span class="text-gray-600">Theo dõi việc sử dụng trang web</span></div>
+                    <div class="flex items-center space-x-3"><div class="w-2 h-2 bg-orange-400 rounded-full"></div><span class="text-gray-600">Phân tích dữ liệu về lưu lượng trang web</span></div>
+                </div>
             </div>
-            
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-primary mb-4">5. Chia sẻ thông tin cá nhân</h2>
-                <p class="mb-4">Chúng tôi không bán, trao đổi hoặc chuyển giao thông tin cá nhân của bạn cho các bên thứ ba mà không có sự đồng ý của bạn, ngoại trừ như được mô tả trong chính sách này. Chúng tôi có thể chia sẻ thông tin với:</p>
-                <ul class="list-disc ml-6 mb-4">
-                    <li><strong>Đối tác dịch vụ:</strong> Chúng tôi có thể chia sẻ thông tin với các công ty đáng tin cậy cung cấp dịch vụ cho chúng tôi, chẳng hạn như xử lý thanh toán, giao hàng, phân tích dữ liệu và hỗ trợ tiếp thị.</li>
-                    <li><strong>Tuân thủ pháp luật:</strong> Chúng tôi có thể tiết lộ thông tin khi được yêu cầu bởi pháp luật hoặc khi chúng tôi tin rằng việc tiết lộ là cần thiết để bảo vệ quyền của chúng tôi, bảo vệ sự an toàn của người khác, điều tra gian lận, hoặc đáp ứng yêu cầu của chính phủ.</li>
-                    <li><strong>Chuyển nhượng kinh doanh:</strong> Nếu chúng tôi tham gia vào việc sáp nhập, mua lại hoặc bán tài sản, thông tin của bạn có thể được chuyển giao. Chúng tôi sẽ thông báo cho bạn trước khi thông tin cá nhân của bạn được chuyển giao và trở thành đối tượng của một chính sách bảo mật khác.</li>
-                </ul>
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users w-7 h-7 text-red-600">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <h2 class="text-2xl font-bold text-gray-900">Chia sẻ thông tin cá nhân</h2>
+                </div>
+                <div class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-5 h-5 text-red-600 mt-0.5 flex-shrink-0">
+                            <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                        </svg>
+                        <p class="text-gray-700 font-medium">Chúng tôi không bán, trao đổi hoặc chuyển giao thông tin cá nhân của bạn cho các bên thứ ba mà không có sự đồng ý của bạn, ngoại trừ như được mô tả trong chính sách này.</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-6">Chúng tôi có thể chia sẻ thông tin với:</p>
+                <div class="space-y-4">
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <div class="flex items-start space-x-3">
+                            <div class="text-red-600 mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share2 w-5 h-5">
+                                    <circle cx="18" cy="5" r="3"></circle>
+                                    <circle cx="6" cy="12" r="3"></circle>
+                                    <circle cx="18" cy="19" r="3"></circle>
+                                    <line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line>
+                                    <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 mb-2">Đối tác dịch vụ</h3>
+                                <p class="text-gray-600 text-sm">Các công ty đáng tin cậy cung cấp dịch vụ như xử lý thanh toán, giao hàng, phân tích dữ liệu và hỗ trợ tiếp thị.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <div class="flex items-start space-x-3">
+                            <div class="text-red-600 mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-5 h-5">
+                                    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 mb-2">Tuân thủ pháp luật</h3>
+                                <p class="text-gray-600 text-sm">Khi được yêu cầu bởi pháp luật hoặc để bảo vệ quyền, an toàn và điều tra gian lận.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <div class="flex items-start space-x-3">
+                            <div class="text-red-600 mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text w-5 h-5">
+                                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                                    <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                                    <path d="M10 9H8"></path>
+                                    <path d="M16 13H8"></path>
+                                    <path d="M16 17H8"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 mb-2">Chuyển nhượng kinh doanh</h3>
+                                <p class="text-gray-600 text-sm">Trong trường hợp sáp nhập, mua lại hoặc bán tài sản, với thông báo trước cho khách hàng.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-primary mb-4">6. Bảo mật dữ liệu</h2>
-                <p class="mb-4">Chúng tôi thực hiện các biện pháp bảo mật hợp lý để bảo vệ thông tin cá nhân của bạn. Chúng tôi sử dụng các biện pháp bảo mật kỹ thuật, vật lý và hành chính để giúp bảo vệ thông tin của bạn khỏi truy cập trái phép.</p>
-                <p class="mb-4">Tuy nhiên, không có phương thức truyền qua internet hoặc phương thức lưu trữ điện tử nào là an toàn 100%. Do đó, mặc dù chúng tôi cố gắng sử dụng các phương tiện thương mại chấp nhận được để bảo vệ thông tin cá nhân của bạn, chúng tôi không thể đảm bảo an ninh tuyệt đối.</p>
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock w-7 h-7 text-indigo-600">
+                        <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <h2 class="text-2xl font-bold text-gray-900">Bảo mật dữ liệu</h2>
+                </div>
+                <p class="text-gray-600 mb-6">Chúng tôi thực hiện các biện pháp bảo mật hợp lý để bảo vệ thông tin cá nhân của bạn. Chúng tôi sử dụng các biện pháp bảo mật kỹ thuật, vật lý và hành chính để giúp bảo vệ thông tin của bạn khỏi truy cập trái phép.</p>
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-triangle w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0">
+                            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                            <path d="M12 9v4"></path>
+                            <path d="M12 17h.01"></path>
+                        </svg>
+                        <p class="text-gray-700 text-sm">Tuy nhiên, không có phương thức truyền qua internet hoặc phương thức lưu trữ điện tử nào là an toàn 100%. Do đó, mặc dù chúng tôi cố gắng sử dụng các phương tiện thương mại chấp nhận được để bảo vệ thông tin cá nhân của bạn, chúng tôi không thể đảm bảo an ninh tuyệt đối.</p>
+                    </div>
+                </div>
             </div>
-            
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-primary mb-4">7. Quyền của bạn</h2>
-                <p class="mb-4">Bạn có quyền:</p>
-                <ul class="list-disc ml-6 mb-4">
-                    <li>Truy cập thông tin cá nhân mà chúng tôi lưu giữ về bạn</li>
-                    <li>Yêu cầu sửa đổi thông tin không chính xác</li>
-                    <li>Yêu cầu xóa thông tin cá nhân của bạn</li>
-                    <li>Phản đối việc xử lý thông tin cá nhân của bạn</li>
-                    <li>Yêu cầu hạn chế xử lý thông tin cá nhân của bạn</li>
-                    <li>Yêu cầu chuyển giao thông tin cá nhân của bạn</li>
-                    <li>Hủy đăng ký nhận email tiếp thị</li>
-                </ul>
-                <p class="mb-4">Để thực hiện các quyền này, vui lòng liên hệ với chúng tôi theo thông tin liên hệ được cung cấp dưới đây.</p>
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye w-7 h-7 text-teal-600">
+                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <h2 class="text-2xl font-bold text-gray-900">Quyền của bạn</h2>
+                </div>
+                <p class="text-gray-600 mb-6">Bạn có quyền:</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-start space-x-3 p-4 bg-teal-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <span class="text-gray-700 text-sm">Truy cập thông tin cá nhân mà chúng tôi lưu giữ về bạn</span>
+                    </div>
+                    <div class="flex items-start space-x-3 p-4 bg-teal-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <span class="text-gray-700 text-sm">Yêu cầu sửa đổi thông tin không chính xác</span>
+                    </div>
+                    <div class="flex items-start space-x-3 p-4 bg-teal-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <span class="text-gray-700 text-sm">Yêu cầu xóa thông tin cá nhân của bạn</span>
+                    </div>
+                    <div class="flex items-start space-x-3 p-4 bg-teal-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <span class="text-gray-700 text-sm">Phản đối việc xử lý thông tin cá nhân của bạn</span>
+                    </div>
+                    <div class="flex items-start space-x-3 p-4 bg-teal-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <span class="text-gray-700 text-sm">Yêu cầu hạn chế xử lý thông tin cá nhân của bạn</span>
+                    </div>
+                    <div class="flex items-start space-x-3 p-4 bg-teal-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <span class="text-gray-700 text-sm">Yêu cầu chuyển giao thông tin cá nhân của bạn</span>
+                    </div>
+                    <div class="flex items-start space-x-3 p-4 bg-teal-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <span class="text-gray-700 text-sm">Hủy đăng ký nhận email tiếp thị</span>
+                    </div>
+                </div>
+                <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                    <p class="text-gray-600 text-sm">Để thực hiện các quyền này, vui lòng liên hệ với chúng tôi theo thông tin liên hệ được cung cấp bên dưới.</p>
+                </div>
             </div>
-            
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-primary mb-4">8. Thay đổi chính sách bảo mật</h2>
-                <p class="mb-4">Chúng tôi có thể cập nhật Chính sách bảo mật này tùy từng thời điểm. Chúng tôi sẽ thông báo cho bạn về bất kỳ thay đổi nào bằng cách đăng chính sách mới trên trang này và cập nhật ngày "Cập nhật lần cuối" ở đầu Chính sách bảo mật này.</p>
-                <p class="mb-4">Bạn nên kiểm tra trang này định kỳ để cập nhật về các thay đổi. Những thay đổi đối với Chính sách bảo mật này có hiệu lực khi được đăng trên trang này.</p>
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-7 h-7 text-blue-600">
+                        <path d="M8 2v4"></path>
+                        <path d="M16 2v4"></path>
+                        <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                        <path d="M3 10h18"></path>
+                    </svg>
+                    <h2 class="text-2xl font-bold text-gray-900">Thay đổi chính sách bảo mật</h2>
+                </div>
+                <div class="space-y-4 text-gray-600">
+                    <p>Chúng tôi có thể cập nhật Chính sách bảo mật này tùy từng thời điểm. Chúng tôi sẽ thông báo cho bạn về bất kỳ thay đổi nào bằng cách đăng chính sách mới trên trang này và cập nhật ngày "Cập nhật lần cuối" ở đầu Chính sách bảo mật này.</p>
+                    <p>Bạn nên kiểm tra trang này định kỳ để cập nhật về các thay đổi. Những thay đổi đối với Chính sách bảo mật này có hiệu lực khi được đăng trên trang này.</p>
+                </div>
             </div>
-            
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-primary mb-4">9. Liên hệ</h2>
-                <p>Nếu bạn có bất kỳ câu hỏi nào về Chính sách bảo mật này, vui lòng liên hệ với chúng tôi qua:</p>
-                <ul class="list-disc ml-6 mt-2">
-                    <li>Email: privacy@bountymatrix.net</li>
-                    <li>Điện thoại: (+84) 966 342 792</li>
-                    <li>Địa chỉ: QL32, Phụng Thượng, Phúc Thọ, Hà Nội, Vietnam</li>
-                </ul>
+        </div>
+        <div class="space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border p-6 sticky top-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-6">Liên hệ về bảo mật</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-5 h-5 text-blue-600 mt-1 flex-shrink-0">
+                            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900">Email bảo mật</p>
+                            <a href="mailto:privacy@bountymatrix.net" class="text-blue-600 hover:text-blue-800 transition-colors text-sm">privacy@bountymatrix.net</a>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone w-5 h-5 text-blue-600 mt-1 flex-shrink-0">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900">Hotline</p>
+                            <a href="tel:+84966342792" class="text-blue-600 hover:text-blue-800 transition-colors">(+84) 966 342 792</a>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin w-5 h-5 text-blue-600 mt-1 flex-shrink-0">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900">Địa chỉ</p>
+                            <p class="text-gray-600 text-sm">QL32, Phụng Thượng, Phúc Thọ, Hà Nội, Vietnam</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <button class="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-green-700 transition-colors">Liên hệ về quyền riêng tư</button>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Tóm tắt nhanh</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-5 h-5 text-green-600 mt-0.5 flex-shrink-0">
+                            <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900 text-sm">Bảo vệ dữ liệu</p>
+                            <p class="text-gray-600 text-xs">Chúng tôi không bán thông tin cá nhân của bạn</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0">
+                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900 text-sm">Quyền kiểm soát</p>
+                            <p class="text-gray-600 text-xs">Bạn có thể truy cập và xóa dữ liệu của mình</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0">
+                            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900 text-sm">Bảo mật cao</p>
+                            <p class="text-gray-600 text-xs">Sử dụng các biện pháp bảo mật tiên tiến</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900 text-sm">Minh bạch</p>
+                            <p class="text-gray-600 text-xs">Thông báo rõ ràng về việc sử dụng dữ liệu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Chính sách liên quan</h3>
+                <div class="space-y-2">
+                    <a href="#" class="block text-gray-600 hover:text-blue-600 transition-colors py-2 border-b border-gray-100">Chính sách đổi trả</a>
+                    <a href="#" class="block text-gray-600 hover:text-blue-600 transition-colors py-2 border-b border-gray-100">Chính sách vận chuyển</a>
+                    <a href="#" class="block text-gray-600 hover:text-blue-600 transition-colors py-2 border-b border-gray-100">Điều khoản sử dụng</a>
+                    <a href="#" class="block text-gray-600 hover:text-blue-600 transition-colors py-2">Chính sách cookie</a>
+                </div>
             </div>
         </div>
     </div>

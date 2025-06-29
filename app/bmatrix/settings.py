@@ -8,10 +8,47 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
+
+ENVIRONMENT VARIABLES:
+---------------------
+This project uses environment variables for sensitive settings.
+Create a .env file in the same directory as this file with the following variables:
+
+# Django secret key
+SECRET_KEY=your-secret-key-here
+
+# Debug settings
+DEBUG=True
+
+# Allowed hosts (comma-separated)
+ALLOWED_HOSTS=localhost,127.0.0.1
+
+# Database settings
+DB_ENGINE=django.db.backends.sqlite3
+DB_NAME=db.sqlite3
+
+# Google OAuth credentials
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+# AllAuth Settings
+ACCOUNT_AUTHENTICATION_METHOD=email
+ACCOUNT_EMAIL_REQUIRED=True
+ACCOUNT_USERNAME_REQUIRED=True
+ACCOUNT_EMAIL_VERIFICATION=optional
+ACCOUNT_UNIQUE_EMAIL=True
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT=5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT=300
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE=True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE=True
 """
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +58,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!p1b(h^wetuj+$&&11k9g%#qq=q=27m5cq%@d=1%k9k&-bj3m5'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-!p1b(h^wetuj+$&&11k9g%#qq=q=27m5cq%@d=1%k9k&-bj3m5')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',') if os.environ.get('ALLOWED_HOSTS') else ['*']
 
 
 # Application definition
@@ -90,8 +127,8 @@ WSGI_APPLICATION = 'bmatrix.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.environ.get('DB_ENGINE', 'django.db.backends.sqlite3'),
+        'NAME': os.environ.get('DB_NAME', BASE_DIR / 'db.sqlite3'),
     }
 }
 
@@ -118,8 +155,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'vi'  
-TIME_ZONE = 'Asia/Ho_Chi_Minh'
+LANGUAGE_CODE = os.environ.get('LANGUAGE_CODE', 'vi')
+TIME_ZONE = os.environ.get('TIME_ZONE', 'Asia/Ho_Chi_Minh')
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -152,18 +189,18 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-SITE_ID = 1
+SITE_ID = int(os.environ.get('SITE_ID', 1))
 
 # AllAuth Settings
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
-ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
-ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+ACCOUNT_AUTHENTICATION_METHOD = os.environ.get('ACCOUNT_AUTHENTICATION_METHOD', 'email')
+ACCOUNT_EMAIL_REQUIRED = os.environ.get('ACCOUNT_EMAIL_REQUIRED', 'True') == 'True'
+ACCOUNT_USERNAME_REQUIRED = os.environ.get('ACCOUNT_USERNAME_REQUIRED', 'True') == 'True'
+ACCOUNT_EMAIL_VERIFICATION = os.environ.get('ACCOUNT_EMAIL_VERIFICATION', 'optional')
+ACCOUNT_UNIQUE_EMAIL = os.environ.get('ACCOUNT_UNIQUE_EMAIL', 'True') == 'True'
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = int(os.environ.get('ACCOUNT_LOGIN_ATTEMPTS_LIMIT', 5))
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = int(os.environ.get('ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT', 300))
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = os.environ.get('ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE', 'True') == 'True'
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = os.environ.get('ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE', 'True') == 'True'
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
@@ -174,11 +211,16 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
         'AUTH_PARAMS': {
             'access_type': 'online',
-        }
+        },
+        'CLIENT_ID': os.environ.get('GOOGLE_CLIENT_ID', ''),
+        'SECRET': os.environ.get('GOOGLE_CLIENT_SECRET', ''),
     }
 }
 
 # Login/Logout URLs
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = os.environ.get('LOGIN_REDIRECT_URL', '/')
+LOGOUT_REDIRECT_URL = os.environ.get('LOGOUT_REDIRECT_URL', '/')
+LOGIN_URL = os.environ.get('LOGIN_URL', '/accounts/login/')
+
+# 404 Settings
+APPEND_SLASH = True  # Thêm dấu / vào cuối URL nếu không có

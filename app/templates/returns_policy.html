@@ -1,0 +1,317 @@
+{% extends 'base.html' %}
+
+{% block title %}Chính sách đổi trả - BMATRIX{% endblock %}
+
+{% block content %}
+<div class="bg-gray-700 py-16 text-center">
+    <div class="container mx-auto px-4">
+        <h1 class="text-5xl font-bold text-white mb-6">Chính sách đổi trả</h1>
+        <div class="flex items-center justify-center text-white/80 text-sm">
+            <a href="{% url 'shop:home' %}" class="hover:text-white">Trang chủ</a>
+            <span class="mx-2">/</span>
+            <span class="text-white">Chính sách đổi trả</span>
+        </div>
+    </div>
+</div>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-8">
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-7 h-7 text-blue-600">
+                        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                    </svg>
+                    <h2 class="text-2xl font-bold text-gray-900">Tổng quan chính sách</h2>
+                </div>
+                <div class="prose prose-gray max-w-none">
+                    <p class="text-gray-600 leading-relaxed mb-6">BMATRIX hiểu rằng đôi khi khách hàng cần đổi trả sản phẩm vì nhiều lý do khác nhau. Chúng tôi cam kết hỗ trợ quý khách một cách tốt nhất với quy trình đổi trả minh bạch, nhanh chóng và thuận tiện.</p>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="text-center p-6 bg-blue-50 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock w-8 h-8 text-blue-600 mx-auto mb-3">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <h3 class="font-semibold text-gray-900 mb-2">Thời hạn linh hoạt</h3>
+                            <p class="text-sm text-gray-600">Từ 7-30 ngày tùy theo điều kiện sản phẩm</p>
+                        </div>
+                        <div class="text-center p-6 bg-green-50 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-credit-card w-8 h-8 text-green-600 mx-auto mb-3">
+                                <rect width="20" height="14" x="2" y="5" rx="2"></rect>
+                                <line x1="2" x2="22" y1="10" y2="10"></line>
+                            </svg>
+                            <h3 class="font-semibold text-gray-900 mb-2">Hoàn tiền nhanh</h3>
+                            <p class="text-sm text-gray-600">Xử lý hoàn tiền trong 3-5 ngày làm việc</p>
+                        </div>
+                        <div class="text-center p-6 bg-purple-50 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-truck w-8 h-8 text-purple-600 mx-auto mb-3">
+                                <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"></path>
+                                <path d="M15 18H9"></path>
+                                <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"></path>
+                                <circle cx="17" cy="18" r="2"></circle>
+                                <circle cx="7" cy="18" r="2"></circle>
+                            </svg>
+                            <h3 class="font-semibold text-gray-900 mb-2">Hỗ trợ vận chuyển</h3>
+                            <p class="text-sm text-gray-600">Miễn phí vận chuyển đổi trả với sản phẩm lỗi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Thời hạn và điều kiện đổi trả</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200">
+                                <th class="text-left py-4 px-4 font-semibold text-gray-900">Điều kiện</th>
+                                <th class="text-left py-4 px-4 font-semibold text-gray-900">Thời hạn</th>
+                                <th class="text-left py-4 px-4 font-semibold text-gray-900">Hình thức xử lý</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                <td class="py-4 px-4 text-gray-700">Sản phẩm lỗi do nhà sản xuất</td>
+                                <td class="py-4 px-4"><span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">30 ngày</span></td>
+                                <td class="py-4 px-4 text-gray-700">Hoàn tiền 100% + phí vận chuyển</td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                <td class="py-4 px-4 text-gray-700">Sản phẩm không đúng mô tả</td>
+                                <td class="py-4 px-4"><span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">15 ngày</span></td>
+                                <td class="py-4 px-4 text-gray-700">Hoàn tiền 100%</td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                <td class="py-4 px-4 text-gray-700">Đổi ý (sản phẩm còn nguyên seal)</td>
+                                <td class="py-4 px-4"><span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">7 ngày</span></td>
+                                <td class="py-4 px-4 text-gray-700">Hoàn tiền 95%</td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                <td class="py-4 px-4 text-gray-700">Đổi size/màu sắc</td>
+                                <td class="py-4 px-4"><span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">15 ngày</span></td>
+                                <td class="py-4 px-4 text-gray-700">Đổi miễn phí</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Quy trình đổi trả</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="flex space-x-4 p-6 bg-gray-50 rounded-lg hover:shadow-md transition-shadow">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">1</div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <div class="text-blue-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone w-6 h-6">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-semibold text-gray-900">Liên hệ hỗ trợ</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm leading-relaxed">Gọi hotline hoặc gửi email thông báo yêu cầu đổi trả trong thời hạn quy định</p>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4 p-6 bg-gray-50 rounded-lg hover:shadow-md transition-shadow">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">2</div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <div class="text-blue-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-6 h-6">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                        <path d="m9 11 3 3L22 4"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-semibold text-gray-900">Xác nhận điều kiện</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm leading-relaxed">BMATRIX sẽ kiểm tra điều kiện đổi trả và hướng dẫn quy trình cụ thể</p>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4 p-6 bg-gray-50 rounded-lg hover:shadow-md transition-shadow">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">3</div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <div class="text-blue-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package w-6 h-6">
+                                        <path d="m7.5 4.27 9 5.15"></path>
+                                        <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
+                                        <path d="m3.3 7 8.7 5 8.7-5"></path>
+                                        <path d="M12 22V12"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-semibold text-gray-900">Gửi sản phẩm</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm leading-relaxed">Đóng gói sản phẩm cẩn thận và gửi về địa chỉ kho của BMATRIX</p>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4 p-6 bg-gray-50 rounded-lg hover:shadow-md transition-shadow">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">4</div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <div class="text-blue-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-refresh-cw w-6 h-6">
+                                        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+                                        <path d="M21 3v5h-5"></path>
+                                        <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+                                        <path d="M8 16H3v5"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-semibold text-gray-900">Xử lý đổi trả</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm leading-relaxed">Kiểm tra sản phẩm và xử lý hoàn tiền/đổi hàng trong 3-5 ngày làm việc</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-xcircle w-7 h-7 text-red-600">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="m15 9-6 6"></path>
+                        <path d="m9 9 6 6"></path>
+                    </svg>
+                    <h2 class="text-2xl font-bold text-gray-900">Sản phẩm không thể đổi trả</h2>
+                </div>
+                <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+                    <ul class="space-y-3">
+                        <li class="flex items-start space-x-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-xcircle w-5 h-5 text-red-500 mt-0.5 flex-shrink-0">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="m15 9-6 6"></path>
+                                <path d="m9 9 6 6"></path>
+                            </svg>
+                            <span class="text-gray-700">Sản phẩm đã qua sử dụng hoặc bị hư hỏng do người dùng</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-xcircle w-5 h-5 text-red-500 mt-0.5 flex-shrink-0">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="m15 9-6 6"></path>
+                                <path d="m9 9 6 6"></path>
+                            </svg>
+                            <span class="text-gray-700">Sản phẩm không còn trong bao bì gốc</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-xcircle w-5 h-5 text-red-500 mt-0.5 flex-shrink-0">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="m15 9-6 6"></path>
+                                <path d="m9 9 6 6"></path>
+                            </svg>
+                            <span class="text-gray-700">Sản phẩm thuộc danh mục hàng cá nhân (tai nghe, khẩu trang...)</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-xcircle w-5 h-5 text-red-500 mt-0.5 flex-shrink-0">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="m15 9-6 6"></path>
+                                <path d="m9 9 6 6"></path>
+                            </svg>
+                            <span class="text-gray-700">Sản phẩm đặc biệt theo yêu cầu riêng</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-xcircle w-5 h-5 text-red-500 mt-0.5 flex-shrink-0">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="m15 9-6 6"></path>
+                                <path d="m9 9 6 6"></path>
+                            </svg>
+                            <span class="text-gray-700">Phần mềm, license keys đã được kích hoạt</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border p-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Lưu ý quan trọng</h2>
+                <div class="space-y-4 text-gray-600">
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-green-500 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <p>Sản phẩm đổi trả phải còn nguyên vẹn, chưa qua sử dụng và còn đầy đủ phụ kiện, bao bì gốc.</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-green-500 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <p>Khách hàng vui lòng giữ lại hóa đơn mua hàng để làm căn cứ cho việc đổi trả.</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-green-500 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <p>Đối với sản phẩm lỗi do nhà sản xuất, BMATRIX sẽ chịu toàn bộ phí vận chuyển đổi trả.</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-green-500 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <p>Thời gian xử lý hoàn tiền: 3-5 ngày làm việc đối với thẻ tín dụng, 5-7 ngày với chuyển khoản ngân hàng.</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 噴 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 text-green-500 mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <path d="m9 11 3 3L22 4"></path>
+                        </svg>
+                        <p>Chính sách này có thể thay đổi mà không cần báo trước. Vui lòng kiểm tra phiên bản mới nhất trên website.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border p-6 sticky top-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-6">Liên hệ hỗ trợ</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone w-5 h-5 text-blue-600 mt-1 flex-shrink-0">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900">Hotline</p>
+                            <a href="tel:+84966342792" class="text-blue-600 hover:text-blue-800 transition-colors">(+84) 966 342 792</a>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-5 h-5 text-blue-600 mt-1 flex-shrink-0">
+                            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900">Email</p>
+                            <a href="mailto:support@bountymatrix.vn" class="text-blue-600 hover:text-blue-800 transition-colors">support@bountymatrix.vn</a>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin w-5 h-5 text-blue-600 mt-1 flex-shrink-0">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900">Địa chỉ</p>
+                            <p class="text-gray-600 text-sm">QL32, Phụng Thượng, Phúc Thọ, Hà Nội, Vietnam</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <button class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors">Yêu cầu đổi trả</button>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Chính sách khác</h3>
+                <div class="space-y-2">
+                    <a href="#" class="block text-gray-600 hover:text-blue-600 transition-colors py-2 border-b border-gray-100">Chính sách vận chuyển</a>
+                    <a href="#" class="block text-gray-600 hover:text-blue-600 transition-colors py-2 border-b border-gray-100">Chính sách bảo hành</a>
+                    <a href="#" class="block text-gray-600 hover:text-blue-600 transition-colors py-2 border-b border-gray-100">Chính sách thanh toán</a>
+                    <a href="#" class="block text-gray-600 hover:text-blue-600 transition-colors py-2">Chính sách bảo mật</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} 

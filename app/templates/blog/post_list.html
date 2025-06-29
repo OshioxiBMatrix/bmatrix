@@ -9,13 +9,23 @@
         <div class="flex items-center justify-center text-white/80 text-sm">
             <a href="{% url 'shop:home' %}" class="hover:text-white">Home</a>
             <span class="mx-2">/</span>
-            <span class="text-white">FAQ</span>
+            <span class="text-white">Blog</span>
+            {% if selected_category %}
+            <span class="mx-2">/</span>
+            <span class="text-white">{{ selected_category.name }}</span>
+            {% endif %}
         </div>
     </div>
 </div>
 
 <div class="container mx-auto px-4 py-12">
-    <h2 id="latest-posts" class="text-2xl font-semibold text-gray-800 mb-8 text-center">Latest Posts</h2>
+    <h2 id="latest-posts" class="text-2xl font-semibold text-gray-800 mb-8 text-center">
+        {% if selected_category %}
+            {{ selected_category.name }}
+        {% else %}
+            Latest Posts
+        {% endif %}
+    </h2>
     <p class="text-gray-600 text-center mb-12">Discover insights, tutorials, and thoughts on modern technology</p>
     
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -44,28 +54,32 @@
                     {% for category in categories %}
                     <li>
                         <a href="{% url 'blog:post_list' %}?category={{ category.slug }}" 
-                           class="{% if selected_category == category.slug %}text-blue-600 font-medium{% else %}text-gray-700 hover:text-blue-600{% endif %} flex items-center">
-                            <span class="mr-2">
-                                {% if category.slug == 'ai-ml' %}
-                                <i class="fas fa-brain"></i>
-                                {% elif category.slug == 'web-dev' %}
-                                <i class="fas fa-code"></i>
-                                {% elif category.slug == 'mobile-dev' %}
-                                <i class="fas fa-mobile-alt"></i>
-                                {% elif category.slug == 'database' %}
-                                <i class="fas fa-database"></i>
-                                {% elif category.slug == 'architecture' %}
-                                <i class="fas fa-server"></i>
-                                {% else %}
-                                <i class="fas fa-folder"></i>
-                                {% endif %}
-                            </span>
-                            {{ category.name }}
-                            {% if selected_category == category.slug %}
-                                <span class="ml-auto">
-                                    <i class="fas fa-check-circle text-blue-600"></i>
+                           class="{% if selected_category == category %}text-blue-600 font-medium{% else %}text-gray-700 hover:text-blue-600{% endif %} flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="mr-2">
+                                    {% if 'ai' in category.slug or 'machine-learning' in category.slug %}
+                                    <i class="fas fa-brain"></i>
+                                    {% elif 'web' in category.slug %}
+                                    <i class="fas fa-code"></i>
+                                    {% elif 'mobile' in category.slug or 'app' in category.slug %}
+                                    <i class="fas fa-mobile-alt"></i>
+                                    {% elif 'database' in category.slug or 'data' in category.slug %}
+                                    <i class="fas fa-database"></i>
+                                    {% elif 'architecture' in category.slug or 'system' in category.slug %}
+                                    <i class="fas fa-server"></i>
+                                    {% elif 'security' in category.slug %}
+                                    <i class="fas fa-shield-alt"></i>
+                                    {% elif 'cloud' in category.slug %}
+                                    <i class="fas fa-cloud"></i>
+                                    {% elif 'game' in category.slug %}
+                                    <i class="fas fa-gamepad"></i>
+                                    {% else %}
+                                    <i class="fas fa-folder"></i>
+                                    {% endif %}
                                 </span>
-                            {% endif %}
+                                {{ category.name }}
+                            </div>
+                            <span class="bg-gray-100 text-gray-600 text-xs rounded-full px-2 py-1">{{ category.post_count }}</span>
                         </a>
                     </li>
                     {% endfor %}
@@ -90,6 +104,17 @@
                         {% endif %}
                         
                         <div class="p-6">
+                            {% if post.categories.exists %}
+                            <div class="mb-3 flex flex-wrap gap-2">
+                                {% for category in post.categories.all %}
+                                <a href="{% url 'blog:post_list' %}?category={{ category.slug }}" 
+                                   class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full hover:bg-blue-200 transition">
+                                    {{ category.name }}
+                                </a>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            
                             <div class="flex items-center mb-2 text-sm text-gray-500">
                                 <i class="far fa-calendar-alt mr-2"></i>
                                 <span>{{ post.created_at|date:"d M, Y" }}</span>
@@ -127,12 +152,12 @@
                             {% if search_query %}
                                 No posts match your search for "{{ search_query }}"
                                 {% if selected_category %}
-                                    in the selected category.
+                                    in the category "{{ selected_category.name }}".
                                 {% else %}
                                     .
                                 {% endif %}
                             {% elif selected_category %}
-                                No posts found in the selected category.
+                                No posts found in the category "{{ selected_category.name }}".
                             {% endif %}
                         </p>
                         <a href="{% url 'blog:post_list' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md transition inline-block">

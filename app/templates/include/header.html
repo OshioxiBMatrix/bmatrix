@@ -70,10 +70,11 @@
             
             <!-- Desktop Navigation -->
             <nav class="hidden lg:flex items-center space-x-6">
-                <a href="#" class="text-primary hover:text-secondary font-medium">Trang chủ</a>
+                <a href="/" class="text-primary hover:text-secondary font-medium">Trang chủ</a>
                 <a href="#" class="text-primary hover:text-secondary font-medium">Giảm giá</a>
                 <a href="{% url 'blog:post_list' %}" class="text-primary hover:text-secondary font-medium">Blog</a>
                 <a href="#" class="text-primary hover:text-secondary font-medium">Cửa hàng</a>
+                <a href="{% url 'faq' %}" class="text-primary hover:text-secondary font-medium">FAQ</a>
                 
                 <!-- Pages Dropdown -->
                 <div class="relative dropdown-container">
@@ -81,16 +82,14 @@
                         Page <i class="fas fa-chevron-down text-xs ml-1"></i>
                     </button>
                     <div id="dropdown-menu" class="hidden absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-50 dropdown-menu">
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Giới thiệu về chúng tôi</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Chứng nhận</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Câu hỏi thường gặp</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Liên hệ</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Đội ngũ</a>
-                        <a href="{% url 'accounts:login' %}" class="block px-4 py-2 hover:bg-gray-100">Đăng nhập</a>
-                        <a href="{% url 'accounts:register' %}" class="block px-4 py-2 hover:bg-gray-100">Đăng ký</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">404</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Sắp ra mắt</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Popup Banner</a>
+                        <a href="{% url 'about' %}" class="block px-4 py-2 hover:bg-gray-100">Giới thiệu về chúng tôi</a>
+                        <a href="{% url 'certification' %}" class="block px-4 py-2 hover:bg-gray-100">Chứng nhận</a>
+                        <a href="{% url 'contact' %}" class="block px-4 py-2 hover:bg-gray-100">Liên hệ</a>
+                        <a href="{% url 'team' %}" class="block px-4 py-2 hover:bg-gray-100">Đội ngũ</a>
+                        <a href="{% url 'popup_banner' %}" class="block px-4 py-2 hover:bg-gray-100">Popup Banner</a>
+                        <a href="{% url 'privacy_policy' %}" class="block px-4 py-2 hover:bg-gray-100">Chính sách bảo mật</a>
+                        <a href="{% url 'terms_of_service' %}" class="block px-4 py-2 hover:bg-gray-100">Điều khoản dịch vụ</a>
+                        <a href="{% url 'faq' %}" class="block px-4 py-2 hover:bg-gray-100">FAQ</a>
                     </div>
                 </div>
             </nav>
@@ -117,10 +116,11 @@
 <div id="mobile-menu" class="hidden lg:hidden bg-white shadow-lg py-4 fixed top-[145px] left-0 right-0 z-50 max-h-[80vh] overflow-y-auto">
     <div class="container mx-auto px-4">
         <nav class="flex flex-col space-y-4">
-            <a href="#" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Trang chủ</a>
+            <a href="/" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Trang chủ</a>
             <a href="#" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Giảm giá</a>
             <a href="{% url 'blog:post_list' %}" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Blog</a>
             <a href="#" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Cửa hàng</a>
+            <a href="{% url 'faq' %}" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">FAQ</a>
             
             <!-- Pages Dropdown -->
             <div class="relative">
@@ -128,16 +128,16 @@
                     Page <i class="fas fa-chevron-down text-xs ml-1"></i>
                 </button>
                 <div id="mobile-page-menu" class="hidden pl-4 mt-2 space-y-2">
-                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Giới thiệu về chúng tôi</a>
-                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Chứng nhận</a>
-                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Câu hỏi thường gặp</a>
-                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Liên hệ</a>
-                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Đội ngũ</a>
+                    <a href="{% url 'about' %}" class="block py-2 text-gray-700 hover:text-secondary">Giới thiệu về chúng tôi</a>
+                    <a href="{% url 'certification' %}" class="block py-2 text-gray-700 hover:text-secondary">Chứng nhận</a>
+                    <a href="{% url 'contact' %}" class="block py-2 text-gray-700 hover:text-secondary">Liên hệ</a>
+                    <a href="{% url 'team' %}" class="block py-2 text-gray-700 hover:text-secondary">Đội ngũ</a>
                     <a href="{% url 'accounts:login' %}" class="block py-2 text-gray-700 hover:text-secondary">Đăng nhập</a>
                     <a href="{% url 'accounts:register' %}" class="block py-2 text-gray-700 hover:text-secondary">Đăng ký</a>
-                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">404</a>
-                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Sắp ra mắt</a>
-                    <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Popup Banner</a>
+                    <a href="{% url 'popup_banner' %}" class="block py-2 text-gray-700 hover:text-secondary">Popup Banner</a>
+                    <a href="{% url 'privacy_policy' %}" class="block py-2 text-gray-700 hover:text-secondary">Chính sách bảo mật</a>
+                    <a href="{% url 'terms_of_service' %}" class="block py-2 text-gray-700 hover:text-secondary">Điều khoản dịch vụ</a>
+                    <a href="{% url 'faq' %}" class="block py-2 text-gray-700 hover:text-secondary">FAQ</a>
                 </div>
             </div>
             

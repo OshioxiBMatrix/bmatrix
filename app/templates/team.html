@@ -1,0 +1,503 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Đội ngũ | Bmatrix{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+<style>
+    .team-member-card {
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .team-member-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .team-member-image {
+        transition: all 0.5s ease;
+        position: relative;
+    }
+    
+    .team-member-card:hover .team-member-image {
+        transform: scale(1.05);
+    }
+    
+    .team-member-image::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .team-member-card:hover .team-member-image::after {
+        opacity: 1;
+    }
+    
+    .social-links {
+        position: absolute;
+        bottom: -40px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        z-index: 10;
+        transition: all 0.3s ease;
+    }
+    
+    .team-member-card:hover .social-links {
+        bottom: 20px;
+    }
+    
+    .social-link {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        border-radius: 50%;
+        color: #4f46e5;
+        transition: all 0.3s ease;
+    }
+    
+    .social-link:hover {
+        background-color: #4f46e5;
+        color: white;
+        transform: scale(1.1);
+    }
+    
+    .department-filter-btn {
+        transition: all 0.3s ease;
+    }
+    
+    .department-filter-btn.active {
+        background: linear-gradient(to right, #3b82f6, #8b5cf6);
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white hero-section">
+    <div class="absolute inset-0 bg-black/20"></div>
+    <div class="relative max-w-7xl mx-auto px-6 py-20 lg:py-28 hero-content">
+        <div class="text-center">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full mb-8 hero-icon">
+                <span class="text-4xl">👥</span>
+            </div>
+            <h1 class="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent hero-title">
+                Đội ngũ của chúng tôi
+            </h1>
+            <p class="text-xl lg:text-2xl mb-8 text-blue-100 max-w-4xl mx-auto leading-relaxed hero-description">
+                Gặp gỡ những con người tài năng đằng sau thành công của Bmatrix
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Team Introduction Section -->
+<section class="py-20 reveal">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 section-title">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Đội ngũ</span> chuyên gia
+            </h2>
+            <p class="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                Đội ngũ của chúng tôi bao gồm những chuyên gia hàng đầu trong lĩnh vực công nghệ, với kinh nghiệm đa dạng và đam mê sáng tạo. 
+                Chúng tôi làm việc cùng nhau để mang đến những giải pháp tốt nhất cho khách hàng và cộng đồng.
+            </p>
+        </div>
+
+        <!-- Department Filter -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+            <button class="px-6 py-2 rounded-full border border-gray-300 text-gray-700 department-filter-btn active" data-filter="all">
+                Tất cả
+            </button>
+            <button class="px-6 py-2 rounded-full border border-gray-300 text-gray-700 department-filter-btn" data-filter="leadership">
+                Ban lãnh đạo
+            </button>
+            <button class="px-6 py-2 rounded-full border border-gray-300 text-gray-700 department-filter-btn" data-filter="development">
+                Phát triển
+            </button>
+            <button class="px-6 py-2 rounded-full border border-gray-300 text-gray-700 department-filter-btn" data-filter="design">
+                Thiết kế
+            </button>
+            <button class="px-6 py-2 rounded-full border border-gray-300 text-gray-700 department-filter-btn" data-filter="marketing">
+                Marketing
+            </button>
+        </div>
+
+        <!-- Team Members Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <!-- Team Member 1 -->
+            <div class="team-member-card rounded-xl overflow-hidden shadow-lg" data-department="leadership">
+                <div class="relative">
+                    <div class="team-member-image h-64 bg-gray-200">
+                        <img src="https://placehold.co/400x400" alt="CEO" class="w-full h-full object-cover">
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-1">Nguyễn Văn A</h3>
+                    <p class="text-indigo-600 font-medium mb-3">CEO & Founder</p>
+                    <p class="text-gray-600 text-sm">
+                        Hơn 15 năm kinh nghiệm trong lĩnh vực công nghệ và phát triển phần mềm.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="team-member-card rounded-xl overflow-hidden shadow-lg" data-department="leadership">
+                <div class="relative">
+                    <div class="team-member-image h-64 bg-gray-200">
+                        <img src="https://placehold.co/400x400" alt="CTO" class="w-full h-full object-cover">
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-1">Trần Thị B</h3>
+                    <p class="text-indigo-600 font-medium mb-3">CTO</p>
+                    <p class="text-gray-600 text-sm">
+                        Chuyên gia về AI và Machine Learning với nhiều công trình nghiên cứu.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Team Member 3 -->
+            <div class="team-member-card rounded-xl overflow-hidden shadow-lg" data-department="development">
+                <div class="relative">
+                    <div class="team-member-image h-64 bg-gray-200">
+                        <img src="https://placehold.co/400x400" alt="Lead Developer" class="w-full h-full object-cover">
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-1">Lê Văn C</h3>
+                    <p class="text-indigo-600 font-medium mb-3">Lead Developer</p>
+                    <p class="text-gray-600 text-sm">
+                        Chuyên gia về phát triển web và mobile với hơn 10 năm kinh nghiệm.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Team Member 4 -->
+            <div class="team-member-card rounded-xl overflow-hidden shadow-lg" data-department="development">
+                <div class="relative">
+                    <div class="team-member-image h-64 bg-gray-200">
+                        <img src="https://placehold.co/400x400" alt="Backend Developer" class="w-full h-full object-cover">
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-1">Phạm Thị D</h3>
+                    <p class="text-indigo-600 font-medium mb-3">Backend Developer</p>
+                    <p class="text-gray-600 text-sm">
+                        Chuyên về Python, Django và các hệ thống backend hiệu suất cao.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Team Member 5 -->
+            <div class="team-member-card rounded-xl overflow-hidden shadow-lg" data-department="design">
+                <div class="relative">
+                    <div class="team-member-image h-64 bg-gray-200">
+                        <img src="https://placehold.co/400x400" alt="UI/UX Designer" class="w-full h-full object-cover">
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-dribbble"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-1">Hoàng Văn E</h3>
+                    <p class="text-indigo-600 font-medium mb-3">UI/UX Designer</p>
+                    <p class="text-gray-600 text-sm">
+                        Thiết kế trải nghiệm người dùng với tư duy sáng tạo và thẩm mỹ cao.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Team Member 6 -->
+            <div class="team-member-card rounded-xl overflow-hidden shadow-lg" data-department="design">
+                <div class="relative">
+                    <div class="team-member-image h-64 bg-gray-200">
+                        <img src="https://placehold.co/400x400" alt="Graphic Designer" class="w-full h-full object-cover">
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-behance"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-1">Ngô Thị F</h3>
+                    <p class="text-indigo-600 font-medium mb-3">Graphic Designer</p>
+                    <p class="text-gray-600 text-sm">
+                        Chuyên gia thiết kế đồ họa với phong cách hiện đại và sáng tạo.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Team Member 7 -->
+            <div class="team-member-card rounded-xl overflow-hidden shadow-lg" data-department="marketing">
+                <div class="relative">
+                    <div class="team-member-image h-64 bg-gray-200">
+                        <img src="https://placehold.co/400x400" alt="Marketing Manager" class="w-full h-full object-cover">
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-1">Đinh Văn G</h3>
+                    <p class="text-indigo-600 font-medium mb-3">Marketing Manager</p>
+                    <p class="text-gray-600 text-sm">
+                        Chuyên gia marketing với kinh nghiệm trong lĩnh vực công nghệ.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Team Member 8 -->
+            <div class="team-member-card rounded-xl overflow-hidden shadow-lg" data-department="marketing">
+                <div class="relative">
+                    <div class="team-member-image h-64 bg-gray-200">
+                        <img src="https://placehold.co/400x400" alt="Content Writer" class="w-full h-full object-cover">
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-medium"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-1">Lý Thị H</h3>
+                    <p class="text-indigo-600 font-medium mb-3">Content Writer</p>
+                    <p class="text-gray-600 text-sm">
+                        Nhà văn tài năng với khả năng biến các chủ đề phức tạp thành nội dung dễ hiểu.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50 reveal">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 section-title">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Giá trị cốt lõi</span> của chúng tôi
+            </h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Những giá trị định hình văn hóa và định hướng mọi quyết định của chúng tôi
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Value 1 -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+                <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                    <span class="text-3xl">🚀</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Đổi mới</h3>
+                <p class="text-gray-600">
+                    Chúng tôi không ngừng tìm kiếm những cách thức mới để giải quyết vấn đề và cải thiện trải nghiệm người dùng.
+                </p>
+            </div>
+            
+            <!-- Value 2 -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+                <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                    <span class="text-3xl">🤝</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Hợp tác</h3>
+                <p class="text-gray-600">
+                    Chúng tôi tin rằng những ý tưởng tốt nhất đến từ sự hợp tác và chia sẻ kiến thức giữa các thành viên.
+                </p>
+            </div>
+            
+            <!-- Value 3 -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+                <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                    <span class="text-3xl">🎯</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Chất lượng</h3>
+                <p class="text-gray-600">
+                    Chúng tôi cam kết mang đến những sản phẩm và dịch vụ chất lượng cao nhất cho khách hàng.
+                </p>
+            </div>
+            
+            <!-- Value 4 -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+                <div class="w-16 h-16 bg-yellow-100 rounded-lg flex items-center justify-center mb-6">
+                    <span class="text-3xl">💡</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Trách nhiệm</h3>
+                <p class="text-gray-600">
+                    Chúng tôi chịu trách nhiệm về hành động của mình và luôn nỗ lực tạo ra tác động tích cực cho cộng đồng.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Join Our Team Section -->
+<section class="py-20 bg-white reveal">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 section-title">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Gia nhập</span> đội ngũ của chúng tôi
+            </h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Chúng tôi luôn tìm kiếm những tài năng đam mê công nghệ và mong muốn tạo ra tác động tích cực
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <img src="https://placehold.co/600x400" alt="Join Our Team" class="rounded-2xl shadow-lg w-full">
+            </div>
+            
+            <div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Tại sao nên gia nhập Bmatrix?</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white mr-3 mt-1">
+                            <i class="fas fa-check text-xs"></i>
+                        </div>
+                        <p class="text-gray-700">Môi trường làm việc năng động, sáng tạo và thân thiện</p>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white mr-3 mt-1">
+                            <i class="fas fa-check text-xs"></i>
+                        </div>
+                        <p class="text-gray-700">Cơ hội học hỏi và phát triển kỹ năng với các dự án đa dạng</p>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white mr-3 mt-1">
+                            <i class="fas fa-check text-xs"></i>
+                        </div>
+                        <p class="text-gray-700">Chế độ đãi ngộ cạnh tranh và các phúc lợi hấp dẫn</p>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white mr-3 mt-1">
+                            <i class="fas fa-check text-xs"></i>
+                        </div>
+                        <p class="text-gray-700">Cơ hội làm việc với các công nghệ mới nhất và tiên tiến nhất</p>
+                    </li>
+                </ul>
+                
+                <div class="mt-8">
+                    <a href="#" class="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                        Xem vị trí đang tuyển
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white cta-section">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+            Bạn muốn hợp tác với chúng tôi?
+        </h2>
+        <p class="text-xl mb-8 text-blue-100">
+            Hãy liên hệ ngay để thảo luận về các cơ hội hợp tác và phát triển
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'contact' %}" class="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-blue-50 transition-colors duration-300 cta-button">
+                Liên hệ ngay
+            </a>
+            <a href="{% url 'about' %}" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition-colors duration-300 cta-button">
+                Tìm hiểu thêm
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- JavaScript for Scroll Reveal and Department Filter -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Scroll reveal function
+    function revealOnScroll() {
+        var reveals = document.querySelectorAll('.reveal');
+        
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementVisible = 150;
+            
+            if (elementTop < windowHeight - elementVisible) {
+                reveals[i].classList.add('active');
+            } else {
+                reveals[i].classList.remove('active');
+            }
+        }
+    }
+    
+    // Add event listener
+    window.addEventListener('scroll', revealOnScroll);
+    
+    // Call once on page load
+    revealOnScroll();
+    
+    // Department filter
+    const filterButtons = document.querySelectorAll('.department-filter-btn');
+    const teamMembers = document.querySelectorAll('.team-member-card');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Get filter value
+            const filter = button.getAttribute('data-filter');
+            
+            // Filter team members
+            teamMembers.forEach(member => {
+                if (filter === 'all' || member.getAttribute('data-department') === filter) {
+                    member.style.display = 'block';
+                } else {
+                    member.style.display = 'none';
+                }
+            });
+        });
+    });
+});
+</script>
+{% endblock %} 

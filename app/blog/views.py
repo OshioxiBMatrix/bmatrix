@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.db.models import Q
-from .models import Post, Comment
+from django.db.models import Q, Count
+from .models import Post, Comment, Category
 
 # Create your views here.
 
@@ -18,42 +18,23 @@ def post_list(request):
         )
     
     # Category filter
-    category = request.GET.get('category', '')
-    if category:
-        # In a real app, you'd have a Category model and filter by that
-        # For now, we'll just simulate category filtering
-        if category == 'ai-ml':
-            posts = posts.filter(Q(title__icontains='AI') | Q(content__icontains='AI') | 
-                                Q(title__icontains='Machine Learning') | Q(content__icontains='Machine Learning'))
-        elif category == 'web-dev':
-            posts = posts.filter(Q(title__icontains='Web') | Q(content__icontains='Web') |
-                                Q(title__icontains='JavaScript') | Q(content__icontains='JavaScript'))
-        elif category == 'mobile-dev':
-            posts = posts.filter(Q(title__icontains='Mobile') | Q(content__icontains='Mobile') |
-                                Q(title__icontains='App') | Q(content__icontains='App'))
-        elif category == 'database':
-            posts = posts.filter(Q(title__icontains='Database') | Q(content__icontains='Database') |
-                                Q(title__icontains='SQL') | Q(content__icontains='SQL'))
-        elif category == 'architecture':
-            posts = posts.filter(Q(title__icontains='Architecture') | Q(content__icontains='Architecture') |
-                                Q(title__icontains='Microservice') | Q(content__icontains='Microservice'))
+    category_slug = request.GET.get('category', '')
+    selected_category = None
+    if category_slug:
+        selected_category = get_object_or_404(Category, slug=category_slug)
+        posts = posts.filter(categories=selected_category)
     
     # Order by latest posts
     posts = posts.order_by('-created_at')
     
-    categories = [
-        {'name': 'AI & Machine Learning', 'slug': 'ai-ml'},
-        {'name': 'Web Development', 'slug': 'web-dev'},
-        {'name': 'Mobile Development', 'slug': 'mobile-dev'},
-        {'name': 'Database', 'slug': 'database'},
-        {'name': 'Architecture', 'slug': 'architecture'}
-    ]
+    # Get all categories with post count
+    categories = Category.objects.annotate(post_count=Count('posts')).order_by('name')
     
     context = {
         'posts': posts,
         'categories': categories,
         'search_query': search_query,
-        'selected_category': category
+        'selected_category': selected_category
     }
     
     return render(request, 'blog/post_list.html', context)
@@ -72,4 +53,10 @@ def post_detail(request, slug):
             messages.success(request, 'Your comment has been added.')
             return redirect('blog:post_detail', slug=post.slug)
     
-    return render(request, 'blog/post_detail.html', {'post': post})
+    # Get all categories for sidebar
+    categories = Category.objects.annotate(post_count=Count('posts')).order_by('name')
+    
+    return render(request, 'blog/post_detail.html', {
+        'post': post,
+        'categories': categories
+    })

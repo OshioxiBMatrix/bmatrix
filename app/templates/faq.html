@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}FAQ - Frequently Asked Questions{% endblock %}
+
+{% block content %}
+<div class="bg-gray-700 py-16 text-center">
+    <div class="container mx-auto px-4">
+        <h1 class="text-5xl font-bold text-white mb-6">FAQ</h1>
+        <div class="flex items-center justify-center text-white/80 text-sm">
+            <a href="{% url 'shop:home' %}" class="hover:text-white">Home</a>
+            <span class="mx-2">/</span>
+            <span class="text-white">FAQ</span>
+        </div>
+    </div>
+</div>
+
+<div class="container mx-auto px-4 py-12">
+    <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-800 mb-4">Quick Questions</h2>
+        <div class="flex justify-center">
+            <div class="w-16 h-1 bg-primary"></div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <!-- Left Column -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+            <div class="space-y-6">
+                <div class="border-b pb-4">
+                    <h3 class="text-lg font-semibold text-blue-600 mb-2">Is there a free trial available?</h3>
+                    <p class="text-gray-600">Yes, we offer a 14-day free trial for all new customers. You can access all features during this period with no credit card required.</p>
+                </div>
+                
+                <div class="border-b pb-4">
+                    <h3 class="text-lg font-semibold text-blue-600 mb-2">Can I change my plan later?</h3>
+                    <p class="text-gray-600">Absolutely! You can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle.</p>
+                </div>
+                
+                <div class="border-b pb-4">
+                    <h3 class="text-lg font-semibold text-blue-600 mb-2">What is your cancellation policy?</h3>
+                    <p class="text-gray-600">You can cancel your subscription anytime. There are no long-term contracts or cancellation fees. Your service will continue until the end of your current billing period.</p>
+                </div>
+                
+                <div class="border-b pb-4">
+                    <h3 class="text-lg font-semibold text-blue-600 mb-2">Can other info be added to an invoice?</h3>
+                    <p class="text-gray-600">Yes, you can add custom information to your invoices such as PO numbers, company details, or special notes through your account settings.</p>
+                </div>
+                
+                <div class="border-b pb-4">
+                    <h3 class="text-lg font-semibold text-blue-600 mb-2">How does billing work?</h3>
+                    <p class="text-gray-600">We bill on a monthly or annual basis, depending on your chosen plan. Payments are processed securely through our payment providers.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-blue-600 mb-2">How do I change my account email?</h3>
+                    <p class="text-gray-600">You can update your email address in your account settings. After changing, you'll need to verify your new email address.</p>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <a href="#" class="inline-block bg-primary hover:bg-secondary text-white font-medium py-2 px-6 rounded-md transition">Contact Support</a>
+            </div>
+        </div>
+        
+        <!-- Right Column -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+            <div class="space-y-6">
+                <div class="border-b pb-4">
+                    <h3 class="text-lg font-semibold text-blue-600 mb-2">Is there a free trial available?</h3>
+                    <p class="text-gray-600">Yes, we offer a 14-day free trial for all new customers. You can access all features during this period with no credit card required.</p>
+                </div>
+                
+                <div class="border-b pb-4">
+                    <h3 class="text-lg font-semibold text-blue-600 mb-2">Can I change my plan later?</h3>
+                    <p class="text-gray-600">Absolutely! You can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle.</p>
+                </div>
+                
+                <div class="border-b pb-4">
+                    <h3 class="text-lg font-semibold text-blue-600 mb-2">What is your cancellation policy?</h3>
+                    <p class="text-gray-600">You can cancel your subscription anytime. There are no long-term contracts or cancellation fees. Your service will continue until the end of your current billing period.</p>
+                </div>
+                
+                <div class="border-b pb-4">
+                    <h3 class="text-lg font-semibold text-blue-600 mb-2">Can other info be added to an invoice?</h3>
+                    <p class="text-gray-600">Yes, you can add custom information to your invoices such as PO numbers, company details, or special notes through your account settings.</p>
+                </div>
+                
+                <div class="border-b pb-4">
+                    <h3 class="text-lg font-semibold text-blue-600 mb-2">How does billing work?</h3>
+                    <p class="text-gray-600">We bill on a monthly or annual basis, depending on your chosen plan. Payments are processed securely through our payment providers.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-blue-600 mb-2">How do I change my account email?</h3>
+                    <p class="text-gray-600">You can update your email address in your account settings. After changing, you'll need to verify your new email address.</p>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <a href="#" class="inline-block bg-primary hover:bg-secondary text-white font-medium py-2 px-6 rounded-md transition">Contact Support</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <h3 class="text-2xl font-bold text-gray-800 mb-4">Still have questions?</h3>
+        <p class="text-gray-600 mb-6">Our support team is here to help you with any other questions you might have.</p>
+        <a href="{% url 'contact' %}" class="inline-block bg-primary hover:bg-secondary text-white font-medium py-3 px-8 rounded-md transition">Contact Us</a>
+    </div>
+</div>
+{% endblock %} 
