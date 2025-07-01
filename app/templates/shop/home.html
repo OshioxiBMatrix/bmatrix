@@ -1,133 +1,155 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load shop_tags %}
 
-{% block title %}BMATRIX - Tech Tips and Tricks{% endblock %}
+{% block title %}BMATRIX - Tech Store{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+{% endblock %}
 
 {% block content %}
-<!-- Hero Banner - New Design -->
-<section class="bg-gray-900 text-white py-16 md:py-24 relative overflow-hidden">
-    <!-- Circuit board pattern overlay -->
-    <div class="absolute inset-0 opacity-10">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <pattern id="circuit-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-                <path d="M0,50 L100,50 M50,0 L50,100 M25,25 L75,75 M75,25 L25,75" stroke="white" stroke-width="1" fill="none"/>
-                <circle cx="50" cy="50" r="10" fill="none" stroke="white" stroke-width="1"/>
-                <circle cx="25" cy="25" r="5" fill="none" stroke="white" stroke-width="1"/>
-                <circle cx="75" cy="75" r="5" fill="none" stroke="white" stroke-width="1"/>
-                <circle cx="75" cy="25" r="5" fill="none" stroke="white" stroke-width="1"/>
-                <circle cx="25" cy="75" r="5" fill="none" stroke="white" stroke-width="1"/>
-            </pattern>
-            <rect width="100%" height="100%" fill="url(#circuit-pattern)"/>
-        </svg>
-    </div>
+<!-- Hero Section -->
+<section class="hero-section bg-gray-900 text-white py-16 md:py-24 relative overflow-hidden">
+    <div class="hero-background circuit-pattern absolute inset-0"></div>
     
     <div class="container mx-auto px-4 relative z-10">
-        <div class="flex flex-col md:flex-row items-start justify-between">
-            <div class="md:w-1/2 mb-10 md:mb-0">
-                <h1 class="text-5xl md:text-6xl font-bold mb-2 tracking-tight">
-                    CÓ TẤT CẢ
+        <div class="flex flex-col md:flex-row items-center justify-between">
+            <div class="md:w-1/2 mb-10 md:mb-0 hero-content">
+                <h1 class="hero-title text-5xl md:text-6xl font-bold mb-4 tracking-tight animate__animated animate__fadeInUp">
+                    CÔNG NGHỆ HIỆN ĐẠI
                 </h1>
-                <p class="text-xl mb-8 text-gray-300">Mạnh mẽ, Nhỏ gọn, Linh hoạt</p>
-                <a href="#" class="bg-secondary hover:bg-secondary-light text-white font-bold py-2 px-6 rounded-md transition inline-block">
-                    Mua ngay
+                <p class="hero-subtitle text-xl mb-8 text-gray-300 animate__animated animate__fadeInUp animate__delay-1s">Giải pháp công nghệ tốt nhất cho nhu cầu của bạn</p>
+                <a href="{% url 'shop:product_list' %}" class="hero-cta bg-secondary hover:bg-secondary-light text-white font-bold py-3 px-8 rounded-md transition inline-block animate__animated animate__fadeInUp animate__delay-2s">
+                    Khám phá ngay
                 </a>
             </div>
             <div class="md:w-1/2 text-right">
-                <div class="inline-block">
-                    <div class="flex items-center justify-end mb-2">
-                        <img src="{% static 'img/logobmatrix.png' %}" alt="BMATRIX Logo" class="h-40 mr-3 ">
-                        
-                    </div>
-                    
+                <div class="floating inline-block animate__animated animate__fadeIn animate__delay-1s">
+                    <img src="{% static 'img/logobmatrix.png' %}" alt="BMATRIX Logo" class="h-40 md:h-56 glow-on-hover">
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Special Prices -->
-<section class="py-8 -mt-16 relative z-20">
+<!-- Featured Categories -->
+<section class="py-12 -mt-16 relative z-20">
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {% for i in "123" %}
-            <div class="bg-gradient-to-b from-gray-300 to-gray-500 rounded-lg shadow-lg overflow-hidden">
+            <div class="tech-card glow-on-hover animate__animated animate__fadeInUp">
                 <div class="p-6 flex flex-col h-full">
-                    <h3 class="text-2xl font-bold text-white mb-auto">Giá đặc biệt</h3>
+                    <h3 class="text-2xl font-bold text-white mb-2">Máy tính</h3>
+                    <p class="text-gray-400 mb-auto">Hiệu suất mạnh mẽ cho mọi nhu cầu</p>
                     <div class="mt-4">
                         <a href="#" class="bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition inline-block">
-                            Mua ngay
+                            Xem ngay
                         </a>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+            
+            <div class="tech-card glow-on-hover animate__animated animate__fadeInUp animate__delay-1s">
+                <div class="p-6 flex flex-col h-full">
+                    <h3 class="text-2xl font-bold text-white mb-2">Phụ kiện</h3>
+                    <p class="text-gray-400 mb-auto">Nâng cấp trải nghiệm của bạn</p>
+                    <div class="mt-4">
+                        <a href="#" class="bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition inline-block">
+                            Xem ngay
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tech-card glow-on-hover animate__animated animate__fadeInUp animate__delay-2s">
+                <div class="p-6 flex flex-col h-full">
+                    <h3 class="text-2xl font-bold text-white mb-2">Gaming</h3>
+                    <p class="text-gray-400 mb-auto">Trải nghiệm chơi game đỉnh cao</p>
+                    <div class="mt-4">
+                        <a href="#" class="bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition inline-block">
+                            Xem ngay
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- Flash Sale -->
-<section class="py-12 bg-blue-800 relative overflow-hidden">
-    <!-- Circuit board pattern overlay -->
-    <div class="absolute inset-0 opacity-5">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <pattern id="flash-circuit-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-                <path d="M0,50 L100,50 M50,0 L50,100 M25,25 L75,75 M75,25 L25,75" stroke="white" stroke-width="1" fill="none"/>
-                <circle cx="50" cy="50" r="10" fill="none" stroke="white" stroke-width="1"/>
-                <circle cx="25" cy="25" r="5" fill="none" stroke="white" stroke-width="1"/>
-                <circle cx="75" cy="75" r="5" fill="none" stroke="white" stroke-width="1"/>
-            </pattern>
-            <rect width="100%" height="100%" fill="url(#flash-circuit-pattern)"/>
-        </svg>
-    </div>
+<section class="py-12 tech-gradient-bg relative overflow-hidden">
+    <div class="circuit-pattern absolute inset-0"></div>
     
     <div class="container mx-auto px-4 relative z-10">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
             <div>
-                <span class="inline-block bg-secondary text-white px-3 py-1 rounded-md text-sm font-semibold mb-2">FLASH SALE</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-white">Giảm giá đặc biệt</h2>
+                <span class="inline-block bg-secondary text-white px-3 py-1 rounded-md text-sm font-semibold mb-2 animate-pulse">FLASH SALE</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white neon-text">Giảm giá đặc biệt</h2>
             </div>
             
             <!-- Countdown Timer -->
             <div class="mt-4 md:mt-0 text-white">
-                <p class="text-gray-300 mb-2 text-sm">sẽ kết thúc trong:</p>
-                <div class="flex items-center space-x-2">
-                    <div class="bg-white rounded-lg p-2 w-14 text-center">
-                        <span class="text-2xl font-bold text-secondary" id="countdown-hours">01</span>
-                        <span class="text-xs text-gray-600 block">Giờ</span>
+                <p class="text-gray-300 mb-2 text-sm">Kết thúc trong:</p>
+                <div class="countdown-container" id="special-offer-countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="countdown-days">07</span>
+                        <span class="countdown-label">Ngày</span>
                     </div>
-                    <div class="bg-white rounded-lg p-2 w-14 text-center">
-                        <span class="text-2xl font-bold text-secondary" id="countdown-minutes">45</span>
-                        <span class="text-xs text-gray-600 block">Phút</span>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="countdown-hours">12</span>
+                        <span class="countdown-label">Giờ</span>
                     </div>
-                    <div class="bg-white rounded-lg p-2 w-14 text-center">
-                        <span class="text-2xl font-bold text-secondary" id="countdown-seconds">23</span>
-                        <span class="text-xs text-gray-600 block">Giây</span>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="countdown-minutes">45</span>
+                        <span class="countdown-label">Phút</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="countdown-seconds">23</span>
+                        <span class="countdown-label">Giây</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- Products Grid -->
-<section class="py-8 -mt-16 relative z-20">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
-            {% for product in featured_products %}
-            <div class="bg-gray-300 rounded-lg overflow-hidden">
-                <div class="relative">
-                    <img src="{{ product.image }}" alt="{{ product.title }}" class="w-full h-36 object-cover">
-                </div>
-                <div class="p-3">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <span class="text-gray-600 line-through text-sm">{{ product.old_price }}VNĐ</span>
-                            <span class="text-secondary font-bold">{{ product.price }}VNĐ</span>
+        
+        <!-- Flash Sale Products -->
+        <div class="swiper featured-products-slider">
+            <div class="swiper-wrapper">
+                {% for product in featured_products|slice:":6" %}
+                <div class="swiper-slide">
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="{{ product.get_main_image }}" alt="{{ product.name }}" class="product-image w-full h-48 object-cover">
+                            </a>
+                            <div class="product-badge badge-sale">-20%</div>
+                        </div>
+                        <div class="p-4">
+                            <a href="{{ product.get_absolute_url }}">
+                                <h3 class="font-medium text-white mb-2 truncate">{{ product.name }}</h3>
+                            </a>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="price-tag">{{ product.price|format_price }} VNĐ</span>
+                                    <span class="old-price block">{{ product.price|multiply:1.2|format_price }} VNĐ</span>
+                                </div>
+                                <form method="post" action="{% url 'cart:add_to_cart' product.id %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="text-white hover:text-secondary" onclick="addToCartAnimation(this)">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+            <div class="swiper-pagination mt-6"></div>
+            <div class="swiper-button-prev text-white"></div>
+            <div class="swiper-button-next text-white"></div>
         </div>
     </div>
 </section>
@@ -135,94 +157,135 @@
 <!-- Product Categories -->
 <section class="py-12">
     <div class="container mx-auto px-4">
+        <div class="text-center mb-10">
+            <h2 class="section-title text-3xl font-bold text-gray-800">Danh mục sản phẩm</h2>
+        </div>
+        
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Main Category -->
-            <div class="bg-primary text-white rounded-lg shadow-lg p-8 md:row-span-2 md:col-span-1 flex flex-col justify-between min-h-[555px]">
-                <div>
-                    <h2 class="text-2xl font-bold mb-2">Tạo PC của riêng bạn trong vài phút</h2>
-                    <p class="mb-6">Tùy chỉnh bộ máy của bạn với trình tạo PC dễ dàng của chúng tôi</p>
+            <!-- Category Cards -->
+            <div class="category-card animate__animated animate__fadeIn">
+                <img src="https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2942&q=80" alt="Laptops">
+                <div class="category-overlay">
+                    <h3 class="text-xl font-bold">Laptops</h3>
+                    <a href="#" class="text-secondary hover:text-white transition">Xem thêm →</a>
                 </div>
-                <a href="#" class="inline-block bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition w-max">
-                    Tạo PC của riêng bạn
-                </a>
             </div>
             
-            <!-- Secondary Categories -->
-            <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6 flex flex-col justify-between md:col-span-2 ">
-                <h3 class="text-xl font-bold mb-2">Bộ máy chơi game sẵn sàng</h3>
-                <a href="#" class="inline-block bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition mt-4 w-max">
-                    Mua ngay
-                </a>
+            <div class="category-card animate__animated animate__fadeIn animate__delay-1s">
+                <img src="https://images.unsplash.com/photo-1547082299-de196ea013d6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80" alt="Components">
+                <div class="category-overlay">
+                    <h3 class="text-xl font-bold">Linh kiện</h3>
+                    <a href="#" class="text-secondary hover:text-white transition">Xem thêm →</a>
+                </div>
             </div>
             
-            <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6 flex flex-col justify-between">
-                <h3 class="text-xl font-bold mb-2">Vượt qua hiệu suất</h3>
-                <a href="#" class="inline-block bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition mt-4 w-max">
-                    Khám phá ngay
-                </a>
-            </div>
-            
-            <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6 flex flex-col justify-between ">
-                <h3 class="text-xl font-bold mb-2">Game cho chiến thắng</h3>
-                <a href="#" class="inline-block bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition mt-4 w-max">
-                    Khám phá ngay
-                </a>
+            <div class="category-card animate__animated animate__fadeIn animate__delay-2s">
+                <img src="https://images.unsplash.com/photo-1600861194942-f883de0dfe96?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2938&q=80" alt="Accessories">
+                <div class="category-overlay">
+                    <h3 class="text-xl font-bold">Phụ kiện</h3>
+                    <a href="#" class="text-secondary hover:text-white transition">Xem thêm →</a>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Featured Products -->
-<section class="py-12">
+<section class="py-12 bg-gray-100">
     <div class="container mx-auto px-4">
-        <div class="flex justify-between items-center mb-8">
-            <div>
-                <span class="inline-block bg-secondary text-white px-3 py-1 rounded-md text-sm font-semibold mb-2">SẢN PHẨM NỔI BẬT</span>
-                <h2 class="text-3xl font-bold text-gray-800">Sản phẩm nổi bật</h2>
-            </div>
-            <a href="#" class="text-primary hover:text-secondary font-medium flex items-center">
-                Xem tất cả <i class="fas fa-arrow-right ml-2"></i>
-            </a>
+        <div class="text-center mb-10">
+            <h2 class="section-title text-3xl font-bold text-gray-800">Sản phẩm nổi bật</h2>
+        </div>
+        
+        <!-- Category Filter Buttons -->
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+            <button class="category-filter-btn active bg-primary hover:bg-primary-dark text-white py-2 px-6 rounded-md transition" data-category="all">
+                Tất cả
+            </button>
+            <button class="category-filter-btn bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-md transition" data-category="laptop">
+                Laptop
+            </button>
+            <button class="category-filter-btn bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-md transition" data-category="component">
+                Linh kiện
+            </button>
+            <button class="category-filter-btn bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-md transition" data-category="accessory">
+                Phụ kiện
+            </button>
         </div>
         
         <!-- Products Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {% for product in featured_products %}
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                <div class="relative">
-                    <img src="{{ product.image }}" alt="{{ product.title }}" class="w-full h-48 object-cover">
-                    <button class="absolute top-2 right-2 text-gray-600 hover:text-secondary bg-white p-2 rounded-full">
-                        <i class="far fa-heart"></i>
-                    </button>
-                </div>
-                <div class="p-4">
-                    <h3 class="font-medium text-gray-800 mb-2">{{ product.title }}</h3>
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <span class="text-gray-400 line-through mr-2">{{ product.old_price }}VNĐ</span>
-                            <span class="text-secondary font-bold">{{ product.price }}VNĐ</span>
-                        </div>
-                        <button class="text-primary hover:text-secondary">
-                            <i class="fas fa-shopping-cart"></i>
+            <div class="product-item animate-on-scroll" data-category="all">
+                <div class="product-card bg-white">
+                    <div class="product-image-container">
+                        <a href="{{ product.get_absolute_url }}">
+                            <img src="{{ product.get_main_image }}" alt="{{ product.name }}" class="product-image w-full h-48 object-cover">
+                        </a>
+                        <button class="absolute top-2 right-2 text-gray-600 hover:text-secondary bg-white p-2 rounded-full" 
+                                onclick="toggleWishlist(this, '{{ product.id }}')">
+                            <i class="far fa-heart"></i>
                         </button>
+                        {% if forloop.counter <= 4 %}
+                        <div class="product-badge badge-new">Mới</div>
+                        {% endif %}
+                    </div>
+                    <div class="p-4">
+                        <a href="{{ product.get_absolute_url }}">
+                            <h3 class="font-medium text-gray-800 mb-2 truncate">{{ product.name }}</h3>
+                        </a>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="price-tag">{{ product.price|format_price }} VNĐ</span>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="text-gray-600 hover:text-secondary" 
+                                        onclick="showQuickView('{{ product.id }}')">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                                <form method="post" action="{% url 'cart:add_to_cart' product.id %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="text-primary hover:text-secondary" onclick="addToCartAnimation(this)">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
+        
+        <div class="text-center mt-10">
+            <a href="{% url 'shop:product_list' %}" class="bg-primary hover:bg-primary-dark text-white font-medium py-2 px-8 rounded-md transition inline-block">
+                Xem tất cả sản phẩm
+            </a>
+        </div>
     </div>
 </section>
 
-<!-- Brands -->
-<section class="py-12 bg-gray-100">
-    <div class="container mx-auto px-4">
-        <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
-            {% for i in "123456"|make_list %}
-                <div class="grayscale hover:grayscale-0 transition">
-                    <img src="{% static 'img/brand/Brand_Logo'|add:i|stringformat:"s"|add:'.svg' %}" alt="Brand Logo {{ i }}" class="h-12">
-                </div>
-            {% endfor %}
-
+<!-- Promo Banner -->
+<section class="py-12 bg-gray-900 relative overflow-hidden">
+    <div class="circuit-pattern absolute inset-0"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="tech-card glow-on-hover p-8 animate__animated animate__fadeInLeft">
+                <h3 class="text-2xl font-bold text-white mb-4 neon-text">Gaming PC</h3>
+                <p class="text-gray-400 mb-6">Trải nghiệm chơi game đỉnh cao với PC gaming hiệu năng mạnh mẽ</p>
+                <a href="#" class="inline-block bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition">
+                    Khám phá ngay
+                </a>
+            </div>
+            <div class="tech-card glow-on-hover p-8 animate__animated animate__fadeInRight">
+                <h3 class="text-2xl font-bold text-white mb-4 neon-text">Laptop</h3>
+                <p class="text-gray-400 mb-6">Hiệu năng mạnh mẽ, thiết kế hiện đại, phù hợp mọi nhu cầu</p>
+                <a href="#" class="inline-block bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition">
+                    Khám phá ngay
+                </a>
+            </div>
         </div>
     </div>
 </section>
@@ -230,182 +293,134 @@
 <!-- Latest Products -->
 <section class="py-12">
     <div class="container mx-auto px-4">
-        <div class="flex justify-between items-center mb-8">
-            <div>
-                <span class="inline-block bg-secondary text-white px-3 py-1 rounded-md text-sm font-semibold mb-2">SẢN PHẨM MỚI NHẤT</span>
-                <h2 class="text-3xl font-bold text-gray-800">Sản phẩm mới nhất</h2>
-            </div>
-            <a href="#" class="text-primary hover:text-secondary font-medium flex items-center">
-                Xem tất cả <i class="fas fa-arrow-right ml-2"></i>
-            </a>
+        <div class="text-center mb-10">
+            <h2 class="section-title text-3xl font-bold text-gray-800">Sản phẩm mới nhất</h2>
         </div>
         
-        <!-- Products Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {% for product in latest_products %}
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                <div class="relative">
-                    <img src="{{ product.image }}" alt="{{ product.title }}" class="w-full h-48 object-cover">
-                    <button class="absolute top-2 right-2 text-gray-600 hover:text-secondary bg-white p-2 rounded-full">
-                        <i class="far fa-heart"></i>
-                    </button>
-                </div>
-                <div class="p-4">
-                    <h3 class="font-medium text-gray-800 mb-2">{{ product.title }}</h3>
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <span class="text-gray-400 line-through mr-2">{{ product.old_price }}VNĐ</span>
-                            <span class="text-secondary font-bold">{{ product.price }}VNĐ</span>
+        <!-- Latest Products Slider -->
+        <div class="swiper latest-products-slider">
+            <div class="swiper-wrapper">
+                {% for product in latest_products %}
+                <div class="swiper-slide">
+                    <div class="product-card bg-white">
+                        <div class="product-image-container">
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="{{ product.get_main_image }}" alt="{{ product.name }}" class="product-image w-full h-48 object-cover">
+                            </a>
+                            <button class="absolute top-2 right-2 text-gray-600 hover:text-secondary bg-white p-2 rounded-full" 
+                                    onclick="toggleWishlist(this, '{{ product.id }}')">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <div class="product-badge badge-new">Mới</div>
                         </div>
-                        <button class="text-primary hover:text-secondary">
-                            <i class="fas fa-shopping-cart"></i>
-                        </button>
+                        <div class="p-4">
+                            <a href="{{ product.get_absolute_url }}">
+                                <h3 class="font-medium text-gray-800 mb-2 truncate">{{ product.name }}</h3>
+                            </a>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="price-tag">{{ product.price|format_price }} VNĐ</span>
+                                </div>
+                                <form method="post" action="{% url 'cart:add_to_cart' product.id %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="text-primary hover:text-secondary" onclick="addToCartAnimation(this)">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
+            <div class="swiper-pagination mt-6"></div>
+            <div class="swiper-button-prev text-gray-800"></div>
+            <div class="swiper-button-next text-gray-800"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Brands -->
+<section class="py-12 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-10">
+            <h2 class="section-title text-3xl font-bold text-gray-800">Thương hiệu đối tác</h2>
+        </div>
+        
+        <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+            {% for i in "123456"|make_list %}
+                <div class="brand-logo animate__animated animate__fadeIn">
+                    <img src="{% static 'img/brand/Brand_Logo'|add:i|stringformat:"s"|add:'.svg' %}" alt="Brand Logo {{ i }}" class="h-12">
+                </div>
             {% endfor %}
         </div>
     </div>
 </section>
 
-<!-- Pre-Order Banners -->
-<section class="py-12 bg-gray-100">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-lg shadow-lg p-8">
-                <h3 class="text-2xl font-bold mb-4">Reign Supreme</h3>
-                <p class="mb-6">Bộ máy chơi game sẵn sàng</p>
-                <a href="#" class="inline-block bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition">
-                    Mua ngay
-                </a>
+<!-- Testimonials -->
+<section class="py-12 bg-gray-900 relative overflow-hidden">
+    <div class="circuit-pattern absolute inset-0"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center mb-10">
+            <h2 class="section-title text-3xl font-bold text-white">Khách hàng nói gì về chúng tôi</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="testimonial-card bg-white rounded-lg p-6 animate__animated animate__fadeIn">
+                <div class="quote-icon">"</div>
+                <p class="text-gray-600 mb-6">Sản phẩm chất lượng, dịch vụ tuyệt vời. Tôi rất hài lòng với trải nghiệm mua sắm tại BMATRIX.</p>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-gray-300 mr-3"></div>
+                    <div>
+                        <p class="font-medium text-gray-800">Nguyễn Văn A</p>
+                        <p class="text-sm text-gray-500">Khách hàng</p>
+                    </div>
+                </div>
             </div>
-            <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-lg shadow-lg p-8">
-                <h3 class="text-2xl font-bold mb-4">Reign Supreme</h3>
-                <p class="mb-6">The next generation of computing power</p>
-                <a href="#" class="inline-block bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition">
-                    Pre-Order Now
-                </a>
+            
+            <div class="testimonial-card bg-white rounded-lg p-6 animate__animated animate__fadeIn animate__delay-1s">
+                <div class="quote-icon">"</div>
+                <p class="text-gray-600 mb-6">Đội ngũ tư vấn rất nhiệt tình và chuyên nghiệp. Họ đã giúp tôi chọn được sản phẩm phù hợp nhất.</p>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-gray-300 mr-3"></div>
+                    <div>
+                        <p class="font-medium text-gray-800">Trần Thị B</p>
+                        <p class="text-sm text-gray-500">Khách hàng</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card bg-white rounded-lg p-6 animate__animated animate__fadeIn animate__delay-2s">
+                <div class="quote-icon">"</div>
+                <p class="text-gray-600 mb-6">Giao hàng nhanh chóng, đóng gói cẩn thận. Sản phẩm đúng như mô tả và hoạt động tốt.</p>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-gray-300 mr-3"></div>
+                    <div>
+                        <p class="font-medium text-gray-800">Lê Văn C</p>
+                        <p class="text-sm text-gray-500">Khách hàng</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Testimonials and About Combined Container -->
-<div class="relative h-[825px] mb-16">
-    <!-- Testimonials -->
-    <section class="py-12 bg-gray-900 relative h-[575px] overflow-hidden">
-        <!-- Circuit board pattern overlay -->
-        <div class="absolute inset-0 opacity-5">
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <pattern id="testimonial-circuit-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-                    <path d="M0,50 L100,50 M50,0 L50,100 M25,25 L75,75 M75,25 L25,75" stroke="white" stroke-width="1" fill="none"/>
-                    <circle cx="50" cy="50" r="10" fill="none" stroke="white" stroke-width="1"/>
-                    <circle cx="25" cy="25" r="5" fill="none" stroke="white" stroke-width="1"/>
-                    <circle cx="75" cy="75" r="5" fill="none" stroke="white" stroke-width="1"/>
-                </pattern>
-                <rect width="100%" height="100%" fill="url(#testimonial-circuit-pattern)"/>
-            </svg>
-        </div>
-        
-        <div class="container mx-auto px-4 relative z-10 h-full flex items-center">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
-                <!-- Testimonial Title -->
-                <div class="text-white">
-                    <span class="inline-block bg-secondary text-white px-3 py-1 rounded-md text-sm font-semibold mb-4">Chứng nhận</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Những gì khách hàng nói</h2>
-                    <a href="#" class="inline-block border border-secondary text-secondary hover:bg-secondary hover:text-white font-medium py-2 px-4 rounded-md transition mt-4">
-                        Xem tất cả
-                    </a>
-                </div>
-                
-                <!-- Testimonial Cards -->
-                <div class="bg-blue-800 rounded-lg overflow-hidden h-[300px]">
-                    <div class="p-6 relative h-full flex flex-col">
-                        <div class="text-white mb-10">
-                            <h3 class="text-lg font-medium mb-4">Những gì khách hàng nói</h3>
-                            <div class="absolute top-6 right-6 text-4xl text-secondary">"</div>
-                        </div>
-                        <div class="flex items-center mt-auto">
-                            <div class="w-10 h-10 rounded-full bg-gray-300 mr-3"></div>
-                            <span class="text-white font-medium">John William</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-lg overflow-hidden h-[300px]">
-                    <div class="p-6 relative h-full flex flex-col">
-                        <div class="text-gray-800 mb-10">
-                            <h3 class="text-lg font-medium mb-4">Những gì khách hàng nói</h3>
-                            <div class="absolute top-6 right-6 text-4xl text-secondary">"</div>
-                        </div>
-                        <div class="flex items-center mt-auto">
-                            <div class="w-10 h-10 rounded-full bg-gray-300 mr-3"></div>
-                            <span class="text-gray-800 font-medium">John William</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About BMATRIX -->
-    <section class="absolute bottom-0 left-0 right-0 h-[367px] z-20">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Video Thumbnail -->
-                <div class="bg-gray-400 rounded-lg overflow-hidden relative h-[367px]">
-                    <div class="w-full h-full">
-                        <img src="https://placehold.co/600x400" alt="About BMATRIX" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <button class="bg-white bg-opacity-80 hover:bg-white rounded-full p-5 transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- About Content -->
-                <div class="bg-white rounded-lg overflow-hidden p-8 h-[367px]">
-                    <span class="inline-block bg-secondary text-white px-3 py-1 rounded-md text-sm font-semibold mb-4">VỀ CHÚNG TÔI</span>
-                    <div class="flex items-center mb-4">
-                        <h2 class="text-3xl font-bold text-gray-800">BMATRIX</h2>
-                    </div>
-                    <p class="text-gray-600 mb-6">
-                        BMATRIX là một công ty công nghệ, cung cấp phần cứng máy tính, phụ kiện và dịch vụ chuyên nghiệp cho những người yêu thích và chuyên gia.
-                    </p>
-                    <a href="#" class="inline-block bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition">
-                        Tìm hiểu thêm
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- Latest News & Blog -->
+<!-- Latest Blog Posts -->
 <section class="py-12">
     <div class="container mx-auto px-4">
-        <div class="flex justify-between items-center mb-8">
-            <div>
-                <span class="inline-block bg-secondary text-white px-3 py-1 rounded-md text-sm font-semibold mb-2">BLOG</span>
-                <h2 class="text-3xl font-bold text-gray-800">Tin tức và blog</h2>
-            </div>
-            <a href="{% url 'blog:post_list' %}" class="text-primary hover:text-secondary font-medium flex items-center">
-                Xem tất cả <i class="fas fa-arrow-right ml-2"></i>
-            </a>
+        <div class="text-center mb-10">
+            <h2 class="section-title text-3xl font-bold text-gray-800">Tin tức công nghệ mới nhất</h2>
         </div>
         
-        <!-- Blog Posts -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             {% for post in blog_posts %}
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+            <div class="animate-on-scroll bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
                 {% if post.image %}
-                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-[300px] object-cover">
+                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-[200px] object-cover">
                 {% else %}
-                <div class="w-full h-[300px] bg-gray-200 flex items-center justify-center">
+                <div class="w-full h-[200px] bg-gray-200 flex items-center justify-center">
                     <i class="fas fa-newspaper text-4xl text-gray-400"></i>
                 </div>
                 {% endif %}
@@ -413,9 +428,6 @@
                     <div class="flex items-center mb-2 text-sm text-gray-500">
                         <i class="far fa-calendar-alt mr-2"></i>
                         <span>{{ post.created_at|date:"d M, Y" }}</span>
-                        <span class="mx-2">•</span>
-                        <i class="far fa-user mr-2"></i>
-                        <span>{{ post.author.username }}</span>
                     </div>
                     <h3 class="font-bold text-xl mb-2 text-gray-800">{{ post.title }}</h3>
                     <p class="text-gray-600 mb-4">{{ post.content|truncatewords:15 }}</p>
@@ -426,48 +438,56 @@
             </div>
             {% endfor %}
         </div>
+        
+        <div class="text-center mt-10">
+            <a href="{% url 'blog:post_list' %}" class="bg-primary hover:bg-primary-dark text-white font-medium py-2 px-8 rounded-md transition inline-block">
+                Xem tất cả bài viết
+            </a>
+        </div>
     </div>
 </section>
+
+<!-- Quick View Modal -->
+<div id="quick-view-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+    <div class="container mx-auto px-4 h-full flex items-center justify-center">
+        <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-2xl font-bold text-gray-800">Quick View</h3>
+                    <button id="quick-view-close" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="quick-view-content">
+                    <!-- Content will be loaded dynamically -->
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/2">
+                            <img src="https://via.placeholder.com/500" alt="Product" class="w-full h-auto">
+                        </div>
+                        <div class="md:w-1/2">
+                            <h4 class="text-xl font-bold text-gray-800 mb-2">Product Name</h4>
+                            <div class="text-secondary font-bold text-xl mb-4">50.000 VNĐ</div>
+                            <p class="text-gray-600 mb-6">Product description goes here...</p>
+                            <form class="mb-4">
+                                <div class="flex items-center mb-4">
+                                    <label class="mr-2">Quantity:</label>
+                                    <input type="number" min="1" value="1" class="w-16 border rounded px-2 py-1">
+                                </div>
+                                <button type="submit" class="bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition">
+                                    Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}
-<script>
-    // Countdown timer
-    document.addEventListener('DOMContentLoaded', function() {
-        // Set initial values from the design
-        const hoursElement = document.getElementById('countdown-hours');
-        const minutesElement = document.getElementById('countdown-minutes');
-        const secondsElement = document.getElementById('countdown-seconds');
-        
-        // Calculate end time based on the initial values
-        const now = new Date();
-        const endTime = new Date(now);
-        endTime.setHours(now.getHours() + parseInt(hoursElement.textContent || 1));
-        endTime.setMinutes(now.getMinutes() + parseInt(minutesElement.textContent || 45));
-        endTime.setSeconds(now.getSeconds() + parseInt(secondsElement.textContent || 23));
-        
-        function updateCountdown() {
-            const now = new Date();
-            const diff = endTime - now;
-            
-            if (diff <= 0) {
-                hoursElement.textContent = '00';
-                minutesElement.textContent = '00';
-                secondsElement.textContent = '00';
-                return;
-            }
-            
-            const hours = Math.floor(diff / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            hoursElement.textContent = hours < 10 ? '0' + hours : hours;
-            minutesElement.textContent = minutes < 10 ? '0' + minutes : minutes;
-            secondsElement.textContent = seconds < 10 ? '0' + seconds : seconds;
-        }
-        
-        // Update countdown every second
-        setInterval(updateCountdown, 1000);
-    });
-</script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow.js/1.1.2/wow.min.js"></script>
+<script src="{% static 'js/home.js' %}"></script>
 {% endblock %} 

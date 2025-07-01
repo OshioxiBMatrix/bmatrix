@@ -1,111 +1,223 @@
 {% extends 'base.html' %}
 
-{% block title %}FAQ - Frequently Asked Questions{% endblock %}
+{% block title %}Câu Hỏi Thường Gặp - FAQ{% endblock %}
 
 {% block content %}
-<div class="bg-gray-700 py-16 text-center">
-    <div class="container mx-auto px-4">
-        <h1 class="text-5xl font-bold text-white mb-6">FAQ</h1>
+<!-- Hero Section -->
+<div class="bg-gradient-to-r from-blue-900 to-purple-900 py-20 text-center relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iLjQiPjxwYXRoIGQ9Ik01IDEwaDIwdjIwSDV6TTM1IDEwaDIwdjIwSDM1ek01IDQwaDIwdjIwSDV6TTM1IDQwaDIwdjIwSDM1eiIvPjwvZz48L2c+PC9zdmc+')] bg-repeat"></div>
+    </div>
+    <div class="container mx-auto px-4 relative z-10">
+        <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">Câu Hỏi Thường Gặp</h1>
+        <p class="text-xl text-white/80 max-w-2xl mx-auto mb-8">Tìm câu trả lời cho những câu hỏi phổ biến nhất về sản phẩm và dịch vụ của chúng tôi</p>
         <div class="flex items-center justify-center text-white/80 text-sm">
-            <a href="{% url 'shop:home' %}" class="hover:text-white">Home</a>
+            <a href="{% url 'shop:home' %}" class="hover:text-white transition">Trang chủ</a>
             <span class="mx-2">/</span>
-            <span class="text-white">FAQ</span>
+            <span class="text-white font-medium">FAQ</span>
         </div>
     </div>
 </div>
 
-<div class="container mx-auto px-4 py-12">
-    <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-800 mb-4">Quick Questions</h2>
-        <div class="flex justify-center">
-            <div class="w-16 h-1 bg-primary"></div>
+<!-- FAQ Content -->
+<div class="container mx-auto px-4 py-16">
+    <!-- Categories -->
+    <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <button class="category-btn active px-6 py-3 rounded-full bg-blue-600 text-white font-medium hover:bg-blue-700 transition">Tất cả câu hỏi</button>
+        <button class="category-btn px-6 py-3 rounded-full bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition">Vận chuyển</button>
+        <button class="category-btn px-6 py-3 rounded-full bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition">Đổi trả</button>
+        <button class="category-btn px-6 py-3 rounded-full bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition">Thanh toán</button>
+        <button class="category-btn px-6 py-3 rounded-full bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition">Tài khoản</button>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="max-w-2xl mx-auto mb-16">
+        <div class="relative">
+            <input type="text" placeholder="Tìm kiếm câu hỏi..." class="w-full py-4 px-6 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 absolute right-4 top-1/2 transform -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-        <!-- Left Column -->
-        <div class="bg-white rounded-lg shadow-md p-8">
-            <div class="space-y-6">
-                <div class="border-b pb-4">
-                    <h3 class="text-lg font-semibold text-blue-600 mb-2">Is there a free trial available?</h3>
-                    <p class="text-gray-600">Yes, we offer a 14-day free trial for all new customers. You can access all features during this period with no credit card required.</p>
-                </div>
-                
-                <div class="border-b pb-4">
-                    <h3 class="text-lg font-semibold text-blue-600 mb-2">Can I change my plan later?</h3>
-                    <p class="text-gray-600">Absolutely! You can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle.</p>
-                </div>
-                
-                <div class="border-b pb-4">
-                    <h3 class="text-lg font-semibold text-blue-600 mb-2">What is your cancellation policy?</h3>
-                    <p class="text-gray-600">You can cancel your subscription anytime. There are no long-term contracts or cancellation fees. Your service will continue until the end of your current billing period.</p>
-                </div>
-                
-                <div class="border-b pb-4">
-                    <h3 class="text-lg font-semibold text-blue-600 mb-2">Can other info be added to an invoice?</h3>
-                    <p class="text-gray-600">Yes, you can add custom information to your invoices such as PO numbers, company details, or special notes through your account settings.</p>
-                </div>
-                
-                <div class="border-b pb-4">
-                    <h3 class="text-lg font-semibold text-blue-600 mb-2">How does billing work?</h3>
-                    <p class="text-gray-600">We bill on a monthly or annual basis, depending on your chosen plan. Payments are processed securely through our payment providers.</p>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-semibold text-blue-600 mb-2">How do I change my account email?</h3>
-                    <p class="text-gray-600">You can update your email address in your account settings. After changing, you'll need to verify your new email address.</p>
+    <!-- FAQ Accordion -->
+    <div class="max-w-4xl mx-auto mb-16">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden divide-y divide-gray-200">
+            <!-- FAQ Item 1 -->
+            <div class="faq-item">
+                <button class="faq-question w-full px-6 py-5 flex justify-between items-center hover:bg-gray-50 transition-all duration-200">
+                    <span class="text-lg font-semibold text-gray-800">Có phiên bản dùng thử miễn phí không?</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon h-5 w-5 text-blue-600 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="faq-answer px-6 py-0 max-h-0 overflow-hidden transition-all duration-300">
+                    <div class="py-5 border-t border-gray-100">
+                        <p class="text-gray-600">Có, chúng tôi cung cấp bản dùng thử miễn phí 14 ngày cho tất cả khách hàng mới. Bạn có thể truy cập tất cả tính năng trong thời gian này mà không cần thẻ tín dụng.</p>
+                    </div>
                 </div>
             </div>
-            
-            <div class="mt-8 text-center">
-                <a href="#" class="inline-block bg-primary hover:bg-secondary text-white font-medium py-2 px-6 rounded-md transition">Contact Support</a>
+
+            <!-- FAQ Item 2 -->
+            <div class="faq-item">
+                <button class="faq-question w-full px-6 py-5 flex justify-between items-center hover:bg-gray-50 transition-all duration-200">
+                    <span class="text-lg font-semibold text-gray-800">Tôi có thể thay đổi gói dịch vụ sau này không?</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon h-5 w-5 text-blue-600 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="faq-answer px-6 py-0 max-h-0 overflow-hidden transition-all duration-300">
+                    <div class="py-5 border-t border-gray-100">
+                        <p class="text-gray-600">Hoàn toàn có thể! Bạn có thể nâng cấp hoặc hạ cấp gói dịch vụ bất kỳ lúc nào. Các thay đổi sẽ được áp dụng trong chu kỳ thanh toán tiếp theo của bạn.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="faq-item">
+                <button class="faq-question w-full px-6 py-5 flex justify-between items-center hover:bg-gray-50 transition-all duration-200">
+                    <span class="text-lg font-semibold text-gray-800">Chính sách hủy dịch vụ như thế nào?</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon h-5 w-5 text-blue-600 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="faq-answer px-6 py-0 max-h-0 overflow-hidden transition-all duration-300">
+                    <div class="py-5 border-t border-gray-100">
+                        <p class="text-gray-600">Bạn có thể hủy đăng ký bất cứ lúc nào. Không có hợp đồng dài hạn hoặc phí hủy. Dịch vụ của bạn sẽ tiếp tục cho đến khi kết thúc kỳ thanh toán hiện tại.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 4 -->
+            <div class="faq-item">
+                <button class="faq-question w-full px-6 py-5 flex justify-between items-center hover:bg-gray-50 transition-all duration-200">
+                    <span class="text-lg font-semibold text-gray-800">Có thể thêm thông tin khác vào hóa đơn không?</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon h-5 w-5 text-blue-600 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="faq-answer px-6 py-0 max-h-0 overflow-hidden transition-all duration-300">
+                    <div class="py-5 border-t border-gray-100">
+                        <p class="text-gray-600">Có, bạn có thể thêm thông tin tùy chỉnh vào hóa đơn của mình như số PO, thông tin công ty, hoặc ghi chú đặc biệt thông qua cài đặt tài khoản của bạn.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 5 -->
+            <div class="faq-item">
+                <button class="faq-question w-full px-6 py-5 flex justify-between items-center hover:bg-gray-50 transition-all duration-200">
+                    <span class="text-lg font-semibold text-gray-800">Thanh toán hoạt động như thế nào?</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon h-5 w-5 text-blue-600 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="faq-answer px-6 py-0 max-h-0 overflow-hidden transition-all duration-300">
+                    <div class="py-5 border-t border-gray-100">
+                        <p class="text-gray-600">Chúng tôi tính phí theo tháng hoặc theo năm, tùy thuộc vào gói bạn chọn. Các khoản thanh toán được xử lý an toàn thông qua các nhà cung cấp dịch vụ thanh toán của chúng tôi.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 6 -->
+            <div class="faq-item">
+                <button class="faq-question w-full px-6 py-5 flex justify-between items-center hover:bg-gray-50 transition-all duration-200">
+                    <span class="text-lg font-semibold text-gray-800">Làm thế nào để thay đổi email tài khoản?</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon h-5 w-5 text-blue-600 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="faq-answer px-6 py-0 max-h-0 overflow-hidden transition-all duration-300">
+                    <div class="py-5 border-t border-gray-100">
+                        <p class="text-gray-600">Bạn có thể cập nhật địa chỉ email của mình trong cài đặt tài khoản. Sau khi thay đổi, bạn sẽ cần xác minh địa chỉ email mới của mình.</p>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-10 text-center max-w-4xl mx-auto">
+        <div class="mb-8">
+            <span class="inline-block p-3 rounded-full bg-blue-100 text-blue-600 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+            </span>
+        </div>
+        <h3 class="text-3xl font-bold text-gray-800 mb-4">Vẫn còn thắc mắc?</h3>
+        <p class="text-gray-600 mb-8 text-lg max-w-lg mx-auto">Đội ngũ hỗ trợ của chúng tôi luôn sẵn sàng giúp đỡ bạn với bất kỳ câu hỏi nào khác.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="{% url 'contact' %}" class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition shadow-lg hover:shadow-xl">
+                <span>Liên hệ hỗ trợ</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </a>
+            <a href="" class="inline-flex items-center bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-8 rounded-lg transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span>Gửi email</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for FAQ Accordion -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const faqItems = document.querySelectorAll('.faq-item');
         
-        <!-- Right Column -->
-        <div class="bg-white rounded-lg shadow-md p-8">
-            <div class="space-y-6">
-                <div class="border-b pb-4">
-                    <h3 class="text-lg font-semibold text-blue-600 mb-2">Is there a free trial available?</h3>
-                    <p class="text-gray-600">Yes, we offer a 14-day free trial for all new customers. You can access all features during this period with no credit card required.</p>
-                </div>
-                
-                <div class="border-b pb-4">
-                    <h3 class="text-lg font-semibold text-blue-600 mb-2">Can I change my plan later?</h3>
-                    <p class="text-gray-600">Absolutely! You can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle.</p>
-                </div>
-                
-                <div class="border-b pb-4">
-                    <h3 class="text-lg font-semibold text-blue-600 mb-2">What is your cancellation policy?</h3>
-                    <p class="text-gray-600">You can cancel your subscription anytime. There are no long-term contracts or cancellation fees. Your service will continue until the end of your current billing period.</p>
-                </div>
-                
-                <div class="border-b pb-4">
-                    <h3 class="text-lg font-semibold text-blue-600 mb-2">Can other info be added to an invoice?</h3>
-                    <p class="text-gray-600">Yes, you can add custom information to your invoices such as PO numbers, company details, or special notes through your account settings.</p>
-                </div>
-                
-                <div class="border-b pb-4">
-                    <h3 class="text-lg font-semibold text-blue-600 mb-2">How does billing work?</h3>
-                    <p class="text-gray-600">We bill on a monthly or annual basis, depending on your chosen plan. Payments are processed securely through our payment providers.</p>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-semibold text-blue-600 mb-2">How do I change my account email?</h3>
-                    <p class="text-gray-600">You can update your email address in your account settings. After changing, you'll need to verify your new email address.</p>
-                </div>
-            </div>
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            const icon = item.querySelector('.faq-icon');
             
-            <div class="mt-8 text-center">
-                <a href="#" class="inline-block bg-primary hover:bg-secondary text-white font-medium py-2 px-6 rounded-md transition">Contact Support</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="text-center">
-        <h3 class="text-2xl font-bold text-gray-800 mb-4">Still have questions?</h3>
-        <p class="text-gray-600 mb-6">Our support team is here to help you with any other questions you might have.</p>
-        <a href="{% url 'contact' %}" class="inline-block bg-primary hover:bg-secondary text-white font-medium py-3 px-8 rounded-md transition">Contact Us</a>
-    </div>
-</div>
+            question.addEventListener('click', () => {
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.querySelector('.faq-answer').style.maxHeight = '0';
+                        otherItem.querySelector('.faq-answer').style.padding = '0 1.5rem';
+                        otherItem.querySelector('.faq-icon').classList.remove('rotate-180');
+                    }
+                });
+                
+                // Toggle current item
+                if (answer.style.maxHeight === '0px' || answer.style.maxHeight === '') {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    answer.style.padding = '0 1.5rem';
+                    icon.classList.add('rotate-180');
+                } else {
+                    answer.style.maxHeight = '0';
+                    answer.style.padding = '0 1.5rem';
+                    icon.classList.remove('rotate-180');
+                }
+            });
+        });
+        
+        // Category buttons
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryBtns.forEach(otherBtn => {
+                    otherBtn.classList.remove('active');
+                    otherBtn.classList.remove('bg-blue-600');
+                    otherBtn.classList.remove('text-white');
+                    otherBtn.classList.add('bg-gray-100');
+                    otherBtn.classList.add('text-gray-700');
+                });
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                btn.classList.remove('bg-gray-100');
+                btn.classList.remove('text-gray-700');
+                btn.classList.add('bg-blue-600');
+                btn.classList.add('text-white');
+            });
+        });
+    });
+</script>
 {% endblock %} 

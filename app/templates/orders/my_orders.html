@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load shop_tags %}
+
+{% block title %}Đơn hàng của tôi - BountyMatrix{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<div class="bg-gray-100 py-4">
+    <div class="container mx-auto px-4">
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="/" class="text-gray-600 hover:text-secondary inline-flex items-center">
+                        <i class="fas fa-home mr-2"></i>
+                        Trang chủ
+                    </a>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-gray-500">Đơn hàng của tôi</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- My Orders Content -->
+<section class="py-12">
+    <div class="container mx-auto px-4">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Đơn hàng của tôi</h1>
+        
+        {% if orders %}
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mã đơn hàng</th>
+                            <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày đặt</th>
+                            <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tổng tiền</th>
+                            <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng thái</th>
+                            <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thanh toán</th>
+                            <th class="py-3 px-4 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        {% for order in orders %}
+                        <tr>
+                            <td class="py-4 px-4">
+                                <span class="font-medium text-gray-800">#{{ order.id }}</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                {{ order.created_at|date:"d/m/Y H:i" }}
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="font-medium">{{ order.get_total_cost|format_price }} VNĐ</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                                    {% if order.status == 'pending' %}bg-yellow-100 text-yellow-800
+                                    {% elif order.status == 'processing' %}bg-blue-100 text-blue-800
+                                    {% elif order.status == 'shipped' %}bg-purple-100 text-purple-800
+                                    {% elif order.status == 'delivered' %}bg-green-100 text-green-800
+                                    {% elif order.status == 'cancelled' %}bg-red-100 text-red-800
+                                    {% endif %}">
+                                    {{ order.get_status_display }}
+                                </span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                                    {% if order.paid %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                                    {% if order.paid %}
+                                    <i class="fas fa-check-circle mr-1"></i> Đã thanh toán
+                                    {% else %}
+                                    <i class="fas fa-clock mr-1"></i> Chưa thanh toán
+                                    {% endif %}
+                                </span>
+                            </td>
+                            <td class="py-4 px-4 text-center">
+                                <a href="{% url 'orders:order_detail' order.id %}" class="text-primary hover:text-secondary">
+                                    <i class="fas fa-eye mr-1"></i> Chi tiết
+                                </a>
+                                {% if order.status == 'pending' and not order.paid and order.payment_method == 'vnpay' %}
+                                <a href="{% url 'orders:vnpay_payment' order.id %}" class="text-blue-600 hover:text-blue-800 ml-4">
+                                    <i class="fas fa-credit-card mr-1"></i> Thanh toán
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <div class="bg-white rounded-lg shadow-md p-8 text-center">
+            <div class="text-gray-500 mb-6">
+                <i class="fas fa-shopping-bag text-6xl mb-4"></i>
+                <h2 class="text-2xl font-bold">Bạn chưa có đơn hàng nào</h2>
+                <p class="mt-2">Hãy mua sắm và đặt hàng để xem lịch sử đơn hàng của bạn tại đây.</p>
+            </div>
+            <a href="{% url 'shop:product_list' %}" class="inline-block bg-secondary hover:bg-secondary-light text-white font-bold py-3 px-6 rounded-md transition">
+                Mua sắm ngay
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %} 

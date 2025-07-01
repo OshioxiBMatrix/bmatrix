@@ -1,3 +1,84 @@
+# Bounty Matrix Shop
+
+## Cài đặt và triển khai
+
+### Yêu cầu
+- Docker và Docker Compose
+- Domain đã trỏ về server: shop.bountymatrix.net
+
+### Các bước cài đặt
+
+1. Clone repository về máy chủ:
+```bash
+git clone <repository_url>
+cd <repository_directory>
+```
+
+2. Tạo file .env với nội dung:
+```
+# Django configuration
+DEBUG=False
+SECRET_KEY=your-secret-key-change-in-production
+ALLOWED_HOSTS=shop.bountymatrix.net,localhost,127.0.0.1
+
+# Redis configuration
+REDIS_URL=redis://redis:6379/0
+
+# Database configuration (đã được cấu hình trong docker-compose.yml)
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+```
+
+3. Khởi động các dịch vụ:
+```bash
+docker-compose up -d
+```
+
+4. Cài đặt SSL với Certbot:
+   - Certbot container đã được cấu hình để chạy ở chế độ staging (thử nghiệm)
+   - Kiểm tra logs để đảm bảo certbot hoạt động đúng:
+   ```bash
+   docker-compose logs certbot
+   ```
+   
+   - Sau khi kiểm tra thành công, chỉnh sửa docker-compose.yml để xóa cờ `--staging` và chạy lại:
+   ```bash
+   # Chỉnh sửa file docker-compose.yml, xóa --staging
+   docker-compose up -d --force-recreate certbot
+   ```
+
+5. Cấu hình Nginx sử dụng SSL:
+```bash
+# Tạo file cấu hình SSL cho Nginx
+docker exec -it shop.bountymatrix.net bash -c "certbot --nginx -d shop.bountymatrix.net"
+```
+
+6. Kiểm tra trạng thái:
+```bash
+docker-compose ps
+```
+
+### Cấu hình cơ sở dữ liệu
+- Database: shopbountymatrix
+- Username: shop
+- Password: Shopsothutu123@
+
+### Quản lý dịch vụ
+- Khởi động: `docker-compose up -d`
+- Dừng: `docker-compose down`
+- Xem logs: `docker-compose logs -f`
+- Khởi động lại: `docker-compose restart`
+
+### Tự động gia hạn SSL
+Certbot sẽ tự động gia hạn chứng chỉ SSL. Bạn có thể thêm cron job để khởi động lại Nginx sau khi gia hạn:
+
+```bash
+0 3 * * * docker-compose restart shop.bountymatrix.net
+```
+
+## Truy cập
+- Website: https://shop.bountymatrix.net
+- Admin: https://shop.bountymatrix.net/admin/
 
 ---
 

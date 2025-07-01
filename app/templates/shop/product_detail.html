@@ -1,0 +1,424 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load shop_tags %}
+
+{% block title %}{{ product.name }} - BountyMatrix{% endblock %}
+
+{% block extra_css %}
+<style>
+    .product-image-thumbnail {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .product-image-thumbnail.active {
+        border: 2px solid #f97316;
+    }
+    .quantity-input::-webkit-inner-spin-button,
+    .quantity-input::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .quantity-input {
+        -moz-appearance: textfield;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<div class="bg-gray-100 py-4">
+    <div class="container mx-auto px-4">
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="/" class="text-gray-600 hover:text-secondary inline-flex items-center">
+                        <i class="fas fa-home mr-2"></i>
+                        Trang chủ
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <a href="{% url 'shop:product_list' %}" class="text-gray-600 hover:text-secondary">
+                            Cửa hàng
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <a href="{{ product.category.get_absolute_url }}" class="text-gray-600 hover:text-secondary">
+                            {{ product.category.name }}
+                        </a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-gray-500">{{ product.name }}</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Product Detail -->
+<section class="py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Product Images -->
+            <div>
+                <!-- Main Image -->
+                <div class="bg-white rounded-lg overflow-hidden mb-4">
+                    <img id="main-product-image" src="{{ product.get_main_image }}" alt="{{ product.name }}" class="w-full h-auto object-contain" style="max-height: 500px;">
+                </div>
+                
+                <!-- Thumbnail Images -->
+                <div class="grid grid-cols-5 gap-2">
+                    {% for image in product.get_all_images %}
+                    <div class="product-image-thumbnail {% if forloop.first %}active{% endif %}" data-image="{{ image.url }}" data-id="{{ image.id }}">
+                        <img src="{{ image.url }}" alt="{{ product.name }}" class="w-full h-20 object-cover rounded-md">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Product Info -->
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">{{ product.name }}</h1>
+                
+                <!-- Brand -->
+                {% if product.brand %}
+                <div class="flex items-center mb-4">
+                    <span class="text-gray-600 mr-2">Thương hiệu:</span>
+                    <a href="#" class="text-primary hover:text-secondary">{{ product.brand.name }}</a>
+                </div>
+                {% endif %}
+                
+                <!-- Price -->
+                <div class="mb-6">
+                    <span class="text-3xl font-bold text-secondary">{{ product.price|format_price }}</span>
+                </div>
+                
+                <!-- Availability -->
+                <div class="mb-4">
+                    {% if product.availability == 'in_stock' %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                        <i class="fas fa-check-circle mr-1"></i> Còn hàng
+                    </span>
+                    {% elif product.availability == 'out_of_stock' %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                        <i class="fas fa-times-circle mr-1"></i> Hết hàng
+                    </span>
+                    {% elif product.availability == 'pre_order' %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                        <i class="fas fa-clock mr-1"></i> Đặt trước
+                    </span>
+                    {% elif product.availability == 'discontinued' %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+                        <i class="fas fa-ban mr-1"></i> Ngừng kinh doanh
+                    </span>
+                    {% elif product.availability == 'coming_soon' %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
+                        <i class="fas fa-clock mr-1"></i> Sắp có hàng
+                    </span>
+                    {% endif %}
+                </div>
+                
+                <!-- Short Description -->
+                <div class="mb-6">
+                    <p class="text-gray-600">{{ product.description|truncatewords:30 }}</p>
+                </div>
+                
+                <!-- Quantity and Add to Cart -->
+                <div class="mb-6">
+                    <form id="add-to-cart-form" method="post" action="{% url 'cart:add_to_cart' product.id %}" class="space-y-4">
+                        {% csrf_token %}
+                        
+                        <!-- Quantity Selector -->
+                        <div>
+                            <label for="quantity" class="block text-gray-700 font-medium mb-2">Số lượng</label>
+                            <div class="flex">
+                                <button type="button" id="decrease-quantity" class="bg-gray-200 hover:bg-gray-300 text-gray-600 px-4 py-2 rounded-l-md">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" id="quantity" name="quantity" value="1" min="1" max="{{ product.stock }}" class="quantity-input w-16 text-center border-gray-200 focus:ring-primary focus:border-primary">
+                                <button type="button" id="increase-quantity" class="bg-gray-200 hover:bg-gray-300 text-gray-600 px-4 py-2 rounded-r-md">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Add to Cart Button -->
+                        <div class="flex space-x-2">
+                            <button type="submit" {% if product.availability != 'in_stock' %}disabled{% endif %} class="flex-grow bg-secondary hover:bg-secondary-light text-white font-bold py-3 px-6 rounded-md transition {% if product.availability != 'in_stock' %}opacity-50 cursor-not-allowed{% endif %}">
+                                <i class="fas fa-shopping-cart mr-2"></i> Thêm vào giỏ hàng
+                            </button>
+                            <button type="button" class="bg-gray-200 hover:bg-gray-300 text-gray-700 p-3 rounded-md transition">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Additional Info -->
+                <div class="border-t border-gray-200 pt-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-gray-600"><i class="fas fa-shield-alt mr-2 text-primary"></i> Bảo hành 12 tháng</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600"><i class="fas fa-exchange-alt mr-2 text-primary"></i> Đổi trả trong 30 ngày</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600"><i class="fas fa-truck mr-2 text-primary"></i> Giao hàng miễn phí</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600"><i class="fas fa-check-circle mr-2 text-primary"></i> Sản phẩm chính hãng</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Share -->
+                <div class="mt-6">
+                    <p class="text-gray-700 font-medium mb-2">Chia sẻ:</p>
+                    <div class="flex space-x-2">
+                        <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="bg-blue-400 hover:bg-blue-500 text-white p-2 rounded-full transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="bg-red-600 hover:bg-red-700 text-white p-2 rounded-full transition">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                        <a href="#" class="bg-blue-800 hover:bg-blue-900 text-white p-2 rounded-full transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Product Description and Reviews Tabs -->
+<section class="py-8">
+    <div class="container mx-auto px-4">
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <!-- Tabs -->
+            <div class="border-b border-gray-200">
+                <div class="flex">
+                    <button id="tab-description" class="tab-button active px-6 py-4 text-primary font-medium border-b-2 border-secondary">Mô tả</button>
+                    <button id="tab-specifications" class="tab-button px-6 py-4 text-gray-600 font-medium">Thông số kỹ thuật</button>
+                    <button id="tab-reviews" class="tab-button px-6 py-4 text-gray-600 font-medium">Đánh giá</button>
+                </div>
+            </div>
+            
+            <!-- Tab Contents -->
+            <div class="p-6">
+                <!-- Description Tab -->
+                <div id="content-description" class="tab-content">
+                    <div class="prose max-w-none">
+                        {{ product.description|linebreaks }}
+                    </div>
+                </div>
+                
+                <!-- Specifications Tab -->
+                <div id="content-specifications" class="tab-content hidden">
+                    <table class="w-full border-collapse">
+                        <tbody>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3 px-4 bg-gray-50 font-medium">Thương hiệu</td>
+                                <td class="py-3 px-4">{{ product.brand.name|default:"N/A" }}</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3 px-4 bg-gray-50 font-medium">Loại sản phẩm</td>
+                                <td class="py-3 px-4">{{ product.category.name }}</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3 px-4 bg-gray-50 font-medium">Tình trạng</td>
+                                <td class="py-3 px-4">{{ product.get_availability_display }}</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3 px-4 bg-gray-50 font-medium">Bảo hành</td>
+                                <td class="py-3 px-4">12 tháng</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Reviews Tab -->
+                <div id="content-reviews" class="tab-content hidden">
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4">Đánh giá của khách hàng</h3>
+                        
+                        <!-- No Reviews Message -->
+                        <p class="text-gray-600">Chưa có đánh giá nào cho sản phẩm này.</p>
+                        
+                        <!-- Review Form -->
+                        <div class="mt-8">
+                            <h4 class="text-lg font-bold mb-4">Viết đánh giá</h4>
+                            <form class="space-y-4">
+                                <!-- Rating -->
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Đánh giá</label>
+                                    <div class="flex text-2xl text-yellow-400">
+                                        <i class="far fa-star cursor-pointer hover:text-yellow-500"></i>
+                                        <i class="far fa-star cursor-pointer hover:text-yellow-500"></i>
+                                        <i class="far fa-star cursor-pointer hover:text-yellow-500"></i>
+                                        <i class="far fa-star cursor-pointer hover:text-yellow-500"></i>
+                                        <i class="far fa-star cursor-pointer hover:text-yellow-500"></i>
+                                    </div>
+                                </div>
+                                
+                                <!-- Review Text -->
+                                <div>
+                                    <label for="review-text" class="block text-gray-700 font-medium mb-2">Nội dung đánh giá</label>
+                                    <textarea id="review-text" rows="4" class="w-full rounded-md border-gray-300 focus:ring-primary focus:border-primary"></textarea>
+                                </div>
+                                
+                                <!-- Submit Button -->
+                                <div>
+                                    <button type="submit" class="bg-secondary hover:bg-secondary-light text-white font-bold py-2 px-6 rounded-md transition">
+                                        Gửi đánh giá
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Products -->
+<section class="py-12">
+    <div class="container mx-auto px-4">
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-800">Sản phẩm liên quan</h2>
+        </div>
+        
+        <!-- Products Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {% for related in related_products %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div class="relative">
+                    <a href="{{ related.get_absolute_url }}">
+                        <img src="{{ related.get_main_image }}" alt="{{ related.name }}" class="w-full h-48 object-cover">
+                    </a>
+                    <button class="absolute top-2 right-2 text-gray-600 hover:text-secondary bg-white p-2 rounded-full">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <a href="{{ related.get_absolute_url }}">
+                        <h3 class="font-medium text-gray-800 mb-2">{{ related.name }}</h3>
+                    </a>
+                    <div class="flex justify-between items-center">
+                        <span class="text-secondary font-bold">{{ related.price|format_price }}</span>
+                        <button class="text-primary hover:text-secondary">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tab switching functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active', 'border-secondary', 'text-primary');
+                    btn.classList.add('text-gray-600');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active', 'border-b-2', 'border-secondary', 'text-primary');
+                this.classList.remove('text-gray-600');
+                
+                // Hide all tab contents
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                // Show the corresponding content
+                const contentId = 'content-' + this.id.split('-')[1];
+                document.getElementById(contentId).classList.remove('hidden');
+            });
+        });
+        
+        // Product image gallery functionality
+        const mainImage = document.getElementById('main-product-image');
+        const thumbnails = document.querySelectorAll('.product-image-thumbnail');
+        
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', function() {
+                // Remove active class from all thumbnails
+                thumbnails.forEach(thumb => {
+                    thumb.classList.remove('active');
+                });
+                
+                // Add active class to clicked thumbnail
+                this.classList.add('active');
+                
+                // Update main image
+                const imageUrl = this.getAttribute('data-image');
+                mainImage.src = imageUrl;
+            });
+        });
+        
+        // Quantity input functionality
+        const quantityInput = document.getElementById('quantity');
+        const decreaseButton = document.getElementById('decrease-quantity');
+        const increaseButton = document.getElementById('increase-quantity');
+        
+        decreaseButton.addEventListener('click', function() {
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+        
+        increaseButton.addEventListener('click', function() {
+            const currentValue = parseInt(quantityInput.value);
+            const maxValue = parseInt(quantityInput.getAttribute('max'));
+            if (currentValue < maxValue) {
+                quantityInput.value = currentValue + 1;
+            }
+        });
+        
+        // Review star rating functionality
+        const stars = document.querySelectorAll('.fa-star');
+        
+        stars.forEach((star, index) => {
+            star.addEventListener('click', function() {
+                // Reset all stars
+                stars.forEach(s => {
+                    s.classList.remove('fas');
+                    s.classList.add('far');
+                });
+                
+                // Fill stars up to the clicked one
+                for (let i = 0; i <= index; i++) {
+                    stars[i].classList.remove('far');
+                    stars[i].classList.add('fas');
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

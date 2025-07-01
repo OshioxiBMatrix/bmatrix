@@ -1,0 +1,1046 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Danh sách sản phẩm - BMATRIX{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Custom Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+    }
+
+    /* Product Card Styles */
+    .product-card {
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        animation: fadeIn 0.6s ease-out forwards;
+        opacity: 0;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Animation Delays for Cascade Effect */
+    .product-card:nth-child(1) { animation-delay: 0.1s; }
+    .product-card:nth-child(2) { animation-delay: 0.2s; }
+    .product-card:nth-child(3) { animation-delay: 0.3s; }
+    .product-card:nth-child(4) { animation-delay: 0.4s; }
+    .product-card:nth-child(5) { animation-delay: 0.5s; }
+    .product-card:nth-child(6) { animation-delay: 0.6s; }
+    .product-card:nth-child(7) { animation-delay: 0.7s; }
+    .product-card:nth-child(8) { animation-delay: 0.8s; }
+    
+    /* Add to Cart Button Animation */
+    .add-to-cart-btn {
+        transition: all 0.3s ease;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .add-to-cart-btn:hover {
+        transform: translateY(-2px);
+    }
+    
+    .add-to-cart-btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: 0.5s;
+    }
+    
+    .add-to-cart-btn:hover::after {
+        left: 100%;
+    }
+    
+    /* Price Tag Animation */
+    .price-tag {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .price-tag::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transform: rotate(45deg);
+        animation: shimmer 3s infinite;
+        background-size: 200% 200%;
+    }
+    
+    /* Category Pill Animation */
+    .category-pill {
+        transition: all 0.3s ease;
+    }
+    
+    .category-pill:hover, .category-pill.active {
+        transform: scale(1.05);
+    }
+    
+    /* Sale Badge Animation */
+    .sale-badge {
+        animation: pulse 2s infinite;
+    }
+    
+    /* Filter Dropdown Animation */
+    .filter-dropdown {
+        transition: all 0.3s ease;
+        transform-origin: top center;
+    }
+    
+    /* Image Hover Effect */
+    .product-image-container {
+        overflow: hidden;
+    }
+    
+    .product-image {
+        transition: transform 0.5s ease;
+    }
+    
+    .product-card:hover .product-image {
+        transform: scale(1.05);
+    }
+    
+    /* Quick View Overlay */
+    .quick-view-overlay {
+        position: absolute;
+        bottom: -40px;
+        left: 0;
+        right: 0;
+        background: rgba(30, 58, 138, 0.85);
+        color: white;
+        padding: 8px 0;
+        text-align: center;
+        transition: all 0.3s ease;
+        opacity: 0;
+    }
+    
+    .product-card:hover .quick-view-overlay {
+        bottom: 0;
+        opacity: 1;
+    }
+    
+    /* Wishlist Button Animation */
+    .wishlist-btn {
+        transition: all 0.3s ease;
+    }
+    
+    .wishlist-btn:hover {
+        transform: scale(1.2);
+    }
+    
+    .wishlist-btn.active {
+        color: #f97316;
+    }
+    
+    /* Empty State Animation */
+    .empty-state {
+        animation: fadeIn 0.8s ease-out forwards;
+    }
+    
+    /* Loading Skeleton Animation */
+    .skeleton {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+    }
+    
+    /* Availability Badge Styles */
+    .availability-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+    
+    .availability-in_stock {
+        background-color: #dcfce7;
+        color: #166534;
+    }
+    
+    .availability-out_of_stock {
+        background-color: #fee2e2;
+        color: #991b1b;
+    }
+    
+    .availability-pre_order {
+        background-color: #fef3c7;
+        color: #92400e;
+    }
+    
+    .availability-discontinued {
+        background-color: #f3f4f6;
+        color: #6b7280;
+    }
+    
+    .availability-coming_soon {
+        background-color: #dbeafe;
+        color: #1e40af;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Banner with Parallax Effect -->
+<section class="bg-gradient-to-r from-gray-900 to-primary py-12 relative overflow-hidden">
+    <!-- Circuit board pattern overlay -->
+    <div class="absolute inset-0 opacity-10">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <pattern id="circuit-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                <path d="M0,50 L100,50 M50,0 L50,100 M25,25 L75,75 M75,25 L25,75" stroke="white" stroke-width="1" fill="none"/>
+                <circle cx="50" cy="50" r="10" fill="none" stroke="white" stroke-width="1"/>
+                <circle cx="25" cy="25" r="5" fill="none" stroke="white" stroke-width="1"/>
+                <circle cx="75" cy="75" r="5" fill="none" stroke="white" stroke-width="1"/>
+            </pattern>
+            <rect width="100%" height="100%" fill="url(#circuit-pattern)"/>
+        </svg>
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                {% if category %}{{ category.name }}{% else %}Tất cả sản phẩm{% endif %}
+            </h1>
+            <nav class="text-sm text-gray-300">
+                <ol class="flex justify-center items-center space-x-2">
+                    <li><a href="{% url 'shop:home' %}" class="hover:text-white transition">Trang chủ</a></li>
+                    <li><span class="mx-2">/</span></li>
+                    <li><a href="{% url 'shop:product_list' %}" class="hover:text-white transition">Sản phẩm</a></li>
+                    {% if category %}
+                    <li><span class="mx-2">/</span></li>
+                    <li class="text-white">{{ category.name }}</li>
+                    {% endif %}
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<!-- Filters and Products -->
+<section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Sidebar Filters -->
+            <div class="lg:w-1/4">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6 sticky top-24">
+                    <h2 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+                        <i class="fas fa-filter mr-2 text-secondary"></i> Bộ lọc
+                    </h2>
+                    
+                    <form id="filter-form" method="get" action="{% if category %}{{ category.get_absolute_url }}{% else %}{% url 'shop:product_list' %}{% endif %}">
+                        <!-- Categories Filter -->
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">Danh mục</h3>
+                            <ul class="space-y-2">
+                                <li>
+                                    <a href="{% url 'shop:product_list' %}" 
+                                    class="category-pill block px-3 py-2 rounded-md text-sm {% if not category %}bg-secondary text-white font-medium{% else %}hover:bg-gray-100{% endif %} transition">
+                                        Tất cả sản phẩm
+                                    </a>
+                                </li>
+                                {% for c in categories %}
+                                <li>
+                                    <a href="{{ c.get_absolute_url }}" 
+                                    class="category-pill block px-3 py-2 rounded-md text-sm {% if category.id == c.id %}bg-secondary text-white font-medium{% else %}hover:bg-gray-100{% endif %} transition">
+                                        {{ c.name }}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        
+                        <!-- Price Range Filter -->
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">Khoảng giá</h3>
+                            <div class="px-2">
+                                <div class="relative mb-6">
+                                    <div class="h-2 bg-gray-200 rounded-full">
+                                        <div class="absolute h-2 bg-secondary rounded-full" id="price-range-slider" style="width: 60%; left: 20%"></div>
+                                        <div class="absolute h-4 w-4 bg-white border-2 border-secondary rounded-full -mt-1 cursor-pointer" id="min-price-handle" style="left: 20%"></div>
+                                        <div class="absolute h-4 w-4 bg-white border-2 border-secondary rounded-full -mt-1 cursor-pointer" id="max-price-handle" style="left: 80%"></div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between">
+                                    <input type="hidden" name="min_price" id="min_price" value="{{ min_price }}">
+                                    <input type="hidden" name="max_price" id="max_price" value="{{ max_price }}">
+                                    <span class="text-sm text-gray-600" id="min-price-display">0 VNĐ</span>
+                                    <span class="text-sm text-gray-600" id="max-price-display">10.000.000 VNĐ</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Brand Filter -->
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">Thương hiệu</h3>
+                            <div class="space-y-2">
+                                {% for brand in brands %}
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="brand" value="{{ brand.id }}" class="form-checkbox h-4 w-4 text-secondary"
+                                           {% if brand.id in selected_brands_ids %}checked{% endif %}>
+                                    <span class="ml-2 text-sm text-gray-700">{{ brand.name }}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <!-- Availability Filter -->
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">Trạng thái</h3>
+                            <div class="space-y-2">
+                                {% for value, label in availability_choices %}
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="availability" value="{{ value }}" class="form-checkbox h-4 w-4 text-secondary"
+                                           {% if value in selected_availability %}checked{% endif %}>
+                                    <span class="ml-2 text-sm text-gray-700">{{ label }}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <!-- Apply Filters Button -->
+                        <button type="submit" class="w-full bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-4 rounded-md transition add-to-cart-btn">
+                            Áp dụng bộ lọc
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Products Grid -->
+            <div class="lg:w-3/4">
+                <!-- Sorting and View Options -->
+                <div class="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-col sm:flex-row justify-between items-center">
+                    <div class="flex items-center mb-4 sm:mb-0">
+                        <span class="text-sm text-gray-600 mr-2">Sắp xếp theo:</span>
+                        <select id="sort-select" class="border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-secondary">
+                            <option value="created_at" {% if sort_by == 'created_at' %}selected{% endif %}>Mới nhất</option>
+                            <option value="price_asc" {% if sort_by == 'price_asc' %}selected{% endif %}>Giá: Thấp đến cao</option>
+                            <option value="price_desc" {% if sort_by == 'price_desc' %}selected{% endif %}>Giá: Cao đến thấp</option>
+                            <option value="name_asc" {% if sort_by == 'name_asc' %}selected{% endif %}>Tên: A-Z</option>
+                            <option value="name_desc" {% if sort_by == 'name_desc' %}selected{% endif %}>Tên: Z-A</option>
+                        </select>
+                        <input type="hidden" name="sort" id="sort-input" form="filter-form" value="{{ sort_by }}">
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-sm text-gray-600 mr-2">Hiển thị:</span>
+                        <div class="flex space-x-2">
+                            <button class="bg-secondary text-white p-1 rounded" id="grid-view">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button class="bg-gray-200 hover:bg-gray-300 p-1 rounded transition" id="list-view">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                {% if products %}
+                <!-- Products Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="products-grid">
+                    {% for product in products %}
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="relative product-image-container">
+                            {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-60 object-cover product-image">
+                            {% else %}
+                            <div class="w-full h-60 bg-gray-200 flex items-center justify-center product-image">
+                                <i class="fas fa-image text-4xl text-gray-400"></i>
+                            </div>
+                            {% endif %}
+                            
+                            {% if product.featured %}
+                            <span class="absolute top-2 left-2 bg-secondary text-white text-xs font-bold px-2 py-1 rounded sale-badge">
+                                HOT
+                            </span>
+                            {% endif %}
+                            
+                            <button class="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md wishlist-btn">
+                                <i class="far fa-heart text-gray-600"></i>
+                            </button>
+                            
+                            <div class="quick-view-overlay cursor-pointer">
+                                <span class="text-sm font-medium">Xem nhanh</span>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4">
+                            <div class="mb-2 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs text-gray-500">{{ product.category.name }}</span>
+                                    {% if product.brand %}
+                                    <span class="text-xs text-gray-500 mx-1">•</span>
+                                    <span class="text-xs text-gray-500">{{ product.brand.name }}</span>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Availability Badge -->
+                                <span class="availability-badge availability-{{ product.availability }}">
+                                    {{ product.get_availability_display }}
+                                </span>
+                            </div>
+                            
+                            <a href="{{ product.get_absolute_url }}" class="block">
+                                <h3 class="font-medium text-gray-800 hover:text-secondary transition mb-2">{{ product.name }}</h3>
+                            </a>
+                            
+                            <div class="flex items-center mb-3">
+                                <div class="flex text-secondary">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 ml-1">(4.5)</span>
+                            </div>
+                            
+                            <div class="flex justify-between items-center">
+                                <div class="price-tag bg-gray-100 px-3 py-1 rounded-full">
+                                    <span class="font-bold text-secondary">{{ product.price }} VNĐ</span>
+                                </div>
+                                
+                                <button class="bg-primary hover:bg-primary-dark text-white p-2 rounded-full shadow-md transition add-to-cart-btn {% if product.availability == 'out_of_stock' or product.availability == 'discontinued' %}opacity-50 cursor-not-allowed{% endif %}" {% if product.availability == 'out_of_stock' or product.availability == 'discontinued' %}disabled{% endif %}>
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Products List View (Hidden by default) -->
+                <div class="hidden flex flex-col gap-4" id="products-list">
+                    {% for product in products %}
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="relative md:w-1/3 product-image-container">
+                                {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-60 md:h-full object-cover product-image">
+                                {% else %}
+                                <div class="w-full h-60 md:h-full bg-gray-200 flex items-center justify-center product-image">
+                                    <i class="fas fa-image text-4xl text-gray-400"></i>
+                                </div>
+                                {% endif %}
+                                
+                                {% if product.featured %}
+                                <span class="absolute top-2 left-2 bg-secondary text-white text-xs font-bold px-2 py-1 rounded sale-badge">
+                                    HOT
+                                </span>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="p-6 md:w-2/3">
+                                <div class="mb-2 flex items-center justify-between">
+                                    <div>
+                                        <span class="text-xs text-gray-500">{{ product.category.name }}</span>
+                                        {% if product.brand %}
+                                        <span class="text-xs text-gray-500 mx-1">•</span>
+                                        <span class="text-xs text-gray-500">{{ product.brand.name }}</span>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <!-- Availability Badge -->
+                                    <span class="availability-badge availability-{{ product.availability }}">
+                                        {{ product.get_availability_display }}
+                                    </span>
+                                </div>
+                                
+                                <a href="{{ product.get_absolute_url }}" class="block">
+                                    <h3 class="text-xl font-medium text-gray-800 hover:text-secondary transition mb-2">{{ product.name }}</h3>
+                                </a>
+                                
+                                <p class="text-gray-600 mb-4 line-clamp-2">{{ product.description|truncatechars:150 }}</p>
+                                
+                                <div class="flex items-center mb-4">
+                                    <div class="flex text-secondary">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="text-xs text-gray-500 ml-1">(4.5)</span>
+                                </div>
+                                
+                                <div class="flex justify-between items-center">
+                                    <div class="price-tag bg-gray-100 px-3 py-1 rounded-full">
+                                        <span class="font-bold text-secondary">{{ product.price }} VNĐ</span>
+                                    </div>
+                                    
+                                    <div class="flex space-x-2">
+                                        <button class="wishlist-btn bg-gray-100 hover:bg-gray-200 p-2 rounded-full transition">
+                                            <i class="far fa-heart text-gray-600"></i>
+                                        </button>
+                                        <button class="bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded-md transition add-to-cart-btn {% if product.availability == 'out_of_stock' or product.availability == 'discontinued' %}opacity-50 cursor-not-allowed{% endif %}" {% if product.availability == 'out_of_stock' or product.availability == 'discontinued' %}disabled{% endif %}>
+                                            <i class="fas fa-shopping-cart mr-2"></i> Thêm vào giỏ hàng
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Pagination -->
+                <div class="mt-10 flex justify-center">
+                    <nav class="inline-flex rounded-md shadow">
+                        <a href="#" class="py-2 px-4 bg-white border border-gray-300 rounded-l-md hover:bg-gray-100 transition">
+                            <i class="fas fa-chevron-left text-gray-600"></i>
+                        </a>
+                        <a href="#" class="py-2 px-4 bg-secondary text-white border border-secondary">1</a>
+                        <a href="#" class="py-2 px-4 bg-white border border-gray-300 hover:bg-gray-100 transition">2</a>
+                        <a href="#" class="py-2 px-4 bg-white border border-gray-300 hover:bg-gray-100 transition">3</a>
+                        <a href="#" class="py-2 px-4 bg-white border border-gray-300 rounded-r-md hover:bg-gray-100 transition">
+                            <i class="fas fa-chevron-right text-gray-600"></i>
+                        </a>
+                    </nav>
+                </div>
+                {% else %}
+                <!-- Empty State -->
+                <div class="empty-state bg-white rounded-lg shadow-md p-10 text-center">
+                    <div class="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
+                        <i class="fas fa-box-open text-4xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Không tìm thấy sản phẩm</h3>
+                    <p class="text-gray-600 mb-6">Không có sản phẩm nào phù hợp với tiêu chí tìm kiếm của bạn.</p>
+                    <a href="{% url 'shop:product_list' %}" class="inline-block bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition">
+                        Xem tất cả sản phẩm
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Recently Viewed Products -->
+<section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold text-gray-800">Sản phẩm đã xem gần đây</h2>
+            <a href="#" class="text-primary hover:text-secondary font-medium flex items-center">
+                Xem tất cả <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            {% for i in "12345"|make_list %}
+            <div class="product-card bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition">
+                <div class="relative product-image-container">
+                    <img src="https://placehold.co/300x300" alt="Product {{ i }}" class="w-full h-40 object-cover product-image">
+                </div>
+                <div class="p-3">
+                    <h3 class="font-medium text-gray-800 text-sm mb-1 truncate">Sản phẩm {{ i }}</h3>
+                    <div class="price-tag">
+                        <span class="font-bold text-secondary text-sm">2.500.000 VNĐ</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Quick View Modal -->
+<div id="quick-view-modal" class="fixed inset-0 z-50 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <!-- Background overlay -->
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        
+        <!-- Modal panel -->
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+            <!-- Close button -->
+            <div class="absolute top-0 right-0 pt-4 pr-4">
+                <button type="button" class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" id="close-quick-view">
+                    <span class="sr-only">Close</span>
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Loading spinner -->
+            <div id="quick-view-loading" class="flex justify-center items-center py-20">
+                <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+            </div>
+            
+            <!-- Product content -->
+            <div id="quick-view-content" class="hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Product Images -->
+                    <div class="p-6">
+                        <div class="relative">
+                            <img id="qv-main-image" src="" alt="Product" class="w-full h-auto object-cover rounded-lg">
+                            
+                            <!-- Image thumbnails -->
+                            <div id="qv-thumbnails" class="flex mt-4 space-x-2 overflow-x-auto pb-2">
+                                <!-- Thumbnails will be added here dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Details -->
+                    <div class="p-6">
+                        <div class="mb-2 flex items-center justify-between">
+                            <div>
+                                <span id="qv-category" class="text-xs text-gray-500"></span>
+                                <span class="text-xs text-gray-500 mx-1 brand-separator hidden">•</span>
+                                <span id="qv-brand" class="text-xs text-gray-500"></span>
+                            </div>
+                            
+                            <!-- Availability Badge -->
+                            <span id="qv-availability" class="availability-badge"></span>
+                        </div>
+                        
+                        <h2 id="qv-name" class="text-2xl font-bold text-gray-800 mb-2"></h2>
+                        
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-secondary">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-1">(4.5)</span>
+                        </div>
+                        
+                        <div class="price-tag bg-gray-100 px-3 py-2 rounded-full inline-block mb-4">
+                            <span id="qv-price" class="font-bold text-secondary text-xl"></span>
+                        </div>
+                        
+                        <div id="qv-description" class="text-gray-600 mb-6"></div>
+                        
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="flex items-center">
+                                <button class="bg-gray-200 text-gray-600 py-1 px-3 rounded-l-md hover:bg-gray-300 transition" id="qv-quantity-minus">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" id="qv-quantity" class="w-12 text-center border-y border-gray-200 py-1" value="1" min="1">
+                                <button class="bg-gray-200 text-gray-600 py-1 px-3 rounded-r-md hover:bg-gray-300 transition" id="qv-quantity-plus">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="flex-grow">
+                                <button id="qv-add-to-cart" class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2 px-4 rounded-md transition add-to-cart-btn">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Thêm vào giỏ hàng
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <button class="wishlist-btn bg-gray-100 hover:bg-gray-200 p-2 rounded-full transition">
+                                <i class="far fa-heart text-gray-600"></i>
+                            </button>
+                            
+                            <a id="qv-view-details" href="#" class="text-primary hover:text-secondary font-medium flex items-center">
+                                Xem chi tiết <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize product cards with staggered animation
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.style.opacity = '1';
+            }, 100 * index);
+        });
+        
+        // Wishlist button toggle
+        const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+        wishlistButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    this.classList.add('active');
+                    
+                    // Add pop animation
+                    this.animate([
+                        { transform: 'scale(1)' },
+                        { transform: 'scale(1.3)' },
+                        { transform: 'scale(1)' }
+                    ], {
+                        duration: 300,
+                        easing: 'ease-in-out'
+                    });
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    this.classList.remove('active');
+                }
+            });
+        });
+        
+        // Quick view overlay effect
+        const quickViewOverlays = document.querySelectorAll('.quick-view-overlay');
+        quickViewOverlays.forEach(overlay => {
+            overlay.addEventListener('click', function() {
+                // Get the product card and extract the product ID
+                const productCard = this.closest('.product-card');
+                const productLink = productCard.querySelector('a[href^="/product/"]') || 
+                                    productCard.querySelector('a[href*="/product/"]');
+                
+                if (productLink) {
+                    // Extract product ID from URL or data attribute
+                    const productUrl = productLink.getAttribute('href');
+                    const urlParts = productUrl.split('/');
+                    // The slug is the second-to-last part in the URL (before the trailing slash if any)
+                    const productSlug = urlParts.filter(Boolean)[urlParts.filter(Boolean).length - 1];
+                    
+                    // Show the quick view modal with product data
+                    openQuickViewModal(productSlug);
+                }
+            });
+        });
+        
+        // Function to open quick view modal
+        function openQuickViewModal(productSlug) {
+            const modal = document.getElementById('quick-view-modal');
+            const loading = document.getElementById('quick-view-loading');
+            const content = document.getElementById('quick-view-content');
+            
+            // Show modal and loading spinner
+            modal.classList.remove('hidden');
+            loading.classList.remove('hidden');
+            content.classList.add('hidden');
+            
+            // Fetch product data
+            fetch(`/product/quickview/${productSlug}/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        populateQuickView(data.product);
+                        loading.classList.add('hidden');
+                        content.classList.remove('hidden');
+                    } else {
+                        console.error('Error loading product data:', data.error);
+                        closeQuickViewModal();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching product data:', error);
+                    closeQuickViewModal();
+                });
+        }
+        
+        // Function to populate quick view modal with product data
+        function populateQuickView(product) {
+            // Set product details
+            document.getElementById('qv-name').textContent = product.name;
+            document.getElementById('qv-price').textContent = product.price_formatted;
+            document.getElementById('qv-description').textContent = product.description;
+            document.getElementById('qv-category').textContent = product.category.name;
+            document.getElementById('qv-view-details').href = product.url;
+            
+            // Set availability
+            const availabilityBadge = document.getElementById('qv-availability');
+            availabilityBadge.textContent = product.availability_display;
+            availabilityBadge.className = `availability-badge availability-${product.availability}`;
+            
+            // Set brand if available
+            if (product.brand) {
+                document.getElementById('qv-brand').textContent = product.brand.name;
+                document.querySelector('.brand-separator').classList.remove('hidden');
+            } else {
+                document.getElementById('qv-brand').textContent = '';
+                document.querySelector('.brand-separator').classList.add('hidden');
+            }
+            
+            // Set main image
+            if (product.images && product.images.length > 0) {
+                document.getElementById('qv-main-image').src = product.images[0].url;
+                document.getElementById('qv-main-image').alt = product.name;
+                
+                // Create thumbnails
+                const thumbnailsContainer = document.getElementById('qv-thumbnails');
+                thumbnailsContainer.innerHTML = '';
+                
+                product.images.forEach(image => {
+                    const thumbnail = document.createElement('div');
+                    thumbnail.className = 'w-16 h-16 border rounded cursor-pointer hover:border-secondary';
+                    thumbnail.innerHTML = `<img src="${image.url}" alt="${product.name}" class="w-full h-full object-cover">`;
+                    
+                    thumbnail.addEventListener('click', function() {
+                        document.getElementById('qv-main-image').src = image.url;
+                    });
+                    
+                    thumbnailsContainer.appendChild(thumbnail);
+                });
+            }
+            
+            // Disable add to cart button if product is not available
+            const addToCartBtn = document.getElementById('qv-add-to-cart');
+            if (product.availability === 'out_of_stock' || product.availability === 'discontinued') {
+                addToCartBtn.disabled = true;
+                addToCartBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                addToCartBtn.disabled = false;
+                addToCartBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+        
+        // Close modal when clicking the close button
+        document.getElementById('close-quick-view').addEventListener('click', closeQuickViewModal);
+        
+        // Close modal when clicking outside
+        document.getElementById('quick-view-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeQuickViewModal();
+            }
+        });
+        
+        // Function to close quick view modal
+        function closeQuickViewModal() {
+            document.getElementById('quick-view-modal').classList.add('hidden');
+        }
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeQuickViewModal();
+            }
+        });
+        
+        // Quantity controls
+        document.getElementById('qv-quantity-minus').addEventListener('click', function() {
+            const quantityInput = document.getElementById('qv-quantity');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+        
+        document.getElementById('qv-quantity-plus').addEventListener('click', function() {
+            const quantityInput = document.getElementById('qv-quantity');
+            const currentValue = parseInt(quantityInput.value);
+            quantityInput.value = currentValue + 1;
+        });
+        
+        // Add to cart button effect
+        const addToCartButtons = document.querySelectorAll('.add-to-cart-btn:not([disabled])');
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                this.animate([
+                    { transform: 'translateY(0)' },
+                    { transform: 'translateY(-5px)' },
+                    { transform: 'translateY(0)' }
+                ], {
+                    duration: 300,
+                    easing: 'ease-in-out'
+                });
+            });
+        });
+        
+        // Add to cart functionality for quick view
+        document.getElementById('qv-add-to-cart').addEventListener('click', function() {
+            // Here you would add the product to the cart
+            // For now, just animate and close the modal
+            this.animate([
+                { transform: 'translateY(0)' },
+                { transform: 'translateY(-5px)' },
+                { transform: 'translateY(0)' }
+            ], {
+                duration: 300,
+                easing: 'ease-in-out'
+            });
+            
+            setTimeout(() => {
+                closeQuickViewModal();
+            }, 300);
+        });
+        
+        // Price range slider functionality
+        const minPriceHandle = document.getElementById('min-price-handle');
+        const maxPriceHandle = document.getElementById('max-price-handle');
+        const priceRangeSlider = document.getElementById('price-range-slider');
+        const minPriceInput = document.getElementById('min_price');
+        const maxPriceInput = document.getElementById('max_price');
+        const minPriceDisplay = document.getElementById('min-price-display');
+        const maxPriceDisplay = document.getElementById('max-price-display');
+        
+        const maxPrice = 10000000; // 10 million VND
+        let minPriceValue = parseInt(minPriceInput.value) || 0;
+        let maxPriceValue = parseInt(maxPriceInput.value) || maxPrice;
+        
+        // Format price with commas
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VNĐ";
+        }
+        
+        // Update slider positions and values
+        function updateSlider() {
+            const minPercent = (minPriceValue / maxPrice) * 100;
+            const maxPercent = (maxPriceValue / maxPrice) * 100;
+            
+            minPriceHandle.style.left = minPercent + '%';
+            maxPriceHandle.style.left = maxPercent + '%';
+            priceRangeSlider.style.left = minPercent + '%';
+            priceRangeSlider.style.width = (maxPercent - minPercent) + '%';
+            
+            minPriceInput.value = minPriceValue;
+            maxPriceInput.value = maxPriceValue;
+            minPriceDisplay.textContent = formatPrice(minPriceValue);
+            maxPriceDisplay.textContent = formatPrice(maxPriceValue);
+        }
+        
+        // Initialize slider
+        updateSlider();
+        
+        // Handle slider drag events
+        let isDragging = null;
+        
+        function startDrag(handle) {
+            isDragging = handle;
+            document.addEventListener('mousemove', handleDrag);
+            document.addEventListener('mouseup', stopDrag);
+        }
+        
+        function handleDrag(e) {
+            if (!isDragging) return;
+            
+            const sliderRect = isDragging.parentElement.getBoundingClientRect();
+            let newPosition = (e.clientX - sliderRect.left) / sliderRect.width;
+            newPosition = Math.max(0, Math.min(1, newPosition));
+            
+            const newValue = Math.round(newPosition * maxPrice);
+            
+            if (isDragging === minPriceHandle) {
+                minPriceValue = Math.min(newValue, maxPriceValue - 1000); // Ensure min is less than max
+            } else {
+                maxPriceValue = Math.max(newValue, minPriceValue + 1000); // Ensure max is greater than min
+            }
+            
+            updateSlider();
+        }
+        
+        function stopDrag() {
+            isDragging = null;
+            document.removeEventListener('mousemove', handleDrag);
+            document.removeEventListener('mouseup', stopDrag);
+        }
+        
+        if (minPriceHandle && maxPriceHandle) {
+            minPriceHandle.addEventListener('mousedown', () => startDrag(minPriceHandle));
+            maxPriceHandle.addEventListener('mousedown', () => startDrag(maxPriceHandle));
+        }
+        
+        // Sort select functionality
+        const sortSelect = document.getElementById('sort-select');
+        const sortInput = document.getElementById('sort-input');
+        
+        if (sortSelect && sortInput) {
+            sortSelect.addEventListener('change', function() {
+                sortInput.value = this.value;
+                document.getElementById('filter-form').submit();
+            });
+        }
+        
+        // Grid/List view toggle
+        const gridViewBtn = document.getElementById('grid-view');
+        const listViewBtn = document.getElementById('list-view');
+        const productsGrid = document.getElementById('products-grid');
+        const productsList = document.getElementById('products-list');
+        
+        if (gridViewBtn && listViewBtn && productsGrid && productsList) {
+            // Check if there's a saved view preference in localStorage
+            const savedView = localStorage.getItem('product-view') || 'grid';
+            
+            // Initialize view based on saved preference
+            if (savedView === 'list') {
+                productsGrid.classList.add('hidden');
+                productsList.classList.remove('hidden');
+                gridViewBtn.classList.remove('bg-secondary');
+                gridViewBtn.classList.add('bg-gray-200');
+                listViewBtn.classList.remove('bg-gray-200');
+                listViewBtn.classList.add('bg-secondary');
+                listViewBtn.classList.add('text-white');
+            }
+            
+            gridViewBtn.addEventListener('click', function() {
+                productsGrid.classList.remove('hidden');
+                productsList.classList.add('hidden');
+                this.classList.add('bg-secondary');
+                this.classList.add('text-white');
+                this.classList.remove('bg-gray-200');
+                listViewBtn.classList.add('bg-gray-200');
+                listViewBtn.classList.remove('bg-secondary');
+                listViewBtn.classList.remove('text-white');
+                localStorage.setItem('product-view', 'grid');
+            });
+            
+            listViewBtn.addEventListener('click', function() {
+                productsGrid.classList.add('hidden');
+                productsList.classList.remove('hidden');
+                this.classList.add('bg-secondary');
+                this.classList.add('text-white');
+                this.classList.remove('bg-gray-200');
+                gridViewBtn.classList.add('bg-gray-200');
+                gridViewBtn.classList.remove('bg-secondary');
+                gridViewBtn.classList.remove('text-white');
+                localStorage.setItem('product-view', 'list');
+            });
+        }
+        
+        // Add parallax effect to the hero section
+        const heroSection = document.querySelector('section.bg-gradient-to-r');
+        if (heroSection) {
+            window.addEventListener('scroll', () => {
+                const scrollPosition = window.scrollY;
+                if (scrollPosition < 600) {
+                    const overlay = heroSection.querySelector('.absolute.inset-0');
+                    overlay.style.transform = `translateY(${scrollPosition * 0.2}px)`;
+                }
+            });
+        }
+        
+        // Add floating animation to availability badges
+        const availabilityBadges = document.querySelectorAll('.availability-badge');
+        availabilityBadges.forEach(badge => {
+            badge.animate([
+                { transform: 'translateY(0)' },
+                { transform: 'translateY(-3px)' },
+                { transform: 'translateY(0)' }
+            ], {
+                duration: 2000,
+                iterations: Infinity,
+                easing: 'ease-in-out'
+            });
+        });
+    });
+</script>
+{% endblock %}

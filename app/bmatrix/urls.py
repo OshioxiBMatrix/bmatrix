@@ -12,6 +12,8 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('shop/', include('shop.urls', namespace='shop')),
     path('blog/', include('blog.urls', namespace='blog')),
+    path('cart/', include('cart.urls', namespace='cart')),
+    path('orders/', include('orders.urls', namespace='orders')),
     path('', include('shop.urls', namespace='shop')),  # Make shop the default app
     path('terms-of-service/', TemplateView.as_view(template_name='terms_of_service.html'), name='terms_of_service'),
     path('privacy-policy/', TemplateView.as_view(template_name='privacy_policy.html'), name='privacy_policy'),

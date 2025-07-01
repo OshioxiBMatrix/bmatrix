@@ -11,7 +11,7 @@
         
         <!-- Right side: Utilities -->
         <div class="flex items-center space-x-4 ml-auto text-sm">
-            <a href="#" class="hover:text-secondary-light transition">
+            <a href="{% url 'orders:my_orders' %}" class="hover:text-secondary-light transition">
                 <i class="fas fa-truck mr-1"></i> Theo dõi đơn hàng
             </a>
             <div class="relative dropdown-container">
@@ -33,8 +33,8 @@
                     <a href="{% url 'accounts:profile' %}" class="block px-4 py-2 hover:bg-gray-100">
                         <i class="fas fa-user-circle mr-2"></i> Hồ sơ
                     </a>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">
-                        <i class="fas fa-shopping-bag mr-2"></i> Đơn hàng
+                    <a href="{% url 'orders:my_orders' %}" class="block px-4 py-2 hover:bg-gray-100">
+                        <i class="fas fa-shopping-bag mr-2"></i> Đơn hàng của tôi
                     </a>
                     <form method="post" action="{% url 'account_logout' %}">
                         {% csrf_token %}
@@ -49,10 +49,12 @@
                 <i class="fas fa-user mr-1"></i> Đăng nhập / Đăng ký
             </a>
             {% endif %}
-            <a href="#" class="flex items-center hover:text-secondary-light transition">
+            <a href="{% url 'cart:cart_detail' %}" class="flex items-center hover:text-secondary-light transition">
                 <i class="fas fa-shopping-cart mr-1"></i>
-                <span>$0</span>
-                <span class="ml-1 bg-secondary text-white rounded-full h-5 w-5 flex items-center justify-center text-xs">0</span>
+                <span>{{ cart_total|default:"0" }}</span>
+                <span class="ml-1 bg-secondary text-white rounded-full h-5 w-5 flex items-center justify-center text-xs">
+                    {{ cart_count|default:"0" }}
+                </span>
             </a>
         </div>
     </div>
@@ -71,10 +73,9 @@
             <!-- Desktop Navigation -->
             <nav class="hidden lg:flex items-center space-x-6">
                 <a href="/" class="text-primary hover:text-secondary font-medium">Trang chủ</a>
-                <a href="#" class="text-primary hover:text-secondary font-medium">Giảm giá</a>
+                <a href="{% url 'about' %}" class="text-primary hover:text-secondary font-medium">About Us</a>
                 <a href="{% url 'blog:post_list' %}" class="text-primary hover:text-secondary font-medium">Blog</a>
-                <a href="#" class="text-primary hover:text-secondary font-medium">Cửa hàng</a>
-                <a href="{% url 'faq' %}" class="text-primary hover:text-secondary font-medium">FAQ</a>
+                <a href="{% url 'shop:product_list' %}" class="text-primary hover:text-secondary font-medium">Cửa hàng</a>
                 
                 <!-- Pages Dropdown -->
                 <div class="relative dropdown-container">
@@ -82,14 +83,12 @@
                         Page <i class="fas fa-chevron-down text-xs ml-1"></i>
                     </button>
                     <div id="dropdown-menu" class="hidden absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-50 dropdown-menu">
-                        <a href="{% url 'about' %}" class="block px-4 py-2 hover:bg-gray-100">Giới thiệu về chúng tôi</a>
                         <a href="{% url 'certification' %}" class="block px-4 py-2 hover:bg-gray-100">Chứng nhận</a>
                         <a href="{% url 'contact' %}" class="block px-4 py-2 hover:bg-gray-100">Liên hệ</a>
                         <a href="{% url 'team' %}" class="block px-4 py-2 hover:bg-gray-100">Đội ngũ</a>
                         <a href="{% url 'popup_banner' %}" class="block px-4 py-2 hover:bg-gray-100">Popup Banner</a>
                         <a href="{% url 'privacy_policy' %}" class="block px-4 py-2 hover:bg-gray-100">Chính sách bảo mật</a>
                         <a href="{% url 'terms_of_service' %}" class="block px-4 py-2 hover:bg-gray-100">Điều khoản dịch vụ</a>
-                        <a href="{% url 'faq' %}" class="block px-4 py-2 hover:bg-gray-100">FAQ</a>
                     </div>
                 </div>
             </nav>
@@ -100,15 +99,7 @@
             </button>
         </div>
         
-        <!-- Sub Navigation -->
-        <div class="hidden lg:flex items-center justify-center mt-4 space-x-4 text-sm">
-            <a href="#" class="text-gray-600 hover:text-secondary">Giảm giá</a>
-            <a href="#" class="text-gray-600 hover:text-secondary">Bán chạy</a>
-            <a href="#" class="text-gray-600 hover:text-secondary">PC chơi game</a>
-            <a href="#" class="text-gray-600 hover:text-secondary">Phụ kiện chơi game</a>
-            <a href="#" class="text-gray-600 hover:text-secondary">System</a>
-            <a href="#" class="text-gray-600 hover:text-secondary">Cables & Adapters</a>
-        </div>
+        
     </div>
 </header>
 
@@ -117,10 +108,9 @@
     <div class="container mx-auto px-4">
         <nav class="flex flex-col space-y-4">
             <a href="/" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Trang chủ</a>
-            <a href="#" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Giảm giá</a>
+            <a href="{% url 'about' %}" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">About Us</a>
             <a href="{% url 'blog:post_list' %}" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Blog</a>
-            <a href="#" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Cửa hàng</a>
-            <a href="{% url 'faq' %}" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">FAQ</a>
+            <a href="{% url 'shop:product_list' %}" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Cửa hàng</a>
             
             <!-- Pages Dropdown -->
             <div class="relative">
@@ -128,16 +118,12 @@
                     Page <i class="fas fa-chevron-down text-xs ml-1"></i>
                 </button>
                 <div id="mobile-page-menu" class="hidden pl-4 mt-2 space-y-2">
-                    <a href="{% url 'about' %}" class="block py-2 text-gray-700 hover:text-secondary">Giới thiệu về chúng tôi</a>
                     <a href="{% url 'certification' %}" class="block py-2 text-gray-700 hover:text-secondary">Chứng nhận</a>
                     <a href="{% url 'contact' %}" class="block py-2 text-gray-700 hover:text-secondary">Liên hệ</a>
                     <a href="{% url 'team' %}" class="block py-2 text-gray-700 hover:text-secondary">Đội ngũ</a>
-                    <a href="{% url 'accounts:login' %}" class="block py-2 text-gray-700 hover:text-secondary">Đăng nhập</a>
-                    <a href="{% url 'accounts:register' %}" class="block py-2 text-gray-700 hover:text-secondary">Đăng ký</a>
                     <a href="{% url 'popup_banner' %}" class="block py-2 text-gray-700 hover:text-secondary">Popup Banner</a>
                     <a href="{% url 'privacy_policy' %}" class="block py-2 text-gray-700 hover:text-secondary">Chính sách bảo mật</a>
                     <a href="{% url 'terms_of_service' %}" class="block py-2 text-gray-700 hover:text-secondary">Điều khoản dịch vụ</a>
-                    <a href="{% url 'faq' %}" class="block py-2 text-gray-700 hover:text-secondary">FAQ</a>
                 </div>
             </div>
             
@@ -149,8 +135,8 @@
                     <a href="{% url 'accounts:profile' %}" class="block text-gray-700 hover:text-secondary py-1">
                         <i class="fas fa-user-circle mr-2"></i> Hồ sơ
                     </a>
-                    <a href="#" class="block text-gray-700 hover:text-secondary py-1">
-                        <i class="fas fa-shopping-bag mr-2"></i> Đơn hàng
+                    <a href="{% url 'orders:my_orders' %}" class="block text-gray-700 hover:text-secondary py-1">
+                        <i class="fas fa-shopping-bag mr-2"></i> Đơn hàng của tôi
                     </a>
                     <form method="post" action="{% url 'account_logout' %}">
                         {% csrf_token %}
@@ -162,18 +148,7 @@
             </div>
             {% endif %}
             
-            <!-- Sub Navigation items for mobile -->
-            <div class="border-t border-gray-200 pt-4 mt-2">
-                <h3 class="font-medium text-gray-800 mb-2">Quick Links</h3>
-                <div class="grid grid-cols-2 gap-2">
-                    <a href="#" class="text-sm text-gray-600 hover:text-secondary py-1">Giảm giá</a>
-                    <a href="#" class="text-sm text-gray-600 hover:text-secondary py-1">Bán chạy</a>
-                    <a href="#" class="text-sm text-gray-600 hover:text-secondary py-1">PC chơi game</a>
-                    <a href="#" class="text-sm text-gray-600 hover:text-secondary py-1">Phụ kiện chơi game</a>
-                    <a href="#" class="text-sm text-gray-600 hover:text-secondary py-1">System</a>
-                    <a href="#" class="text-sm text-gray-600 hover:text-secondary py-1">Cables & Adapters</a>
-                </div>
-            </div>
+            
         </nav>
     </div>
 </div>

@@ -1,0 +1,369 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load shop_tags %}
+
+{% block title %}Thanh toán - BountyMatrix{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-control {
+        @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50;
+    }
+    .form-label {
+        @apply block text-sm font-medium text-gray-700 mb-1;
+    }
+    .payment-method-card {
+        @apply border rounded-lg p-4 cursor-pointer;
+    }
+    .payment-method-card.active {
+        @apply border-primary bg-blue-50;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<div class="bg-gray-100 py-4">
+    <div class="container mx-auto px-4">
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="/" class="text-gray-600 hover:text-secondary inline-flex items-center">
+                        <i class="fas fa-home mr-2"></i>
+                        Trang chủ
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <a href="{% url 'cart:cart_detail' %}" class="text-gray-600 hover:text-secondary">
+                            Giỏ hàng
+                        </a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-gray-500">Thanh toán</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Checkout Content -->
+<section class="py-12">
+    <div class="container mx-auto px-4">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Thanh toán</h1>
+        
+        {% if messages %}
+        <div class="mb-6">
+            {% for message in messages %}
+            <div class="{% if message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %} p-4 rounded-md mb-4">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <form method="post" action="{% url 'orders:place_order' %}" id="checkout-form">
+            {% csrf_token %}
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Checkout Form -->
+                <div class="lg:col-span-2">
+                    <!-- Customer Information -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                        <div class="p-6">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Thông tin khách hàng</h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="col-span-2">
+                                    <label for="full_name" class="form-label">Họ và tên <span class="text-red-500">*</span></label>
+                                    <input type="text" id="full_name" name="full_name" class="form-control" value="{{ initial_data.full_name|default:'' }}" required>
+                                </div>
+                                
+                                <div>
+                                    <label for="email" class="form-label">Email <span class="text-red-500">*</span></label>
+                                    <input type="email" id="email" name="email" class="form-control" value="{{ initial_data.email|default:'' }}" required>
+                                </div>
+                                
+                                <div>
+                                    <label for="phone" class="form-label">Số điện thoại <span class="text-red-500">*</span></label>
+                                    <input type="tel" id="phone" name="phone" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Shipping Address -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                        <div class="p-6">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Địa chỉ giao hàng</h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="province" class="form-label">Tỉnh/Thành phố <span class="text-red-500">*</span></label>
+                                    <select id="province" name="province" class="form-control" required>
+                                        <option value="">-- Chọn Tỉnh/Thành phố --</option>
+                                        {% for province in provinces %}
+                                        <option value="{{ province.code }}">{{ province.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label for="district" class="form-label">Quận/Huyện <span class="text-red-500">*</span></label>
+                                    <select id="district" name="district" class="form-control" required disabled>
+                                        <option value="">-- Chọn Quận/Huyện --</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label for="ward" class="form-label">Phường/Xã <span class="text-red-500">*</span></label>
+                                    <select id="ward" name="ward" class="form-control" required disabled>
+                                        <option value="">-- Chọn Phường/Xã --</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-span-2">
+                                    <label for="address" class="form-label">Địa chỉ cụ thể <span class="text-red-500">*</span></label>
+                                    <input type="text" id="address" name="address" class="form-control" placeholder="Số nhà, tên đường, khu vực" required>
+                                </div>
+                                
+                                <div class="col-span-2">
+                                    <label for="note" class="form-label">Ghi chú</label>
+                                    <textarea id="note" name="note" class="form-control" rows="3" placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay chỉ dẫn địa điểm giao hàng chi tiết hơn."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Methods -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="p-6">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Phương thức thanh toán</h2>
+                            
+                            <div class="space-y-4">
+                                <!-- COD Payment Method -->
+                                <div class="payment-method-card active" data-payment-method="cod">
+                                    <div class="flex items-center">
+                                        <input type="radio" id="payment_cod" name="payment_method" value="cod" class="h-4 w-4 text-primary focus:ring-primary border-gray-300" checked>
+                                        <label for="payment_cod" class="ml-3 block font-medium text-gray-700 cursor-pointer">
+                                            <div class="flex items-center">
+                                                <i class="fas fa-money-bill-wave text-green-600 mr-2"></i>
+                                                Thanh toán khi nhận hàng (COD)
+                                            </div>
+                                            <p class="text-gray-500 text-sm mt-1">Bạn chỉ phải thanh toán khi nhận được hàng</p>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <!-- VNPay Payment Method -->
+                                <div class="payment-method-card" data-payment-method="vnpay">
+                                    <div class="flex items-center">
+                                        <input type="radio" id="payment_vnpay" name="payment_method" value="vnpay" class="h-4 w-4 text-primary focus:ring-primary border-gray-300">
+                                        <label for="payment_vnpay" class="ml-3 block font-medium text-gray-700 cursor-pointer">
+                                            <div class="flex items-center">
+                                                <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-1.png" alt="VNPay" class="h-8 mr-2">
+                                                Thanh toán qua VNPay
+                                            </div>
+                                            <p class="text-gray-500 text-sm mt-1">Thanh toán an toàn với VNPay qua thẻ ATM, Visa, MasterCard, JCB hoặc ví điện tử</p>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden sticky top-8">
+                        <div class="p-6">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Đơn hàng của bạn</h2>
+                            
+                            <!-- Order Items -->
+                            <div class="border-b border-gray-200 pb-4 mb-4">
+                                <div class="max-h-64 overflow-y-auto">
+                                    {% for item in cart_items %}
+                                    <div class="flex items-start py-2">
+                                        <img src="{{ item.product.get_main_image }}" alt="{{ item.product.name }}" class="w-16 h-16 object-cover rounded-md mr-3">
+                                        <div class="flex-1">
+                                            <h3 class="text-sm font-medium text-gray-800">{{ item.product.name }}</h3>
+                                            <p class="text-xs text-gray-500">{{ item.quantity }} x {{ item.product.price|format_price }} VNĐ</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="font-medium">{{ item.product.price|format_price }} VNĐ</span>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            <!-- Order Summary -->
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span>Tạm tính</span>
+                                    <span class="font-medium">{{ total|format_price }} VNĐ</span>
+                                </div>
+                                
+                                <div class="flex justify-between">
+                                    <span>Phí vận chuyển</span>
+                                    <span class="font-medium">
+                                        {% if shipping_fee > 0 %}
+                                        {{ shipping_fee|format_price }} VNĐ
+                                        {% else %}
+                                        Miễn phí
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                
+                                <div class="flex justify-between border-t border-gray-200 pt-3 font-bold">
+                                    <span>Tổng cộng</span>
+                                    <span class="text-secondary">{{ grand_total|format_price }} VNĐ</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Place Order Button -->
+                            <div class="mt-6">
+                                <button type="submit" class="block w-full bg-secondary hover:bg-secondary-light text-white font-bold py-3 px-6 rounded-md transition text-center">
+                                    Đặt hàng
+                                </button>
+                                <a href="{% url 'cart:cart_detail' %}" class="block w-full text-center mt-4 text-primary hover:text-secondary">
+                                    <i class="fas fa-arrow-left mr-2"></i> Quay lại giỏ hàng
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Payment method selection
+        const paymentCards = document.querySelectorAll('.payment-method-card');
+        const paymentInputs = document.querySelectorAll('input[name="payment_method"]');
+        
+        paymentCards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove active class from all cards
+                paymentCards.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked card
+                this.classList.add('active');
+                
+                // Check the radio input
+                const paymentMethod = this.getAttribute('data-payment-method');
+                document.getElementById('payment_' + paymentMethod).checked = true;
+            });
+        });
+        
+        // Address selection
+        const provinceSelect = document.getElementById('province');
+        const districtSelect = document.getElementById('district');
+        const wardSelect = document.getElementById('ward');
+        
+        // Load districts when province changes
+        provinceSelect.addEventListener('change', function() {
+            const provinceId = this.value;
+            
+            if (provinceId) {
+                // Clear and disable ward select
+                wardSelect.innerHTML = '<option value="">-- Chọn Phường/Xã --</option>';
+                wardSelect.disabled = true;
+                
+                // Enable district select and show loading
+                districtSelect.disabled = false;
+                districtSelect.innerHTML = '<option value="">Đang tải...</option>';
+                
+                // Fetch districts for selected province
+                fetch(`/orders/api/districts/${provinceId}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        districtSelect.innerHTML = '<option value="">-- Chọn Quận/Huyện --</option>';
+                        
+                        data.forEach(district => {
+                            const option = document.createElement('option');
+                            option.value = district.code;
+                            option.textContent = district.name;
+                            districtSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching districts:', error);
+                        districtSelect.innerHTML = '<option value="">-- Lỗi khi tải dữ liệu --</option>';
+                    });
+            } else {
+                // Disable both district and ward selects
+                districtSelect.innerHTML = '<option value="">-- Chọn Quận/Huyện --</option>';
+                districtSelect.disabled = true;
+                
+                wardSelect.innerHTML = '<option value="">-- Chọn Phường/Xã --</option>';
+                wardSelect.disabled = true;
+            }
+        });
+        
+        // Load wards when district changes
+        districtSelect.addEventListener('change', function() {
+            const districtId = this.value;
+            
+            if (districtId) {
+                // Enable ward select and show loading
+                wardSelect.disabled = false;
+                wardSelect.innerHTML = '<option value="">Đang tải...</option>';
+                
+                // Fetch wards for selected district
+                fetch(`/orders/api/wards/${districtId}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        wardSelect.innerHTML = '<option value="">-- Chọn Phường/Xã --</option>';
+                        
+                        data.forEach(ward => {
+                            const option = document.createElement('option');
+                            option.value = ward.code;
+                            option.textContent = ward.name;
+                            wardSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching wards:', error);
+                        wardSelect.innerHTML = '<option value="">-- Lỗi khi tải dữ liệu --</option>';
+                    });
+            } else {
+                // Disable ward select
+                wardSelect.innerHTML = '<option value="">-- Chọn Phường/Xã --</option>';
+                wardSelect.disabled = true;
+            }
+        });
+        
+        // Form validation
+        const checkoutForm = document.getElementById('checkout-form');
+        
+        checkoutForm.addEventListener('submit', function(event) {
+            const requiredFields = this.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.classList.add('border-red-500');
+                } else {
+                    field.classList.remove('border-red-500');
+                }
+            });
+            
+            if (!isValid) {
+                event.preventDefault();
+                alert('Vui lòng điền đầy đủ thông tin bắt buộc.');
+            }
+        });
+    });
+</script>
+{% endblock %} 

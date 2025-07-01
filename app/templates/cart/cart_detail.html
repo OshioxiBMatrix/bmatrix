@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load shop_tags %}
+
+{% block title %}Giỏ hàng - BountyMatrix{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<div class="bg-gray-100 py-4">
+    <div class="container mx-auto px-4">
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="/" class="text-gray-600 hover:text-secondary inline-flex items-center">
+                        <i class="fas fa-home mr-2"></i>
+                        Trang chủ
+                    </a>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-gray-500">Giỏ hàng</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Cart Content -->
+<section class="py-12">
+    <div class="container mx-auto px-4">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Giỏ hàng của bạn</h1>
+        
+        {% if cart_items %}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Cart Items -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="py-4 px-6 text-left">Sản phẩm</th>
+                                <th class="py-4 px-6 text-center">Số lượng</th>
+                                <th class="py-4 px-6 text-right">Giá</th>
+                                <th class="py-4 px-6 text-right">Tổng</th>
+                                <th class="py-4 px-6 text-center">Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart_items %}
+                            <tr class="border-b border-gray-200">
+                                <td class="py-4 px-6">
+                                    <div class="flex items-center">
+                                        <img src="{{ item.product.get_main_image }}" alt="{{ item.product.name }}" class="w-16 h-16 object-cover rounded-md mr-4">
+                                        <a href="{{ item.product.get_absolute_url }}" class="hover:text-secondary">
+                                            {{ item.product.name }}
+                                        </a>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6">
+                                    <form method="post" action="{% url 'cart:update_cart' item.id %}" class="flex justify-center">
+                                        {% csrf_token %}
+                                        <div class="flex">
+                                            <button type="button" class="decrease-quantity bg-gray-200 hover:bg-gray-300 text-gray-600 px-3 py-1 rounded-l-md">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.product.stock }}" class="quantity-input w-12 text-center border-gray-200 focus:ring-primary focus:border-primary">
+                                            <button type="button" class="increase-quantity bg-gray-200 hover:bg-gray-300 text-gray-600 px-3 py-1 rounded-r-md">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <button type="submit" class="ml-2 text-primary hover:text-secondary">
+                                            <i class="fas fa-sync-alt"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td class="py-4 px-6 text-right">
+                                    {{ item.product.price|format_price }} VNĐ
+                                </td>
+                                <td class="py-4 px-6 text-right font-semibold">
+                                    {{ item.product.price|format_price }} VNĐ
+                                </td>
+                                <td class="py-4 px-6 text-center">
+                                    <form method="post" action="{% url 'cart:remove_from_cart' item.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="text-red-500 hover:text-red-700">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Tổng đơn hàng</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="flex justify-between border-b border-gray-200 pb-4">
+                            <span>Tạm tính</span>
+                            <span class="font-semibold">{{ total|format_price }} VNĐ</span>
+                        </div>
+                        
+                        <div class="flex justify-between border-b border-gray-200 pb-4">
+                            <span>Vận chuyển</span>
+                            <span class="font-semibold">Miễn phí</span>
+                        </div>
+                        
+                        <div class="flex justify-between">
+                            <span class="text-lg font-bold">Tổng cộng</span>
+                            <span class="text-lg font-bold text-secondary">{{ total|format_price }} VNĐ</span>
+                        </div>
+                        
+                        <div class="pt-4">
+                            <a href="{% url 'orders:checkout' %}" class="block w-full bg-secondary hover:bg-secondary-light text-white font-bold py-3 px-6 rounded-md transition text-center">
+                                Tiến hành thanh toán
+                            </a>
+                            <a href="{% url 'shop:product_list' %}" class="block w-full text-center mt-4 text-primary hover:text-secondary">
+                                <i class="fas fa-arrow-left mr-2"></i> Tiếp tục mua hàng
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="bg-white rounded-lg shadow-md p-8 text-center">
+            <div class="text-gray-500 mb-6">
+                <i class="fas fa-shopping-cart text-6xl mb-4"></i>
+                <h2 class="text-2xl font-bold">Giỏ hàng của bạn đang trống</h2>
+                <p class="mt-2">Hãy thêm sản phẩm vào giỏ hàng để tiếp tục.</p>
+            </div>
+            <a href="{% url 'shop:product_list' %}" class="inline-block bg-secondary hover:bg-secondary-light text-white font-bold py-3 px-6 rounded-md transition">
+                Tiếp tục mua sắm
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Quantity input functionality
+        const decreaseButtons = document.querySelectorAll('.decrease-quantity');
+        const increaseButtons = document.querySelectorAll('.increase-quantity');
+        
+        decreaseButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const input = this.parentNode.querySelector('input');
+                const currentValue = parseInt(input.value);
+                if (currentValue > 1) {
+                    input.value = currentValue - 1;
+                }
+            });
+        });
+        
+        increaseButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const input = this.parentNode.querySelector('input');
+                const currentValue = parseInt(input.value);
+                const maxValue = parseInt(input.getAttribute('max'));
+                if (currentValue < maxValue) {
+                    input.value = currentValue + 1;
+                }
+            });
+        });
+    });
+</script>
+{% endblock %} 
