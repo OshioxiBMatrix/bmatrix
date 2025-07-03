@@ -12,20 +12,23 @@ def format_price(value):
     if value is None:
         return '0'
     
-    # Convert to string and remove any decimal part
-    value_str = floatformat(value, 0)
-    
-    # Remove any existing formatting (commas, dots, etc.)
-    value_str = value_str.replace('.', '').replace(',', '')
-    
-    # Format with dot as thousand separator
-    result = ''
-    for i, char in enumerate(reversed(value_str)):
-        if i > 0 and i % 3 == 0:
-            result = '.' + result
-        result = char + result
-    
-    return result
+    try:
+        # Convert to integer first to remove any decimal part
+        value_int = int(float(value))
+        
+        # Convert to string
+        value_str = str(value_int)
+        
+        # Format with dot as thousand separator
+        result = ''
+        for i, char in enumerate(reversed(value_str)):
+            if i > 0 and i % 3 == 0:
+                result = '.' + result
+            result = char + result
+        
+        return result
+    except (ValueError, TypeError):
+        return str(value)
 
 @register.filter(name='multiply')
 def multiply(value, arg):

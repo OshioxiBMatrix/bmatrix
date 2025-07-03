@@ -1,493 +1,715 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load shop_tags %}
 
 {% block title %}BMATRIX - Tech Store{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/home.css' %}">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<style>
+    /* Base styles */
+    html, body {
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #f8fafc;
+    }
+
+    /* Fullpage scroll */
+    .fullpage-container {
+        height: 100vh;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+    }
+
+    .fullpage-section {
+        height: 100vh;
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        position: relative;
+        transition: background 0.5s ease;
+    }
+
+    /* Dot navigation */
+    .dot-navigation {
+        position: fixed;
+        right: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Hide dot navigation on smaller screens */
+    @media (max-width: 768px) {
+        .dot-navigation {
+            display: none;
+        }
+    }
+
+    .dot-nav-item {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+        transition: all 0.4s ease;
+        border: 2px solid #3b82f6;
+    }
+
+    .dot-nav-item.active {
+        background: linear-gradient(45deg, #3b82f6, #10b981);
+        transform: scale(1.4);
+        border-color: transparent;
+    }
+
+    .dot-nav-item:hover {
+        background: #60a5fa;
+        transform: scale(1.2);
+    }
+
+    /* Hero section */
+    .hero-section {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-background {
+        background: url("{% static 'img/circuit-pattern.png' %}") repeat;
+        opacity: 0.15;
+        position: absolute;
+        inset: 0;
+        animation: circuitMove 20s linear infinite;
+    }
+
+    @keyframes circuitMove {
+        0% { background-position: 0 0; }
+        100% { background-position: 100px 100px; }
+    }
+
+    .hero-content h1 {
+        font-size: 4.5rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .hero-content p {
+        font-size: 1.5rem;
+        color: #e0f2fe;
+        margin-bottom: 2.5rem;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+    }
+
+    .hero-cta {
+        background: linear-gradient(45deg, #f97316, #fb923c);
+        color: white;
+        padding: 1rem 2.5rem;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-cta:hover {
+        background: linear-gradient(45deg, #fb923c, #f97316);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-logo {
+        max-height: 16rem;
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+        opacity: 0;
+        transform: scale(0.9);
+        transition: opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s;
+    }
+
+    .section-visible .hero-content h1,
+    .section-visible .hero-content p,
+    .section-visible .hero-cta,
+    .section-visible .hero-logo {
+        opacity: 1;
+        transform: none;
+    }
+
+    /* Services section */
+    .service-card {
+        background: linear-gradient(145deg, #ffffff, #f1f5f9);
+        border-radius: 1rem;
+        padding: 2rem;
+        transition: all 0.4s ease;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        background: linear-gradient(145deg, #f1f5f9, #ffffff);
+    }
+
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(45deg, #dbeafe, #bfdbfe);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: #1e40af;
+        font-size: 1.75rem;
+        transition: all 0.4s ease;
+    }
+
+    .service-card:hover .service-icon {
+        background: linear-gradient(45deg, #1e40af, #3b82f6);
+        color: white;
+        transform: rotate(360deg);
+    }
+
+    /* Testimonials section */
+    .testimonial-card {
+        background: linear-gradient(145deg, #ffffff, #f1f5f9);
+        border-radius: 1rem;
+        padding: 2rem;
+        max-width: 24rem;
+        margin: 0 auto;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        transition: transform 0.4s ease;
+    }
+
+    .testimonial-card:hover {
+        transform: scale(1.05);
+    }
+
+    .testimonial-card p {
+        color: #475569;
+        margin-bottom: 1.5rem;
+        font-style: italic;
+    }
+
+    /* Blog section */
+    .blog-card {
+        background: linear-gradient(145deg, #ffffff, #f1f5f9);
+        border-radius: 1rem;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        max-width: 24rem;
+        margin: 0 auto;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .blog-card:hover {
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        transform: translateY(-5px);
+    }
+
+    .blog-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .blog-card:hover img {
+        transform: scale(1.1);
+    }
+
+    .blog-card .no-image {
+        width: 100%;
+        height: 180px;
+        background: linear-gradient(45deg, #e2e8f0, #cbd5e1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .blog-card-content {
+        padding: 1.5rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .blog-card-content a {
+        margin-top: auto;
+    }
+
+    /* Text truncation utilities */
+    .truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Contact section */
+    .contact-form input,
+    .contact-form textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+        background: #f8fafc;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .contact-info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        transition: transform 0.3s ease;
+    }
+
+    .contact-info-item:hover {
+        transform: translateX(5px);
+    }
+
+    .contact-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: linear-gradient(45deg, #dbeafe, #bfdbfe);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        color: #1e40af;
+        transition: all 0.3s ease;
+    }
+
+    .contact-info-item:hover .contact-icon {
+        background: linear-gradient(45deg, #1e40af, #3b82f6);
+        color: white;
+    }
+
+    /* Swiper */
+    .swiper {
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .swiper-pagination {
+        position: relative;
+        bottom: 0 !important;
+        margin-top: 20px;
+    }
+    
+    .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+        margin: 0 5px;
+    }
+    
+    .swiper-pagination-bullet-active {
+        background: #4F46E5;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: #4F46E5;
+    }
+
+    .blogSwiper {
+        padding-bottom: 50px;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<section class="hero-section bg-gray-900 text-white py-16 md:py-24 relative overflow-hidden">
-    <div class="hero-background circuit-pattern absolute inset-0"></div>
-    
-    <div class="container mx-auto px-4 relative z-10">
-        <div class="flex flex-col md:flex-row items-center justify-between">
-            <div class="md:w-1/2 mb-10 md:mb-0 hero-content">
-                <h1 class="hero-title text-5xl md:text-6xl font-bold mb-4 tracking-tight animate__animated animate__fadeInUp">
-                    CÔNG NGHỆ HIỆN ĐẠI
-                </h1>
-                <p class="hero-subtitle text-xl mb-8 text-gray-300 animate__animated animate__fadeInUp animate__delay-1s">Giải pháp công nghệ tốt nhất cho nhu cầu của bạn</p>
-                <a href="{% url 'shop:product_list' %}" class="hero-cta bg-secondary hover:bg-secondary-light text-white font-bold py-3 px-8 rounded-md transition inline-block animate__animated animate__fadeInUp animate__delay-2s">
-                    Khám phá ngay
-                </a>
-            </div>
-            <div class="md:w-1/2 text-right">
-                <div class="floating inline-block animate__animated animate__fadeIn animate__delay-1s">
-                    <img src="{% static 'img/logobmatrix.png' %}" alt="BMATRIX Logo" class="h-40 md:h-56 glow-on-hover">
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<!-- Dot Navigation -->
+<div class="dot-navigation">
+    <a href="#hero" class="dot-nav-item active" data-section="hero"></a>
+    <a href="#services" class="dot-nav-item" data-section="services"></a>
+    <a href="#testimonials" class="dot-nav-item" data-section="testimonials"></a>
+    <a href="#blog" class="dot-nav-item" data-section="blog"></a>
+    <a href="#contact" class="dot-nav-item" data-section="contact"></a>
+</div>
 
-<!-- Featured Categories -->
-<section class="py-12 -mt-16 relative z-20">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="tech-card glow-on-hover animate__animated animate__fadeInUp">
-                <div class="p-6 flex flex-col h-full">
-                    <h3 class="text-2xl font-bold text-white mb-2">Máy tính</h3>
-                    <p class="text-gray-400 mb-auto">Hiệu suất mạnh mẽ cho mọi nhu cầu</p>
-                    <div class="mt-4">
-                        <a href="#" class="bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition inline-block">
-                            Xem ngay
-                        </a>
-                    </div>
+<div class="fullpage-container" id="fullpage">
+    <!-- Hero Section -->
+    <section id="hero" class="fullpage-section hero-section">
+        <div class="hero-background"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-8 md:mb-0 hero-content">
+                    <h1>CÔNG NGHỆ</h1>
+                    <p>Khám phá các giải pháp công nghệ tiên tiến cho mọi nhu cầu</p>
+                    <a href="#" class="hero-cta">Khám phá ngay</a>
                 </div>
-            </div>
-            
-            <div class="tech-card glow-on-hover animate__animated animate__fadeInUp animate__delay-1s">
-                <div class="p-6 flex flex-col h-full">
-                    <h3 class="text-2xl font-bold text-white mb-2">Phụ kiện</h3>
-                    <p class="text-gray-400 mb-auto">Nâng cấp trải nghiệm của bạn</p>
-                    <div class="mt-4">
-                        <a href="#" class="bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition inline-block">
-                            Xem ngay
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="tech-card glow-on-hover animate__animated animate__fadeInUp animate__delay-2s">
-                <div class="p-6 flex flex-col h-full">
-                    <h3 class="text-2xl font-bold text-white mb-2">Gaming</h3>
-                    <p class="text-gray-400 mb-auto">Trải nghiệm chơi game đỉnh cao</p>
-                    <div class="mt-4">
-                        <a href="#" class="bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition inline-block">
-                            Xem ngay
-                        </a>
-                    </div>
+                <div class="md:w-1/2 text-right">
+                    <img src="{% static 'img/logobmatrix.png' %}" alt="BMATRIX Logo" class="hero-logo">
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Flash Sale -->
-<section class="py-12 tech-gradient-bg relative overflow-hidden">
-    <div class="circuit-pattern absolute inset-0"></div>
-    
-    <div class="container mx-auto px-4 relative z-10">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
-            <div>
-                <span class="inline-block bg-secondary text-white px-3 py-1 rounded-md text-sm font-semibold mb-2 animate-pulse">FLASH SALE</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-white neon-text">Giảm giá đặc biệt</h2>
+    <!-- Services Section -->
+    <section id="services" class="fullpage-section bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Dịch Vụ Tinh Tế</h2>
+                <p class="text-gray-600 mt-3 text-lg">Giải pháp công nghệ toàn diện, đẳng cấp cho doanh nghiệp và cá nhân</p>
             </div>
-            
-            <!-- Countdown Timer -->
-            <div class="mt-4 md:mt-0 text-white">
-                <p class="text-gray-300 mb-2 text-sm">Kết thúc trong:</p>
-                <div class="countdown-container" id="special-offer-countdown">
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="countdown-days">07</span>
-                        <span class="countdown-label">Ngày</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="countdown-hours">12</span>
-                        <span class="countdown-label">Giờ</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="countdown-minutes">45</span>
-                        <span class="countdown-label">Phút</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="countdown-seconds">23</span>
-                        <span class="countdown-label">Giây</span>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Thiết Bị Đỉnh Cao</h3>
+                    <p class="text-gray-600">Sản phẩm chính hãng, công nghệ tiên tiến, giá trị vượt trội.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-tools"></i></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Bảo Trì Chuyên Nghiệp</h3>
+                    <p class="text-gray-600">Dịch vụ tận tâm với đội ngũ kỹ thuật viên hàng đầu.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-shield-virus"></i></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">An Ninh Tối Ưu</h3>
+                    <p class="text-gray-600">Bảo vệ dữ liệu và hệ thống với giải pháp an ninh toàn diện.</p>
                 </div>
             </div>
         </div>
-        
-        <!-- Flash Sale Products -->
-        <div class="swiper featured-products-slider">
-            <div class="swiper-wrapper">
-                {% for product in featured_products|slice:":6" %}
-                <div class="swiper-slide">
-                    <div class="product-card">
-                        <div class="product-image-container">
-                            <a href="{{ product.get_absolute_url }}">
-                                <img src="{{ product.get_main_image }}" alt="{{ product.name }}" class="product-image w-full h-48 object-cover">
-                            </a>
-                            <div class="product-badge badge-sale">-20%</div>
-                        </div>
-                        <div class="p-4">
-                            <a href="{{ product.get_absolute_url }}">
-                                <h3 class="font-medium text-white mb-2 truncate">{{ product.name }}</h3>
-                            </a>
-                            <div class="flex justify-between items-center">
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="fullpage-section bg-gray-900">
+        <div class="hero-background"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-white">Tiếng Nói Từ Khách Hàng</h2>
+                <p class="text-gray-300 mt-3 text-lg">Cảm nhận chân thực từ những người đã trải nghiệm</p>
+            </div>
+            <div class="swiper testimonialSwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <p>"Sản phẩm vượt mong đợi, dịch vụ chăm sóc khách hàng tuyệt vời!"</p>
+                            <div class="flex items-center justify-center">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-green-500 mr-3"></div>
                                 <div>
-                                    <span class="price-tag">{{ product.price|format_price }} VNĐ</span>
-                                    <span class="old-price block">{{ product.price|multiply:1.2|format_price }} VNĐ</span>
+                                    <p class="font-medium text-gray-900">Nguyễn Văn A</p>
+                                    <p class="text-sm text-gray-500">Doanh nhân</p>
                                 </div>
-                                <form method="post" action="{% url 'cart:add_to_cart' product.id %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="quantity" value="1">
-                                    <button type="submit" class="text-white hover:text-secondary" onclick="addToCartAnimation(this)">
-                                        <i class="fas fa-shopping-cart"></i>
-                                    </button>
-                                </form>
                             </div>
                         </div>
                     </div>
-                </div>
-                {% endfor %}
-            </div>
-            <div class="swiper-pagination mt-6"></div>
-            <div class="swiper-button-prev text-white"></div>
-            <div class="swiper-button-next text-white"></div>
-        </div>
-    </div>
-</section>
-
-<!-- Product Categories -->
-<section class="py-12">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-10">
-            <h2 class="section-title text-3xl font-bold text-gray-800">Danh mục sản phẩm</h2>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Category Cards -->
-            <div class="category-card animate__animated animate__fadeIn">
-                <img src="https://images.unsplash.com/photo-1593640495253-23196b27a87f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2942&q=80" alt="Laptops">
-                <div class="category-overlay">
-                    <h3 class="text-xl font-bold">Laptops</h3>
-                    <a href="#" class="text-secondary hover:text-white transition">Xem thêm →</a>
-                </div>
-            </div>
-            
-            <div class="category-card animate__animated animate__fadeIn animate__delay-1s">
-                <img src="https://images.unsplash.com/photo-1547082299-de196ea013d6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80" alt="Components">
-                <div class="category-overlay">
-                    <h3 class="text-xl font-bold">Linh kiện</h3>
-                    <a href="#" class="text-secondary hover:text-white transition">Xem thêm →</a>
-                </div>
-            </div>
-            
-            <div class="category-card animate__animated animate__fadeIn animate__delay-2s">
-                <img src="https://images.unsplash.com/photo-1600861194942-f883de0dfe96?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2938&q=80" alt="Accessories">
-                <div class="category-overlay">
-                    <h3 class="text-xl font-bold">Phụ kiện</h3>
-                    <a href="#" class="text-secondary hover:text-white transition">Xem thêm →</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Featured Products -->
-<section class="py-12 bg-gray-100">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-10">
-            <h2 class="section-title text-3xl font-bold text-gray-800">Sản phẩm nổi bật</h2>
-        </div>
-        
-        <!-- Category Filter Buttons -->
-        <div class="flex flex-wrap justify-center gap-4 mb-8">
-            <button class="category-filter-btn active bg-primary hover:bg-primary-dark text-white py-2 px-6 rounded-md transition" data-category="all">
-                Tất cả
-            </button>
-            <button class="category-filter-btn bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-md transition" data-category="laptop">
-                Laptop
-            </button>
-            <button class="category-filter-btn bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-md transition" data-category="component">
-                Linh kiện
-            </button>
-            <button class="category-filter-btn bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-md transition" data-category="accessory">
-                Phụ kiện
-            </button>
-        </div>
-        
-        <!-- Products Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {% for product in featured_products %}
-            <div class="product-item animate-on-scroll" data-category="all">
-                <div class="product-card bg-white">
-                    <div class="product-image-container">
-                        <a href="{{ product.get_absolute_url }}">
-                            <img src="{{ product.get_main_image }}" alt="{{ product.name }}" class="product-image w-full h-48 object-cover">
-                        </a>
-                        <button class="absolute top-2 right-2 text-gray-600 hover:text-secondary bg-white p-2 rounded-full" 
-                                onclick="toggleWishlist(this, '{{ product.id }}')">
-                            <i class="far fa-heart"></i>
-                        </button>
-                        {% if forloop.counter <= 4 %}
-                        <div class="product-badge badge-new">Mới</div>
-                        {% endif %}
-                    </div>
-                    <div class="p-4">
-                        <a href="{{ product.get_absolute_url }}">
-                            <h3 class="font-medium text-gray-800 mb-2 truncate">{{ product.name }}</h3>
-                        </a>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="price-tag">{{ product.price|format_price }} VNĐ</span>
-                            </div>
-                            <div class="flex space-x-2">
-                                <button class="text-gray-600 hover:text-secondary" 
-                                        onclick="showQuickView('{{ product.id }}')">
-                                    <i class="far fa-eye"></i>
-                                </button>
-                                <form method="post" action="{% url 'cart:add_to_cart' product.id %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="quantity" value="1">
-                                    <button type="submit" class="text-primary hover:text-secondary" onclick="addToCartAnimation(this)">
-                                        <i class="fas fa-shopping-cart"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        
-        <div class="text-center mt-10">
-            <a href="{% url 'shop:product_list' %}" class="bg-primary hover:bg-primary-dark text-white font-medium py-2 px-8 rounded-md transition inline-block">
-                Xem tất cả sản phẩm
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- Promo Banner -->
-<section class="py-12 bg-gray-900 relative overflow-hidden">
-    <div class="circuit-pattern absolute inset-0"></div>
-    
-    <div class="container mx-auto px-4 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="tech-card glow-on-hover p-8 animate__animated animate__fadeInLeft">
-                <h3 class="text-2xl font-bold text-white mb-4 neon-text">Gaming PC</h3>
-                <p class="text-gray-400 mb-6">Trải nghiệm chơi game đỉnh cao với PC gaming hiệu năng mạnh mẽ</p>
-                <a href="#" class="inline-block bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition">
-                    Khám phá ngay
-                </a>
-            </div>
-            <div class="tech-card glow-on-hover p-8 animate__animated animate__fadeInRight">
-                <h3 class="text-2xl font-bold text-white mb-4 neon-text">Laptop</h3>
-                <p class="text-gray-400 mb-6">Hiệu năng mạnh mẽ, thiết kế hiện đại, phù hợp mọi nhu cầu</p>
-                <a href="#" class="inline-block bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition">
-                    Khám phá ngay
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Latest Products -->
-<section class="py-12">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-10">
-            <h2 class="section-title text-3xl font-bold text-gray-800">Sản phẩm mới nhất</h2>
-        </div>
-        
-        <!-- Latest Products Slider -->
-        <div class="swiper latest-products-slider">
-            <div class="swiper-wrapper">
-                {% for product in latest_products %}
-                <div class="swiper-slide">
-                    <div class="product-card bg-white">
-                        <div class="product-image-container">
-                            <a href="{{ product.get_absolute_url }}">
-                                <img src="{{ product.get_main_image }}" alt="{{ product.name }}" class="product-image w-full h-48 object-cover">
-                            </a>
-                            <button class="absolute top-2 right-2 text-gray-600 hover:text-secondary bg-white p-2 rounded-full" 
-                                    onclick="toggleWishlist(this, '{{ product.id }}')">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <div class="product-badge badge-new">Mới</div>
-                        </div>
-                        <div class="p-4">
-                            <a href="{{ product.get_absolute_url }}">
-                                <h3 class="font-medium text-gray-800 mb-2 truncate">{{ product.name }}</h3>
-                            </a>
-                            <div class="flex justify-between items-center">
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <p>"Tư vấn tận tình, giúp tôi tìm được sản phẩm hoàn hảo."</p>
+                            <div class="flex items-center justify-center">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-green-500 mr-3"></div>
                                 <div>
-                                    <span class="price-tag">{{ product.price|format_price }} VNĐ</span>
+                                    <p class="font-medium text-gray-900">Trần Thị B</p>
+                                    <p class="text-sm text-gray-500">Nhân viên văn phòng</p>
                                 </div>
-                                <form method="post" action="{% url 'cart:add_to_cart' product.id %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="quantity" value="1">
-                                    <button type="submit" class="text-primary hover:text-secondary" onclick="addToCartAnimation(this)">
-                                        <i class="fas fa-shopping-cart"></i>
-                                    </button>
-                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <p>"Giao hàng siêu nhanh, sản phẩm chất lượng đúng cam kết."</p>
+                            <div class="flex items-center justify-center">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-green-500 mr-3"></div>
+                                <div>
+                                    <p class="font-medium text-gray-900">Lê Văn C</p>
+                                    <p class="text-sm text-gray-500">Freelancer</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
+                <div class="swiper-pagination"></div>
             </div>
-            <div class="swiper-pagination mt-6"></div>
-            <div class="swiper-button-prev text-gray-800"></div>
-            <div class="swiper-button-next text-gray-800"></div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Brands -->
-<section class="py-12 bg-gray-100">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-10">
-            <h2 class="section-title text-3xl font-bold text-gray-800">Thương hiệu đối tác</h2>
-        </div>
-        
-        <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
-            {% for i in "123456"|make_list %}
-                <div class="brand-logo animate__animated animate__fadeIn">
-                    <img src="{% static 'img/brand/Brand_Logo'|add:i|stringformat:"s"|add:'.svg' %}" alt="Brand Logo {{ i }}" class="h-12">
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-<!-- Testimonials -->
-<section class="py-12 bg-gray-900 relative overflow-hidden">
-    <div class="circuit-pattern absolute inset-0"></div>
-    
-    <div class="container mx-auto px-4 relative z-10">
-        <div class="text-center mb-10">
-            <h2 class="section-title text-3xl font-bold text-white">Khách hàng nói gì về chúng tôi</h2>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="testimonial-card bg-white rounded-lg p-6 animate__animated animate__fadeIn">
-                <div class="quote-icon">"</div>
-                <p class="text-gray-600 mb-6">Sản phẩm chất lượng, dịch vụ tuyệt vời. Tôi rất hài lòng với trải nghiệm mua sắm tại BMATRIX.</p>
-                <div class="flex items-center">
-                    <div class="w-10 h-10 rounded-full bg-gray-300 mr-3"></div>
-                    <div>
-                        <p class="font-medium text-gray-800">Nguyễn Văn A</p>
-                        <p class="text-sm text-gray-500">Khách hàng</p>
-                    </div>
-                </div>
+    <!-- Blog Section -->
+    <section id="blog" class="fullpage-section bg-white" style="padding-top: 0; margin-top: -200px;">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">Tin Tức Công Nghệ</h2>
+                <p class="text-gray-600 mt-3 text-lg">Cập nhật xu hướng công nghệ mới nhất</p>
             </div>
-            
-            <div class="testimonial-card bg-white rounded-lg p-6 animate__animated animate__fadeIn animate__delay-1s">
-                <div class="quote-icon">"</div>
-                <p class="text-gray-600 mb-6">Đội ngũ tư vấn rất nhiệt tình và chuyên nghiệp. Họ đã giúp tôi chọn được sản phẩm phù hợp nhất.</p>
-                <div class="flex items-center">
-                    <div class="w-10 h-10 rounded-full bg-gray-300 mr-3"></div>
-                    <div>
-                        <p class="font-medium text-gray-800">Trần Thị B</p>
-                        <p class="text-sm text-gray-500">Khách hàng</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="testimonial-card bg-white rounded-lg p-6 animate__animated animate__fadeIn animate__delay-2s">
-                <div class="quote-icon">"</div>
-                <p class="text-gray-600 mb-6">Giao hàng nhanh chóng, đóng gói cẩn thận. Sản phẩm đúng như mô tả và hoạt động tốt.</p>
-                <div class="flex items-center">
-                    <div class="w-10 h-10 rounded-full bg-gray-300 mr-3"></div>
-                    <div>
-                        <p class="font-medium text-gray-800">Lê Văn C</p>
-                        <p class="text-sm text-gray-500">Khách hàng</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Latest Blog Posts -->
-<section class="py-12">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-10">
-            <h2 class="section-title text-3xl font-bold text-gray-800">Tin tức công nghệ mới nhất</h2>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {% for post in blog_posts %}
-            <div class="animate-on-scroll bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                {% if post.image %}
-                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-[200px] object-cover">
-                {% else %}
-                <div class="w-full h-[200px] bg-gray-200 flex items-center justify-center">
-                    <i class="fas fa-newspaper text-4xl text-gray-400"></i>
-                </div>
-                {% endif %}
-                <div class="p-6">
-                    <div class="flex items-center mb-2 text-sm text-gray-500">
-                        <i class="far fa-calendar-alt mr-2"></i>
-                        <span>{{ post.created_at|date:"d M, Y" }}</span>
-                    </div>
-                    <h3 class="font-bold text-xl mb-2 text-gray-800">{{ post.title }}</h3>
-                    <p class="text-gray-600 mb-4">{{ post.content|truncatewords:15 }}</p>
-                    <a href="{% url 'blog:post_detail' post.slug %}" class="text-primary hover:text-secondary font-medium flex items-center">
-                        Đọc thêm <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        
-        <div class="text-center mt-10">
-            <a href="{% url 'blog:post_list' %}" class="bg-primary hover:bg-primary-dark text-white font-medium py-2 px-8 rounded-md transition inline-block">
-                Xem tất cả bài viết
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- Quick View Modal -->
-<div id="quick-view-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
-    <div class="container mx-auto px-4 h-full flex items-center justify-center">
-        <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-2xl font-bold text-gray-800">Quick View</h3>
-                    <button id="quick-view-close" class="text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div id="quick-view-content">
-                    <!-- Content will be loaded dynamically -->
-                    <div class="flex flex-col md:flex-row gap-6">
-                        <div class="md:w-1/2">
-                            <img src="https://via.placeholder.com/500" alt="Product" class="w-full h-auto">
-                        </div>
-                        <div class="md:w-1/2">
-                            <h4 class="text-xl font-bold text-gray-800 mb-2">Product Name</h4>
-                            <div class="text-secondary font-bold text-xl mb-4">50.000 VNĐ</div>
-                            <p class="text-gray-600 mb-6">Product description goes here...</p>
-                            <form class="mb-4">
-                                <div class="flex items-center mb-4">
-                                    <label class="mr-2">Quantity:</label>
-                                    <input type="number" min="1" value="1" class="w-16 border rounded px-2 py-1">
+            <div class="swiper blogSwiper" style="padding-bottom: 50px;">
+                <div class="swiper-wrapper animate__animated animate__fadeIn">
+                    {% for post in blog_posts %}
+                    <div class="swiper-slide">
+                        <div class="blog-card">
+                            {% if post.image %}
+                            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                            {% else %}
+                            <div class="no-image">
+                                <i class="fas fa-newspaper text-3xl text-gray-500"></i>
+                            </div>
+                            {% endif %}
+                            <div class="blog-card-content">
+                                <div class="flex items-center text-sm text-gray-500 mb-3">
+                                    <i class="far fa-calendar-alt mr-2"></i>
+                                    <span>{{ post.created_at|date:"d M, Y" }}</span>
                                 </div>
-                                <button type="submit" class="bg-secondary hover:bg-secondary-light text-white font-medium py-2 px-6 rounded-md transition">
-                                    Add to Cart
-                                </button>
-                            </form>
+                                <h3 class="font-bold text-xl text-gray-900 mb-3 truncate">{{ post.title }}</h3>
+                                <p class="text-gray-600 mb-4 line-clamp-2">{{ post.content|truncatewords:15 }}</p>
+                                <a href="{% url 'blog:post_detail' post.slug %}" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                                    Đọc thêm <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="swiper-slide">
+                        <div class="text-center text-gray-600">Chưa có bài viết nào.</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="fullpage-section bg-gradient-to-b from-gray-100 to-gray-200">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Kết Nối Với Chúng Tôi</h2>
+                <p class="text-gray-600 mt-3 text-lg">Liên hệ ngay để nhận tư vấn và hỗ trợ tốt nhất</p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2 bg-white rounded-2xl p-8 shadow-xl">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Gửi Tin Nhắn</h3>
+                    <form class="contact-form">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <input type="text" placeholder="Họ và tên" required>
+                            <input type="email" placeholder="Email" required>
+                        </div>
+                        <input type="text" placeholder="Tiêu đề" class="mt-4">
+                        <textarea rows="5" placeholder="Nội dung tin nhắn" required class="mt-4"></textarea>
+                        <button type="submit" class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-3 px-6 rounded-full hover:from-blue-700 hover:to-blue-900 transition-all duration-300 mt-4">Gửi Tin Nhắn</button>
+                    </form>
+                </div>
+                <div class="md:w-1/2 bg-white rounded-2xl p-8 shadow-xl">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Thông Tin Liên Hệ</h3>
+                    <div class="contact-info-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h4 class="font-medium text-gray-900">Địa chỉ</h4>
+                            <p class="text-gray-600">123 Đường ABC, Quận XYZ, TP. HCM</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div>
+                            <h4 class="font-medium text-gray-900">Điện thoại</h4>
+                            <p class="text-gray-600">(+84) 966 342 792</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h4 class="font-medium text-gray-900">Email</h4>
+                            <p class="text-gray-600">info@bmatrix.com</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </div>
 {% endblock %}
 
 {% block extra_js %}
-<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/wow.js/1.1.2/wow.min.js"></script>
-<script src="{% static 'js/home.js' %}"></script>
-{% endblock %} 
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.getElementById('fullpage');
+        const sections = document.querySelectorAll('.fullpage-section');
+        const dotNavItems = document.querySelectorAll('.dot-nav-item');
+
+        // Testimonial Swiper
+        new Swiper('.testimonialSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: { delay: 4000, disableOnInteraction: false },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                dynamicBullets: true,
+            },
+            breakpoints: {
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+            },
+            speed: 800,
+        });
+
+        // Blog Swiper
+        new Swiper('.blogSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: { 
+                delay: 4000, 
+                disableOnInteraction: false 
+            },
+            pagination: {
+                el: '.blogSwiper .swiper-pagination',
+                clickable: true,
+                dynamicBullets: true,
+            },
+            navigation: {
+                nextEl: '.blogSwiper .swiper-button-next',
+                prevEl: '.blogSwiper .swiper-button-prev',
+            },
+            breakpoints: {
+                640: { slidesPerView: 1 },
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+            },
+            speed: 800,
+            on: {
+                init: function() {
+                    // Ensure equal heights for blog cards
+                    setTimeout(() => {
+                        const blogSection = document.getElementById('blog');
+                        if (blogSection) {
+                            blogSection.style.opacity = 1;
+                        }
+                    }, 100);
+                }
+            }
+        });
+
+        // Update active dot and section visibility
+        const updateActiveDot = () => {
+            const scrollPos = container.scrollTop;
+            sections.forEach((section, i) => {
+                const top = section.offsetTop;
+                const height = section.offsetHeight;
+                if (scrollPos >= top - height / 3 && scrollPos < top + height - height / 3) {
+                    dotNavItems.forEach(dot => dot.classList.remove('active'));
+                    dotNavItems[i].classList.add('active');
+                    section.classList.add('section-visible');
+                }
+
+            });
+        };
+
+        // Smooth scroll on dot click with animation
+        dotNavItems.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = dot.getAttribute('href');
+                const target = document.querySelector(targetId);
+                container.scrollTo({
+                    top: target.offsetTop,
+                    behavior: 'smooth',
+                });
+                dotNavItems.forEach(d => d.classList.remove('active'));
+                dot.classList.add('active');
+            });
+        });
+
+        // Keyboard navigation with smooth scroll
+        document.addEventListener('keydown', (e) => {
+            const activeIndex = Array.from(dotNavItems).findIndex(dot => dot.classList.contains('active'));
+            if (e.key === 'ArrowDown' && activeIndex < sections.length - 1) {
+                container.scrollTo({
+                    top: sections[activeIndex + 1].offsetTop,
+                    behavior: 'smooth',
+                });
+            } else if (e.key === 'ArrowUp' && activeIndex > 0) {
+                container.scrollTo({
+                    top: sections[activeIndex - 1].offsetTop,
+                    behavior: 'smooth',
+                });
+            }
+        });
+
+        // Contact form submission with animation
+        const form = document.querySelector('.contact-form');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const button = form.querySelector('button');
+                button.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    button.style.transform = 'scale(1)';
+                    alert('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất.');
+                    form.reset();
+                }, 200);
+            });
+        }
+
+        // Parallax effect for hero background
+        const heroSection = document.querySelector('.hero-section');
+        container.addEventListener('scroll', () => {
+            const scrollPos = container.scrollTop;
+            heroSection.style.backgroundPositionY = `${scrollPos * 0.5}px`;
+        });
+
+        // Scroll listener
+        container.addEventListener('scroll', updateActiveDot);
+        updateActiveDot();
+
+        // Animate elements on section enter
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('section-visible');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        sections.forEach(section => observer.observe(section));
+    });
+</script>
+{% endblock %}

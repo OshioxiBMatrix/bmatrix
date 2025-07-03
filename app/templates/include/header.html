@@ -1,7 +1,8 @@
 {% load static %}
+{% load shop_tags %}
 
 <!-- Top Bar -->
-<div class="bg-primary-dark text-white py-2">
+<div class="bg-primary-dark text-white py-2 z-100">
     <div class="container mx-auto px-4 flex justify-between items-center">
         <!-- Left side: Phone -->
         <div class="hidden md:flex items-center">
@@ -14,36 +15,17 @@
             <a href="{% url 'orders:my_orders' %}" class="hover:text-secondary-light transition">
                 <i class="fas fa-truck mr-1"></i> Theo dõi đơn hàng
             </a>
-            <div class="relative dropdown-container">
-                <button data-toggle="language-dropdown" class="flex items-center hover:text-secondary-light transition">
-                    <i class="fas fa-globe mr-1"></i> Vietnamese <i class="fas fa-chevron-down text-xs ml-1"></i>
-                </button>
-                <div id="language-menu" class="hidden absolute right-0 mt-2 w-32 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50 dropdown-menu">
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">English</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Vietnamese</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Spanish</a>
-                </div>
-            </div>
+            
             {% if user.is_authenticated %}
-            <div class="relative dropdown-container">
-                <button data-toggle="user-dropdown" class="flex items-center hover:text-secondary-light transition">
-                    <i class="fas fa-user mr-1"></i> {{ user.username }} <i class="fas fa-chevron-down text-xs ml-1"></i>
+            <a href="{% url 'accounts:profile' %}" class="flex items-center hover:text-secondary-light transition">
+                <i class="fas fa-user mr-1"></i> {{ user.username }}
+            </a>
+            <form method="post" action="{% url 'account_logout' %}" class="inline">
+                {% csrf_token %}
+                <button type="submit" class="hover:text-secondary-light transition text-white">
+                    <i class="fas fa-sign-out-alt mr-1"></i> Đăng xuất
                 </button>
-                <div id="user-menu" class="hidden absolute right-0 mt-2 w-48 bg-white text-gray-800 shadow-lg rounded-md overflow-hidden z-50 dropdown-menu">
-                    <a href="{% url 'accounts:profile' %}" class="block px-4 py-2 hover:bg-gray-100">
-                        <i class="fas fa-user-circle mr-2"></i> Hồ sơ
-                    </a>
-                    <a href="{% url 'orders:my_orders' %}" class="block px-4 py-2 hover:bg-gray-100">
-                        <i class="fas fa-shopping-bag mr-2"></i> Đơn hàng của tôi
-                    </a>
-                    <form method="post" action="{% url 'account_logout' %}">
-                        {% csrf_token %}
-                        <button type="submit" class="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600">
-                            <i class="fas fa-sign-out-alt mr-2"></i> Đăng xuất
-                        </button>
-                    </form>
-                </div>
-            </div>
+            </form>
             {% else %}
             <a href="{% url 'accounts:login' %}" class="hover:text-secondary-light transition">
                 <i class="fas fa-user mr-1"></i> Đăng nhập / Đăng ký
@@ -51,7 +33,7 @@
             {% endif %}
             <a href="{% url 'cart:cart_detail' %}" class="flex items-center hover:text-secondary-light transition">
                 <i class="fas fa-shopping-cart mr-1"></i>
-                <span>{{ cart_total|default:"0" }}</span>
+                <span>{{ cart_total|format_price|default:"0" }}₫</span>
                 <span class="ml-1 bg-secondary text-white rounded-full h-5 w-5 flex items-center justify-center text-xs">
                     {{ cart_count|default:"0" }}
                 </span>
@@ -60,8 +42,8 @@
     </div>
 </div>
 
-<!-- Main Header -->
-<header class="bg-white shadow-md py-4">
+<!-- Main Header - Now sticky -->
+<header id="sticky-header" class="bg-white shadow-md py-4 sticky top-0 z-50 transition-all duration-300">
     <div class="container mx-auto px-4">
         <div class="flex items-center justify-between">
             <!-- Logo -->
@@ -104,7 +86,7 @@
 </header>
 
 <!-- Mobile Menu -->
-<div id="mobile-menu" class="hidden lg:hidden bg-white shadow-lg py-4 fixed top-[145px] left-0 right-0 z-50 max-h-[80vh] overflow-y-auto">
+<div id="mobile-menu" class="hidden lg:hidden bg-white shadow-lg py-4 fixed top-[145px] left-0 right-0 z-40 max-h-[80vh] overflow-y-auto">
     <div class="container mx-auto px-4">
         <nav class="flex flex-col space-y-4">
             <a href="/" class="text-primary hover:text-secondary font-medium py-2 border-b border-gray-200">Trang chủ</a>
@@ -152,3 +134,34 @@
         </nav>
     </div>
 </div>
+
+<!-- Add padding to body to prevent content from being hidden under sticky header -->
+<div id="header-spacer" class="hidden"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const header = document.getElementById('sticky-header');
+        const spacer = document.getElementById('header-spacer');
+        let headerHeight = header.offsetHeight;
+        
+        function updateStickyHeader() {
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-lg');
+                header.classList.add('py-2');
+                header.classList.remove('py-4');
+                spacer.style.height = headerHeight + 'px';
+                spacer.classList.remove('hidden');
+            } else {
+                header.classList.remove('shadow-lg');
+                header.classList.remove('py-2');
+                header.classList.add('py-4');
+                spacer.classList.add('hidden');
+            }
+        }
+        
+        window.addEventListener('scroll', updateStickyHeader);
+        window.addEventListener('resize', function() {
+            headerHeight = header.offsetHeight;
+        });
+    });
+</script>
