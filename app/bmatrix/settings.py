@@ -14,33 +14,6 @@ ENVIRONMENT VARIABLES:
 This project uses environment variables for sensitive settings.
 Create a .env file in the same directory as this file with the following variables:
 
-# Django secret key
-SECRET_KEY=your-secret-key-here
-
-# Debug settings
-DEBUG=True
-
-# Allowed hosts (comma-separated)
-ALLOWED_HOSTS=localhost,127.0.0.1
-
-# Database settings
-DB_ENGINE=django.db.backends.sqlite3
-DB_NAME=db.sqlite3
-
-# Google OAuth credentials
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
-
-# AllAuth Settings
-ACCOUNT_AUTHENTICATION_METHOD=email
-ACCOUNT_EMAIL_REQUIRED=True
-ACCOUNT_USERNAME_REQUIRED=True
-ACCOUNT_EMAIL_VERIFICATION=optional
-ACCOUNT_UNIQUE_EMAIL=True
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT=5
-ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT=300
-ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE=True
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE=True
 """
 
 from pathlib import Path
@@ -127,8 +100,12 @@ WSGI_APPLICATION = 'bmatrix.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('DB_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.environ.get('DB_NAME', BASE_DIR / 'db.sqlite3'),
+        'ENGINE': os.environ.get('DB_ENGINE', 'django.db.backends.postgresql'),
+        'NAME': os.environ.get('DB_NAME', 'shopbountymatrix'),
+        'USER': os.environ.get('DB_USER', 'shop'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'Shopsothutu123@'),
+        'HOST': os.environ.get('DB_HOST', 'db'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
